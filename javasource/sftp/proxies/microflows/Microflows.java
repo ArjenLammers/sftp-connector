@@ -179,13 +179,13 @@ public class Microflows
 			throw new MendixRuntimeException(e);
 		}
 	}
-	public static void iVK_OpenExplore(IContext context, sftp.proxies.Configuration _configuration)
+	public static void iVK_OpenExplorer(IContext context, sftp.proxies.Configuration _configuration)
 	{
 		try
 		{
 			Map<java.lang.String, Object> params = new HashMap<java.lang.String, Object>();
 			params.put("Configuration", _configuration == null ? null : _configuration.getMendixObject());
-			Core.execute(context, "SFTP.IVK_OpenExplore", params);
+			Core.execute(context, "SFTP.IVK_OpenExplorer", params);
 		}
 		catch (CoreException e)
 		{
@@ -298,6 +298,18 @@ public class Microflows
 			throw new MendixRuntimeException(e);
 		}
 	}
+	public static void pollRemoteDirectory(IContext context)
+	{
+		try
+		{
+			Map<java.lang.String, Object> params = new HashMap<java.lang.String, Object>();
+			Core.execute(context, "SFTP.PollRemoteDirectory", params);
+		}
+		catch (CoreException e)
+		{
+			throw new MendixRuntimeException(e);
+		}
+	}
 	public static boolean saveConfiguration(IContext context, sftp.proxies.Configuration _configuration)
 	{
 		try
@@ -359,6 +371,18 @@ public class Microflows
 			params.put("Explore", _explore == null ? null : _explore.getMendixObject());
 			IMendixObject result = (IMendixObject)Core.execute(context, "SFTP.SFTP_Open", params);
 			return result == null ? null : sftp.proxies.Explore.initialize(context, result);
+		}
+		catch (CoreException e)
+		{
+			throw new MendixRuntimeException(e);
+		}
+	}
+	public static void sFTP_PollRemoteDirectory(IContext context)
+	{
+		try
+		{
+			Map<java.lang.String, Object> params = new HashMap<java.lang.String, Object>();
+			Core.execute(context, "SFTP.SFTP_PollRemoteDirectory", params);
 		}
 		catch (CoreException e)
 		{

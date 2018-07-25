@@ -8,7 +8,6 @@ import org.apache.xerces.impl.dv.util.Base64;
 
 import com.jcraft.jsch.ChannelSftp;
 import com.jcraft.jsch.JSch;
-import com.jcraft.jsch.JSchException;
 import com.jcraft.jsch.KeyPair;
 import com.mendix.core.Core;
 import com.mendix.core.CoreException;
