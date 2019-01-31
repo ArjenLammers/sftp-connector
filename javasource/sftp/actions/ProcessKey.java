@@ -9,15 +9,10 @@
 
 package sftp.actions;
 
-import org.apache.commons.io.IOUtils;
-import org.apache.xerces.impl.dv.util.Base64;
-import com.jcraft.jsch.JSch;
-import com.jcraft.jsch.KeyPair;
-import com.mendix.core.Core;
 import com.mendix.systemwideinterfaces.core.IContext;
+import com.mendix.systemwideinterfaces.core.IMendixObject;
 import com.mendix.webui.CustomJavaAction;
 import sftp.impl.SFTP;
-import com.mendix.systemwideinterfaces.core.IMendixObject;
 
 public class ProcessKey extends CustomJavaAction<java.lang.Boolean>
 {

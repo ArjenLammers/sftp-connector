@@ -3,8 +3,9 @@ package sftp.impl;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 
+import javax.xml.bind.DatatypeConverter;
+
 import org.apache.commons.io.IOUtils;
-import org.apache.xerces.impl.dv.util.Base64;
 
 import com.jcraft.jsch.ChannelSftp;
 import com.jcraft.jsch.JSch;
@@ -77,14 +78,14 @@ public class SFTP {
 			String publicKey = "";
 			switch (keypair.getKeyType()) {
 			case KeyPair.DSA:
-				publicKey += "ssh-dsa ";
+				publicKey += "ssh-dss ";
 				break;
 			case KeyPair.RSA:
 				publicKey += "ssh-rsa ";
 				break;
 			}
-			
-			publicKey += Base64.encode(keypair.getPublicKeyBlob());
+
+			publicKey += DatatypeConverter.printBase64Binary(keypair.getPublicKeyBlob());
 			publicKey += " " + keypair.getPublicKeyComment();
 			
 			key.setPublicKey(publicKey);
@@ -103,7 +104,8 @@ public class SFTP {
 		JSch jsch = new JSch();
 		KeyPair keyPair;
 		try {
-			keyPair = KeyPair.genKeyPair(jsch, KeyPair.DSA, 2048);
+			keyPair = KeyPair.genKeyPair(jsch, KeyPair.RSA, 2048);
+
 			ByteArrayOutputStream buffer = new ByteArrayOutputStream();
 			String decryptedPass = encryption.proxies.microflows.Microflows.decrypt(
 					context, key.getPassPhrase());

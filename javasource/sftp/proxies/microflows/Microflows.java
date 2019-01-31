@@ -298,6 +298,33 @@ public class Microflows
 			throw new MendixRuntimeException(e);
 		}
 	}
+	public static void iVK_ValidateKey(IContext context, sftp.proxies.Key _key)
+	{
+		try
+		{
+			Map<java.lang.String, Object> params = new HashMap<java.lang.String, Object>();
+			params.put("Key", _key == null ? null : _key.getMendixObject());
+			Core.execute(context, "SFTP.IVK_ValidateKey", params);
+		}
+		catch (CoreException e)
+		{
+			throw new MendixRuntimeException(e);
+		}
+	}
+	public static void iVK_ViewContents(IContext context, sftp.proxies.RemoteFile _remoteFile, sftp.proxies.Explore _explore)
+	{
+		try
+		{
+			Map<java.lang.String, Object> params = new HashMap<java.lang.String, Object>();
+			params.put("RemoteFile", _remoteFile == null ? null : _remoteFile.getMendixObject());
+			params.put("Explore", _explore == null ? null : _explore.getMendixObject());
+			Core.execute(context, "SFTP.IVK_ViewContents", params);
+		}
+		catch (CoreException e)
+		{
+			throw new MendixRuntimeException(e);
+		}
+	}
 	public static void pollRemoteDirectory(IContext context)
 	{
 		try
@@ -436,6 +463,20 @@ public class Microflows
 			params.put("Configuration", _configuration == null ? null : _configuration.getMendixObject());
 			IMendixObject result = (IMendixObject)Core.execute(context, "SFTP.SFTP_TestConnection", params);
 			return result == null ? null : sftp.proxies.Configuration.initialize(context, result);
+		}
+		catch (CoreException e)
+		{
+			throw new MendixRuntimeException(e);
+		}
+	}
+	public static sftp.proxies.ExplorerFile sFTP_ViewContents(IContext context, sftp.proxies.RemoteFile _remoteFile)
+	{
+		try
+		{
+			Map<java.lang.String, Object> params = new HashMap<java.lang.String, Object>();
+			params.put("RemoteFile", _remoteFile == null ? null : _remoteFile.getMendixObject());
+			IMendixObject result = (IMendixObject)Core.execute(context, "SFTP.SFTP_ViewContents", params);
+			return result == null ? null : sftp.proxies.ExplorerFile.initialize(context, result);
 		}
 		catch (CoreException e)
 		{

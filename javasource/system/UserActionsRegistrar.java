@@ -46,6 +46,7 @@ public class UserActionsRegistrar
     registrator.registerUserAction(communitycommons.actions.FileFromFileDocument.class);
     registrator.registerUserAction(communitycommons.actions.GenerateHMAC_SHA256_hash.class);
     registrator.registerUserAction(communitycommons.actions.GetApplicationUrl.class);
+    registrator.registerUserAction(communitycommons.actions.GetCFInstanceIndex.class);
     registrator.registerUserAction(communitycommons.actions.getCreatedByUser.class);
     registrator.registerUserAction(communitycommons.actions.GetDefaultLanguage.class);
     registrator.registerUserAction(communitycommons.actions.GetFileContentsFromResource.class);
@@ -61,7 +62,7 @@ public class UserActionsRegistrar
     registrator.registerUserAction(communitycommons.actions.HTMLEncode.class);
     registrator.registerUserAction(communitycommons.actions.HTMLToPlainText.class);
     registrator.registerUserAction(communitycommons.actions.IsInDevelopment.class);
-    registrator.registerUserAction(communitycommons.actions.Log.class);
+    registrator.registerUserAction(communitycommons.actions.IsStringSimplified.class);
     registrator.registerUserAction(communitycommons.actions.LongToDateTime.class);
     registrator.registerUserAction(communitycommons.actions.memberHasChanged.class);
     registrator.registerUserAction(communitycommons.actions.MergeMultiplePdfs.class);
@@ -81,13 +82,12 @@ public class UserActionsRegistrar
     registrator.registerUserAction(communitycommons.actions.RegexTest.class);
     registrator.registerUserAction(communitycommons.actions.retrieveURL.class);
     registrator.registerUserAction(communitycommons.actions.RunMicroflowAsyncInQueue.class);
-    registrator.registerUserAction(communitycommons.actions.SimpleLog.class);
     registrator.registerUserAction(communitycommons.actions.StartTransaction.class);
     registrator.registerUserAction(communitycommons.actions.storeURLToFileDocument.class);
     registrator.registerUserAction(communitycommons.actions.StringFromFile.class);
     registrator.registerUserAction(communitycommons.actions.StringLeftPad.class);
-    registrator.registerUserAction(communitycommons.actions.StringLength.class);
     registrator.registerUserAction(communitycommons.actions.StringRightPad.class);
+    registrator.registerUserAction(communitycommons.actions.StringSimplify.class);
     registrator.registerUserAction(communitycommons.actions.StringSplit.class);
     registrator.registerUserAction(communitycommons.actions.StringToFile.class);
     registrator.registerUserAction(communitycommons.actions.StringTrim.class);
@@ -113,6 +113,7 @@ public class UserActionsRegistrar
     registrator.registerUserAction(sftp.actions.Connect.class);
     registrator.registerUserAction(sftp.actions.GenerateKey.class);
     registrator.registerUserAction(sftp.actions.Get.class);
+    registrator.registerUserAction(sftp.actions.GetAsString.class);
     registrator.registerUserAction(sftp.actions.GetHostKey.class);
     registrator.registerUserAction(sftp.actions.GetHostKeyFingerprint.class);
     registrator.registerUserAction(sftp.actions.List.class);

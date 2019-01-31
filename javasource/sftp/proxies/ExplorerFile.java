@@ -16,6 +16,7 @@ public class ExplorerFile extends system.proxies.FileDocument
 	 */
 	public enum MemberNames
 	{
+		ContentsAsString("ContentsAsString"),
 		FileID("FileID"),
 		Name("Name"),
 		DeleteAfterDownload("DeleteAfterDownload"),
@@ -79,6 +80,42 @@ public class ExplorerFile extends system.proxies.FileDocument
 		for (com.mendix.systemwideinterfaces.core.IMendixObject obj : com.mendix.core.Core.retrieveXPathQuery(context, "//SFTP.ExplorerFile" + xpathConstraint))
 			result.add(sftp.proxies.ExplorerFile.initialize(context, obj));
 		return result;
+	}
+
+	/**
+	 * @return value of ContentsAsString
+	 */
+	public final java.lang.String getContentsAsString()
+	{
+		return getContentsAsString(getContext());
+	}
+
+	/**
+	 * @param context
+	 * @return value of ContentsAsString
+	 */
+	public final java.lang.String getContentsAsString(com.mendix.systemwideinterfaces.core.IContext context)
+	{
+		return (java.lang.String) getMendixObject().getValue(context, MemberNames.ContentsAsString.toString());
+	}
+
+	/**
+	 * Set value of ContentsAsString
+	 * @param contentsasstring
+	 */
+	public final void setContentsAsString(java.lang.String contentsasstring)
+	{
+		setContentsAsString(getContext(), contentsasstring);
+	}
+
+	/**
+	 * Set value of ContentsAsString
+	 * @param context
+	 * @param contentsasstring
+	 */
+	public final void setContentsAsString(com.mendix.systemwideinterfaces.core.IContext context, java.lang.String contentsasstring)
+	{
+		getMendixObject().setValue(context, MemberNames.ContentsAsString.toString(), contentsasstring);
 	}
 
 	@Override

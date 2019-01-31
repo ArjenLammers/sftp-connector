@@ -16,29 +16,33 @@ import com.mendix.systemwideinterfaces.core.IContext;
 import com.mendix.systemwideinterfaces.core.IMendixObject;
 import com.mendix.webui.CustomJavaAction;
 import communitycommons.proxies.ImageDimensions;
+import java.io.InputStream;
 
 public class GetImageDimensions extends CustomJavaAction<IMendixObject>
 {
-	private IMendixObject __Image;
-	private system.proxies.Image Image;
+	private IMendixObject __ImageParameter;
+	private system.proxies.Image ImageParameter;
 
-	public GetImageDimensions(IContext context, IMendixObject Image)
+	public GetImageDimensions(IContext context, IMendixObject ImageParameter)
 	{
 		super(context);
-		this.__Image = Image;
+		this.__ImageParameter = ImageParameter;
 	}
 
 	@Override
 	public IMendixObject executeAction() throws Exception
 	{
-		this.Image = __Image == null ? null : system.proxies.Image.initialize(getContext(), __Image);
+		this.ImageParameter = __ImageParameter == null ? null : system.proxies.Image.initialize(getContext(), __ImageParameter);
 
 		// BEGIN USER CODE
-		BufferedImage bimg = ImageIO.read(Core.getImage(getContext(), this.Image.getMendixObject(), false));
-		ImageDimensions imageDimentions = new ImageDimensions(getContext());
-		imageDimentions.setHeight(bimg.getHeight());
-	    imageDimentions.setWidth(bimg.getWidth());
-		return imageDimentions.getMendixObject();
+		ImageDimensions imageDimensions = new ImageDimensions(getContext());
+		try (InputStream inputStream = Core.getImage(getContext(), this.ImageParameter.getMendixObject(), false)) {
+			BufferedImage bimg = ImageIO.read(inputStream);
+			imageDimensions.setHeight(bimg.getHeight());
+			imageDimensions.setWidth(bimg.getWidth());
+		}
+
+		return imageDimensions.getMendixObject();
 		// END USER CODE
 	}
 

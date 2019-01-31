@@ -9,7 +9,7 @@
 
 package sftp.actions;
 
-import java.io.InputStream;
+import java.util.Base64;
 import java.util.Properties;
 import org.apache.commons.io.IOUtils;
 import com.jcraft.jsch.Channel;
@@ -23,7 +23,6 @@ import com.mendix.logging.ILogNode;
 import com.mendix.systemwideinterfaces.core.IContext;
 import com.mendix.systemwideinterfaces.core.IMendixObject;
 import com.mendix.webui.CustomJavaAction;
-import com.sun.org.apache.xerces.internal.impl.dv.util.Base64;
 import sftp.impl.MendixLogger;
 import sftp.impl.SFTP;
 import sftp.proxies.Key;
@@ -73,13 +72,14 @@ public class Connect extends CustomJavaAction<IMendixObject>
 			
 			Properties config = new Properties();
 			// this avoids trying different methods like kerberos and causing timeouts
-			config.put("PreferredAuthentications", "publickey,password"); 
+			config.put("PreferredAuthentications", "publickey,password");
 			
 			if (!configuration.getStrictHostkeyChecking()) {
 				config.put("StrictHostKeyChecking", "no");
 			} else {
 				config.put("StrictHostKeyChecking", "yes");
-				HostKey hostKey = new HostKey(configuration.getHostname(), Base64.decode(configuration.getHostKey()));
+				
+				HostKey hostKey = new HostKey(configuration.getHostname(), Base64.getDecoder().decode(configuration.getHostKey()));
 				jsch.getHostKeyRepository().add(hostKey, null);
 			}
 						
@@ -105,10 +105,12 @@ public class Connect extends CustomJavaAction<IMendixObject>
 			session = jsch.getSession(configuration.getUsername(), configuration.getHostname(), 
 					configuration.getPort());
 			
-			if (configuration.getPassword() != null) {
+			if (configuration.getPassword() != null && !"".equals(configuration.getPassword())) {
 				String decryptedPassword =
 						encryption.proxies.microflows.Microflows.decrypt(getContext(), configuration.getPassword());
-				session.setPassword(decryptedPassword);
+				if (decryptedPassword != null && !"".equals(decryptedPassword)) {
+					session.setPassword(decryptedPassword);
+				}
 			}
 
 			session.setConfig(config);

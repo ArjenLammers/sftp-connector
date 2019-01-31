@@ -53,7 +53,8 @@ public class PGPDecryptDocument extends CustomJavaAction<java.lang.Boolean>
 		PGPFileProcessor p = new PGPFileProcessor();
 		p.setInputFileDocument(this.DocumentToDecrypt.getMendixObject());
 		p.setOutputFileDocument(this.OutputDocument.getMendixObject());
-		p.setPassphrase(Microflows.decrypt(getContext(), this.PrivateDecryptionKey.getPassPhrase_Encrypted()));
+		String decryptedPassPhrase = Microflows.decrypt(getContext(), this.PrivateDecryptionKey.getPassPhrase_Encrypted());
+		p.setPassphrase(decryptedPassPhrase);
 		p.setSecretKeyFileName(this.PrivateDecryptionKey.getMendixObject());
 
 		return p.decrypt(getContext());
