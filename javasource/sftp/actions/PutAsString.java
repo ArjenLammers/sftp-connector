@@ -9,35 +9,37 @@
 
 package sftp.actions;
 
-import java.io.InputStream;
-import org.apache.commons.io.IOUtils;
+import java.io.ByteArrayInputStream;
+import java.nio.charset.StandardCharsets;
 import com.jcraft.jsch.ChannelSftp;
 import com.mendix.systemwideinterfaces.core.IContext;
 import com.mendix.webui.CustomJavaAction;
 import sftp.impl.SFTP;
 
 /**
- * Retrieve a file from the SFTP server and store its contents within a string.
+ * Creates and uploads a file on a SFTP server coming from a String.
  * This action was introduced for optimization purposes.
  * In case the remote file is assumed to be a text file and should be directly processed, it doesn't make sense to store it as a FileDocument (leading to upload/download to e.g. S3 buckets).
  */
-public class GetAsString extends CustomJavaAction<java.lang.String>
+public class PutAsString extends CustomJavaAction<java.lang.Boolean>
 {
-	private java.lang.String remoteFile;
+	private java.lang.String destination;
+	private java.lang.String contents;
 
-	public GetAsString(IContext context, java.lang.String remoteFile)
+	public PutAsString(IContext context, java.lang.String destination, java.lang.String contents)
 	{
 		super(context);
-		this.remoteFile = remoteFile;
+		this.destination = destination;
+		this.contents = contents;
 	}
 
 	@Override
-	public java.lang.String executeAction() throws Exception
+	public java.lang.Boolean executeAction() throws Exception
 	{
 		// BEGIN USER CODE
 		ChannelSftp channel = SFTP.getChannel(getContext());
-		InputStream is = channel.get(remoteFile);
-		return IOUtils.toString(is, "UTF-8");
+		channel.put(new ByteArrayInputStream(contents.getBytes(StandardCharsets.UTF_8)), destination);
+		return true;
 		// END USER CODE
 	}
 
@@ -47,7 +49,7 @@ public class GetAsString extends CustomJavaAction<java.lang.String>
 	@Override
 	public java.lang.String toString()
 	{
-		return "GetAsString";
+		return "PutAsString";
 	}
 
 	// BEGIN EXTRA CODE

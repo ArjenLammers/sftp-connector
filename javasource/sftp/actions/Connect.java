@@ -68,6 +68,12 @@ public class Connect extends CustomJavaAction<IMendixObject>
 		try {
 			if (this.enableDebugging) {
 				JSch.setLogger(new MendixLogger());
+			} else {
+				JSch.setLogger(null);
+			}
+			
+			if (configuration == null) {
+				throw new CoreException("Configuration is empty.");
 			}
 			
 			Properties config = new Properties();

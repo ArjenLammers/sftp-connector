@@ -120,6 +120,7 @@ public class UserActionsRegistrar
     registrator.registerUserAction(sftp.actions.MkDir.class);
     registrator.registerUserAction(sftp.actions.ProcessKey.class);
     registrator.registerUserAction(sftp.actions.Put.class);
+    registrator.registerUserAction(sftp.actions.PutAsString.class);
     registrator.registerUserAction(sftp.actions.Pwd.class);
     registrator.registerUserAction(sftp.actions.Rename.class);
     registrator.registerUserAction(sftp.actions.Rm.class);

@@ -285,6 +285,19 @@ public class Microflows
 			throw new MendixRuntimeException(e);
 		}
 	}
+	public static void iVK_SaveContents(IContext context, sftp.proxies.ExplorerFile _explorerFile)
+	{
+		try
+		{
+			Map<java.lang.String, Object> params = new HashMap<java.lang.String, Object>();
+			params.put("ExplorerFile", _explorerFile == null ? null : _explorerFile.getMendixObject());
+			Core.execute(context, "SFTP.IVK_SaveContents", params);
+		}
+		catch (CoreException e)
+		{
+			throw new MendixRuntimeException(e);
+		}
+	}
 	public static void iVK_TestConfiguration(IContext context, sftp.proxies.Configuration _configuration)
 	{
 		try
@@ -449,6 +462,19 @@ public class Microflows
 			Map<java.lang.String, Object> params = new HashMap<java.lang.String, Object>();
 			params.put("RenameRequest", _renameRequest == null ? null : _renameRequest.getMendixObject());
 			Core.execute(context, "SFTP.SFTP_Rename", params);
+		}
+		catch (CoreException e)
+		{
+			throw new MendixRuntimeException(e);
+		}
+	}
+	public static void sFTP_SaveContents(IContext context, sftp.proxies.Explore _explore)
+	{
+		try
+		{
+			Map<java.lang.String, Object> params = new HashMap<java.lang.String, Object>();
+			params.put("Explore", _explore == null ? null : _explore.getMendixObject());
+			Core.execute(context, "SFTP.SFTP_SaveContents", params);
 		}
 		catch (CoreException e)
 		{
