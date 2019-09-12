@@ -40,7 +40,7 @@ public class PGPDecryptDocument extends CustomJavaAction<java.lang.Boolean>
 		this.__OutputDocument = OutputDocument;
 	}
 
-	@Override
+	@java.lang.Override
 	public java.lang.Boolean executeAction() throws Exception
 	{
 		this.PrivateDecryptionKey = __PrivateDecryptionKey == null ? null : encryption.proxies.PGPCertificate.initialize(getContext(), __PrivateDecryptionKey);
@@ -65,7 +65,7 @@ public class PGPDecryptDocument extends CustomJavaAction<java.lang.Boolean>
 	/**
 	 * Returns a string representation of this action
 	 */
-	@Override
+	@java.lang.Override
 	public java.lang.String toString()
 	{
 		return "PGPDecryptDocument";

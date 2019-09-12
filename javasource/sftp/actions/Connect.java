@@ -52,7 +52,7 @@ public class Connect extends CustomJavaAction<IMendixObject>
 		this.microflowResult = microflowResult;
 	}
 
-	@Override
+	@java.lang.Override
 	public IMendixObject executeAction() throws Exception
 	{
 		this.configuration = __configuration == null ? null : sftp.proxies.Configuration.initialize(getContext(), __configuration);
@@ -78,7 +78,7 @@ public class Connect extends CustomJavaAction<IMendixObject>
 			
 			Properties config = new Properties();
 			// this avoids trying different methods like kerberos and causing timeouts
-			config.put("PreferredAuthentications", "publickey,password");
+			config.put("PreferredAuthentications", "publickey,password,keyboard-interactive");
 			
 			if (!configuration.getStrictHostkeyChecking()) {
 				config.put("StrictHostKeyChecking", "no");
@@ -152,7 +152,7 @@ public class Connect extends CustomJavaAction<IMendixObject>
 	/**
 	 * Returns a string representation of this action
 	 */
-	@Override
+	@java.lang.Override
 	public java.lang.String toString()
 	{
 		return "Connect";

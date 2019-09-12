@@ -39,7 +39,7 @@ public class PGPCertificate extends system.proxies.FileDocument
 			metaName = s;
 		}
 
-		@Override
+		@java.lang.Override
 		public java.lang.String toString()
 		{
 			return metaName;
@@ -61,7 +61,7 @@ public class PGPCertificate extends system.proxies.FileDocument
 	/**
 	 * @deprecated Use 'PGPCertificate.load(IContext, IMendixIdentifier)' instead.
 	 */
-	@Deprecated
+	@java.lang.Deprecated
 	public static encryption.proxies.PGPCertificate initialize(com.mendix.systemwideinterfaces.core.IContext context, com.mendix.systemwideinterfaces.core.IMendixIdentifier mendixIdentifier) throws com.mendix.core.CoreException
 	{
 		return encryption.proxies.PGPCertificate.load(context, mendixIdentifier);
@@ -321,7 +321,7 @@ public class PGPCertificate extends system.proxies.FileDocument
 			getMendixObject().setValue(context, MemberNames.SecretKey_PublicKey.toString(), secretkey_publickey.getMendixObject().getId());
 	}
 
-	@Override
+	@java.lang.Override
 	public boolean equals(Object obj)
 	{
 		if (obj == this)
@@ -335,7 +335,7 @@ public class PGPCertificate extends system.proxies.FileDocument
 		return false;
 	}
 
-	@Override
+	@java.lang.Override
 	public int hashCode()
 	{
 		return getMendixObject().hashCode();
@@ -353,8 +353,8 @@ public class PGPCertificate extends system.proxies.FileDocument
 	 * @return String GUID from this object, format: ID_0000000000
 	 * @deprecated Use getMendixObject().getId().toLong() to get a unique identifier for this object.
 	 */
-	@Override
-	@Deprecated
+	@java.lang.Override
+	@java.lang.Deprecated
 	public java.lang.String getGUID()
 	{
 		return "ID_" + getMendixObject().getId().toLong();

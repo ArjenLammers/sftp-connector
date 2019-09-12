@@ -15,10 +15,12 @@ public class MendixLogger implements com.jcraft.jsch.Logger {
 	public void log(int level, String message) {
 		switch (level) {
 		case DEBUG:
-			logger.trace(message);
+			if (logger.isTraceEnabled())
+				logger.trace(message);
 			break;
 		case INFO:
-			logger.debug(message);
+			if (logger.isDebugEnabled())
+				logger.debug(message);
 			break;
 		case WARN:
 			logger.warn(message);

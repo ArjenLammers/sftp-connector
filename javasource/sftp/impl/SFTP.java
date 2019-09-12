@@ -3,9 +3,8 @@ package sftp.impl;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 
-import javax.xml.bind.DatatypeConverter;
-
 import org.apache.commons.io.IOUtils;
+import org.apache.commons.codec.binary.Base64;
 
 import com.jcraft.jsch.ChannelSftp;
 import com.jcraft.jsch.JSch;
@@ -84,8 +83,8 @@ public class SFTP {
 				publicKey += "ssh-rsa ";
 				break;
 			}
-
-			publicKey += DatatypeConverter.printBase64Binary(keypair.getPublicKeyBlob());
+			
+			publicKey += Base64.encodeBase64String(keypair.getPublicKeyBlob());
 			publicKey += " " + keypair.getPublicKeyComment();
 			
 			key.setPublicKey(publicKey);

@@ -27,7 +27,7 @@ public class ValidatePrivateKeyRing extends CustomJavaAction<java.lang.Boolean>
 		this.__PrivateKeyRing = PrivateKeyRing;
 	}
 
-	@Override
+	@java.lang.Override
 	public java.lang.Boolean executeAction() throws Exception
 	{
 		this.PrivateKeyRing = __PrivateKeyRing == null ? null : encryption.proxies.PGPCertificate.initialize(getContext(), __PrivateKeyRing);
@@ -45,7 +45,7 @@ public class ValidatePrivateKeyRing extends CustomJavaAction<java.lang.Boolean>
 	/**
 	 * Returns a string representation of this action
 	 */
-	@Override
+	@java.lang.Override
 	public java.lang.String toString()
 	{
 		return "ValidatePrivateKeyRing";

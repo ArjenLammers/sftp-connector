@@ -32,7 +32,7 @@ public class Get extends CustomJavaAction<java.lang.Boolean>
 		this.__targetFile = targetFile;
 	}
 
-	@Override
+	@java.lang.Override
 	public java.lang.Boolean executeAction() throws Exception
 	{
 		this.targetFile = __targetFile == null ? null : system.proxies.FileDocument.initialize(getContext(), __targetFile);
@@ -47,7 +47,7 @@ public class Get extends CustomJavaAction<java.lang.Boolean>
 	/**
 	 * Returns a string representation of this action
 	 */
-	@Override
+	@java.lang.Override
 	public java.lang.String toString()
 	{
 		return "Get";
