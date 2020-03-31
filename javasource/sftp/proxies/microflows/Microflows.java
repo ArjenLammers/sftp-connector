@@ -15,6 +15,18 @@ import com.mendix.systemwideinterfaces.core.IMendixObject;
 public class Microflows
 {
 	// These are the microflows for the SFTP module
+	public static boolean afterStartup(IContext context)
+	{
+		try
+		{
+			Map<java.lang.String, Object> params = new HashMap<java.lang.String, Object>();
+			return (java.lang.Boolean)Core.execute(context, "SFTP.AfterStartup", params);
+		}
+		catch (CoreException e)
+		{
+			throw new MendixRuntimeException(e);
+		}
+	}
 	public static boolean bCo_Key(IContext context, sftp.proxies.Key _key)
 	{
 		try
@@ -88,12 +100,12 @@ public class Microflows
 			throw new MendixRuntimeException(e);
 		}
 	}
-	public static void iVK_ConfirmHostkey(IContext context, sftp.proxies.HostKeyCheck _hostKeyCheck)
+	public static void iVK_ConfirmHostkey(IContext context, sftp.proxies.HostKey _hostKey)
 	{
 		try
 		{
 			Map<java.lang.String, Object> params = new HashMap<java.lang.String, Object>();
-			params.put("HostKeyCheck", _hostKeyCheck == null ? null : _hostKeyCheck.getMendixObject());
+			params.put("HostKey", _hostKey == null ? null : _hostKey.getMendixObject());
 			Core.execute(context, "SFTP.IVK_ConfirmHostkey", params);
 		}
 		catch (CoreException e)
@@ -371,19 +383,6 @@ public class Microflows
 			params.put("RemoteFile", _remoteFile == null ? null : _remoteFile.getMendixObject());
 			IMendixObject result = (IMendixObject)Core.execute(context, "SFTP.SFTP_Get", params);
 			return result == null ? null : sftp.proxies.ExplorerFile.initialize(context, result);
-		}
-		catch (CoreException e)
-		{
-			throw new MendixRuntimeException(e);
-		}
-	}
-	public static sftp.proxies.HostKeyCheck sFTP_GetHostKey(IContext context)
-	{
-		try
-		{
-			Map<java.lang.String, Object> params = new HashMap<java.lang.String, Object>();
-			IMendixObject result = (IMendixObject)Core.execute(context, "SFTP.SFTP_GetHostKey", params);
-			return result == null ? null : sftp.proxies.HostKeyCheck.initialize(context, result);
 		}
 		catch (CoreException e)
 		{

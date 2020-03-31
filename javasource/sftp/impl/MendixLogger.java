@@ -2,10 +2,10 @@ package sftp.impl;
 
 import com.mendix.logging.ILogNode;
 
-public class MendixLogger implements com.jcraft.jsch.Logger {
+public class MendixLogger {
 
 	private ILogNode logger = SFTP.getLogger();
-	
+	/*
 	@Override
 	public boolean isEnabled(int arg0) {
 		return true;
@@ -33,5 +33,5 @@ public class MendixLogger implements com.jcraft.jsch.Logger {
 			break;
 		}
 	}
-	
+	*/
 }

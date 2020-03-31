@@ -9,29 +9,50 @@
 
 package sftp.actions;
 
-import com.jcraft.jsch.ChannelSftp;
-import com.jcraft.jsch.HostKey;
+import java.security.PublicKey;
+import org.apache.commons.codec.binary.Base64;
 import com.mendix.systemwideinterfaces.core.IContext;
+import com.mendix.systemwideinterfaces.core.IMendixObject;
 import com.mendix.webui.CustomJavaAction;
-import sftp.impl.SFTP;
+import net.schmizz.sshj.SSHClient;
+import net.schmizz.sshj.common.SecurityUtils;
+import net.schmizz.sshj.transport.verification.HostKeyVerifier;
+import sftp.proxies.HostKey;
 
 /**
  * Retrieves the HostKey from the session.
  */
-public class GetHostKey extends CustomJavaAction<java.lang.String>
+public class GetHostKey extends CustomJavaAction<IMendixObject>
 {
-	public GetHostKey(IContext context)
+	private IMendixObject __configuration;
+	private sftp.proxies.Configuration configuration;
+
+	public GetHostKey(IContext context, IMendixObject configuration)
 	{
 		super(context);
+		this.__configuration = configuration;
 	}
 
 	@java.lang.Override
-	public java.lang.String executeAction() throws Exception
+	public IMendixObject executeAction() throws Exception
 	{
+		this.configuration = __configuration == null ? null : sftp.proxies.Configuration.initialize(getContext(), __configuration);
+
 		// BEGIN USER CODE
-		ChannelSftp channel = SFTP.getChannel(getContext());
-		HostKey hostKey = channel.getSession().getHostKey();
-		return hostKey.getKey();
+		SSHClient client = new SSHClient();
+		PubKeyHostVerifier verifier = new PubKeyHostVerifier();
+		client.addHostKeyVerifier(verifier);
+		client.setConnectTimeout(configuration.getConnectTimeout());
+		client.connect(configuration.getHostname(), configuration.getPort());
+		client.close();
+		
+		HostKey hostKey = new HostKey(getContext());
+		hostKey.setAlgorithm(verifier.pubKey.getAlgorithm());
+		hostKey.setFormat(verifier.pubKey.getFormat());
+		hostKey.setFingerprint(SecurityUtils.getFingerprint(verifier.pubKey));
+		hostKey.setKey(Base64.encodeBase64String(verifier.pubKey.getEncoded()));
+		
+		return hostKey.getMendixObject();
 		// END USER CODE
 	}
 
@@ -45,5 +66,15 @@ public class GetHostKey extends CustomJavaAction<java.lang.String>
 	}
 
 	// BEGIN EXTRA CODE
+	class PubKeyHostVerifier implements HostKeyVerifier {
+		PublicKey pubKey = null;
+		
+		@Override
+		public boolean verify(String hostname, int port, PublicKey key) {
+			pubKey = key;
+			return true;
+		}
+		
+	}
 	// END EXTRA CODE
 }

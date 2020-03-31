@@ -10,10 +10,12 @@
 package sftp.actions;
 
 import java.io.ByteArrayInputStream;
-import java.nio.charset.StandardCharsets;
-import com.jcraft.jsch.ChannelSftp;
+import java.io.IOException;
+import java.io.InputStream;
 import com.mendix.systemwideinterfaces.core.IContext;
 import com.mendix.webui.CustomJavaAction;
+import net.schmizz.sshj.sftp.StatefulSFTPClient;
+import net.schmizz.sshj.xfer.InMemorySourceFile;
 import sftp.impl.SFTP;
 
 /**
@@ -37,8 +39,28 @@ public class PutAsString extends CustomJavaAction<java.lang.Boolean>
 	public java.lang.Boolean executeAction() throws Exception
 	{
 		// BEGIN USER CODE
-		ChannelSftp channel = SFTP.getChannel(getContext());
-		channel.put(new ByteArrayInputStream(contents.getBytes(StandardCharsets.UTF_8)), destination);
+		StatefulSFTPClient client = SFTP.getClient(getContext());
+		String fileName = destination.substring(destination.lastIndexOf('/'));
+		String path = destination.substring(0, destination.lastIndexOf('/'));
+		
+		InMemorySourceFile source = new InMemorySourceFile() {
+
+			@Override
+			public String getName() {
+				return fileName;
+			}
+
+			@Override
+			public long getLength() {
+				return contents.length();
+			}
+
+			@Override
+			public InputStream getInputStream() throws IOException {
+				return new ByteArrayInputStream(contents.getBytes());
+			}
+		};
+		client.put(source, path);
 		return true;
 		// END USER CODE
 	}

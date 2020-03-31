@@ -9,9 +9,9 @@
 
 package sftp.actions;
 
-import com.jcraft.jsch.ChannelSftp;
 import com.mendix.systemwideinterfaces.core.IContext;
 import com.mendix.webui.CustomJavaAction;
+import net.schmizz.sshj.sftp.StatefulSFTPClient;
 import sftp.impl.SFTP;
 
 /**
@@ -28,8 +28,8 @@ public class Pwd extends CustomJavaAction<java.lang.String>
 	public java.lang.String executeAction() throws Exception
 	{
 		// BEGIN USER CODE
-		ChannelSftp channel = SFTP.getChannel(getContext());
-		return channel.pwd();
+		StatefulSFTPClient client = SFTP.getClient(getContext());
+		return client.pwd();
 		// END USER CODE
 	}
 

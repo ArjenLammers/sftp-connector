@@ -9,11 +9,13 @@
 
 package sftp.actions;
 
-import java.io.InputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.nio.charset.Charset;
 import org.apache.commons.io.IOUtils;
-import com.jcraft.jsch.ChannelSftp;
 import com.mendix.systemwideinterfaces.core.IContext;
 import com.mendix.webui.CustomJavaAction;
+import net.schmizz.sshj.sftp.StatefulSFTPClient;
 import sftp.impl.SFTP;
 
 /**
@@ -35,9 +37,12 @@ public class GetAsString extends CustomJavaAction<java.lang.String>
 	public java.lang.String executeAction() throws Exception
 	{
 		// BEGIN USER CODE
-		ChannelSftp channel = SFTP.getChannel(getContext());
-		InputStream is = channel.get(remoteFile);
-		return IOUtils.toString(is, "UTF-8");
+		StatefulSFTPClient client = SFTP.getClient(getContext());
+		File tmpFile = File.createTempFile("tmp", ".txt");
+		client.get(remoteFile, tmpFile.getAbsolutePath());
+		String result = IOUtils.toString(new FileInputStream(tmpFile), Charset.forName("UTF-8"));
+		tmpFile.delete();
+		return result;
 		// END USER CODE
 	}
 

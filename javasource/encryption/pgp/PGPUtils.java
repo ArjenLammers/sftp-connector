@@ -47,6 +47,7 @@ import org.bouncycastle.openpgp.PGPSignatureSubpacketVector;
 import org.bouncycastle.openpgp.PGPUtil;
 import org.bouncycastle.openpgp.operator.PBESecretKeyDecryptor;
 import org.bouncycastle.openpgp.operator.PGPContentSignerBuilder;
+import org.bouncycastle.openpgp.operator.bc.BcKeyFingerprintCalculator;
 import org.bouncycastle.openpgp.operator.bc.BcPBESecretKeyDecryptorBuilder;
 import org.bouncycastle.openpgp.operator.bc.BcPGPContentSignerBuilder;
 import org.bouncycastle.openpgp.operator.bc.BcPGPContentVerifierBuilderProvider;
@@ -71,7 +72,8 @@ public class PGPUtils {
 			throws IOException, PGPException
 	{
 
-		PGPPublicKeyRingCollection keyRingCollection = new PGPPublicKeyRingCollection(PGPUtil.getDecoderStream(in));
+		PGPPublicKeyRingCollection keyRingCollection = new PGPPublicKeyRingCollection(PGPUtil.getDecoderStream(in),
+				new BcKeyFingerprintCalculator());
 
 		//
 		// we just loop through the collection till we find a key suitable for encryption, in the real
@@ -110,7 +112,8 @@ public class PGPUtils {
 			throws IOException, PGPException
 	{
 
-		PGPSecretKeyRingCollection keyRingCollection = new PGPSecretKeyRingCollection(PGPUtil.getDecoderStream(in));
+		PGPSecretKeyRingCollection keyRingCollection = new PGPSecretKeyRingCollection(PGPUtil.getDecoderStream(in),
+				new BcKeyFingerprintCalculator());
 
 		//
 		// We just loop through the collection till we find a key suitable for signing.
@@ -162,7 +165,8 @@ public class PGPUtils {
 	public static PGPPrivateKey findPrivateKey( InputStream keyIn, long keyID, char[] pass )
 			throws IOException, PGPException, NoSuchProviderException
 	{
-		PGPSecretKeyRingCollection pgpSec = new PGPSecretKeyRingCollection(PGPUtil.getDecoderStream(keyIn));
+		PGPSecretKeyRingCollection pgpSec = new PGPSecretKeyRingCollection(PGPUtil.getDecoderStream(keyIn), 
+				new BcKeyFingerprintCalculator());
 		return findPrivateKey(pgpSec.getSecretKey(keyID), pass);
 
 	}
@@ -196,7 +200,7 @@ public class PGPUtils {
 
 		in = org.bouncycastle.openpgp.PGPUtil.getDecoderStream(in);
 
-		PGPObjectFactory pgpF = new PGPObjectFactory(in);
+		PGPObjectFactory pgpF = new PGPObjectFactory(in, new BcKeyFingerprintCalculator());
 		PGPEncryptedDataList enc;
 
 		Object o = pgpF.nextObject();
@@ -229,13 +233,13 @@ public class PGPUtils {
 
 		InputStream clear = pbe.getDataStream(new BcPublicKeyDataDecryptorFactory(sKey));
 
-		PGPObjectFactory plainFact = new PGPObjectFactory(clear);
+		PGPObjectFactory plainFact = new PGPObjectFactory(clear, new BcKeyFingerprintCalculator());
 
 		Object message = plainFact.nextObject();
 
 		if ( message instanceof PGPCompressedData ) {
 			PGPCompressedData cData = (PGPCompressedData) message;
-			PGPObjectFactory pgpFact = new PGPObjectFactory(cData.getDataStream());
+			PGPObjectFactory pgpFact = new PGPObjectFactory(cData.getDataStream(), new BcKeyFingerprintCalculator());
 
 			message = pgpFact.nextObject();
 		}
@@ -400,10 +404,10 @@ public class PGPUtils {
 	{
 		in = PGPUtil.getDecoderStream(in);
 
-		PGPObjectFactory pgpFact = new PGPObjectFactory(in);
+		PGPObjectFactory pgpFact = new PGPObjectFactory(in, new BcKeyFingerprintCalculator());
 		PGPCompressedData c1 = (PGPCompressedData) pgpFact.nextObject();
 
-		pgpFact = new PGPObjectFactory(c1.getDataStream());
+		pgpFact = new PGPObjectFactory(c1.getDataStream(), new BcKeyFingerprintCalculator());
 
 		PGPOnePassSignatureList p1 = (PGPOnePassSignatureList) pgpFact.nextObject();
 
@@ -416,7 +420,8 @@ public class PGPUtils {
 		IOUtils.copy(dIn, new FileOutputStream(extractContentFile));
 
 		int ch;
-		PGPPublicKeyRingCollection pgpRing = new PGPPublicKeyRingCollection(PGPUtil.getDecoderStream(keyIn));
+		PGPPublicKeyRingCollection pgpRing = new PGPPublicKeyRingCollection(PGPUtil.getDecoderStream(keyIn), 
+				new BcKeyFingerprintCalculator());
 
 		PGPPublicKey key = pgpRing.getPublicKey(ops.getKeyID());
 

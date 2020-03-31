@@ -12,10 +12,12 @@ package sftp.actions;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.Vector;
-import com.jcraft.jsch.ChannelSftp;
-import com.jcraft.jsch.SftpATTRS;
 import com.mendix.systemwideinterfaces.core.IContext;
 import com.mendix.webui.CustomJavaAction;
+import net.schmizz.sshj.sftp.FileAttributes;
+import net.schmizz.sshj.sftp.FileMode;
+import net.schmizz.sshj.sftp.RemoteResourceInfo;
+import net.schmizz.sshj.sftp.StatefulSFTPClient;
 import sftp.impl.SFTP;
 import sftp.proxies.FileType;
 import sftp.proxies.RemoteFile;
@@ -38,22 +40,22 @@ public class List extends CustomJavaAction<java.util.List<IMendixObject>>
 	public java.util.List<IMendixObject> executeAction() throws Exception
 	{
 		// BEGIN USER CODE
-		ChannelSftp channel = SFTP.getChannel(getContext());
+		StatefulSFTPClient client = SFTP.getClient(getContext());
 		java.util.List<IMendixObject> result = new LinkedList<>();
 		
-		@SuppressWarnings("unchecked")
-		Vector<ChannelSftp.LsEntry> list = channel.ls(path);
-		for (ChannelSftp.LsEntry entry : list) {
-			SftpATTRS attrs = entry.getAttrs();
+		java.util.List<RemoteResourceInfo> list = client.ls(path);
+		
+		for (RemoteResourceInfo entry : list) {
+			FileAttributes attrs = entry.getAttributes();
 			RemoteFile rf = new RemoteFile(getContext());
 			rf.setPath(path);
-			rf.setName(entry.getFilename());
-			rf.setLastModificationDate(new Date(attrs.getMTime() * 1000L));
+			rf.setName(entry.getName());
+			rf.setLastModificationDate(new Date(attrs.getMtime() * 1000L));
 			rf.setSize(new Long(attrs.getSize()));
 			
-			if (attrs.isDir()) {
+			if (attrs.getType() == FileMode.Type.DIRECTORY) {
 				rf.setFileType(FileType.Directory);
-			} else if (attrs.isReg()) {
+			} else if (attrs.getType() == FileMode.Type.REGULAR) {
 				rf.setFileType(FileType.File);
 			}
 			result.add(rf.getMendixObject());

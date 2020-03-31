@@ -9,12 +9,15 @@
 
 package sftp.actions;
 
-import com.jcraft.jsch.ChannelSftp;
+import java.io.IOException;
+import java.io.InputStream;
 import com.mendix.core.Core;
 import com.mendix.systemwideinterfaces.core.IContext;
-import com.mendix.webui.CustomJavaAction;
-import sftp.impl.SFTP;
 import com.mendix.systemwideinterfaces.core.IMendixObject;
+import com.mendix.webui.CustomJavaAction;
+import net.schmizz.sshj.sftp.StatefulSFTPClient;
+import net.schmizz.sshj.xfer.InMemorySourceFile;
+import sftp.impl.SFTP;
 
 /**
  * Creates and uploads a file on a SFTP server coming from a Mendix FileDocument.
@@ -38,8 +41,28 @@ public class Put extends CustomJavaAction<java.lang.Boolean>
 		this.file = __file == null ? null : system.proxies.FileDocument.initialize(getContext(), __file);
 
 		// BEGIN USER CODE
-		ChannelSftp channel = SFTP.getChannel(getContext());
-		channel.put(Core.getFileDocumentContent(getContext(), file.getMendixObject()), destination);
+		StatefulSFTPClient client = SFTP.getClient(getContext());
+		String fileName = destination.substring(destination.lastIndexOf('/') + 1);
+		String path = destination.substring(0, destination.lastIndexOf('/'));
+		
+		InMemorySourceFile source = new InMemorySourceFile() {
+
+			@Override
+			public String getName() {
+				return fileName;
+			}
+
+			@Override
+			public long getLength() {
+				return file.getSize();
+			}
+
+			@Override
+			public InputStream getInputStream() throws IOException {
+				return Core.getFileDocumentContent(getContext(), file.getMendixObject());
+			}
+		};
+		client.put(source, path);
 		return true;
 		// END USER CODE
 	}

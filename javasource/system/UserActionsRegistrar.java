@@ -104,13 +104,15 @@ public class UserActionsRegistrar
     registrator.registerUserAction(encryption.actions.PGPDecryptDocument.class);
     registrator.registerUserAction(encryption.actions.PGPEncryptDocument.class);
     registrator.registerUserAction(encryption.actions.ValidatePrivateKeyRing.class);
+    registrator.registerUserAction(librarylogging.actions.AddLibraryLogListener.class);
+    registrator.registerUserAction(librarylogging.actions.InitializeLogging.class);
+    registrator.registerUserAction(librarylogging.actions.SetRootLevel.class);
     registrator.registerUserAction(sftp.actions.Cd.class);
     registrator.registerUserAction(sftp.actions.Connect.class);
     registrator.registerUserAction(sftp.actions.GenerateKey.class);
     registrator.registerUserAction(sftp.actions.Get.class);
     registrator.registerUserAction(sftp.actions.GetAsString.class);
     registrator.registerUserAction(sftp.actions.GetHostKey.class);
-    registrator.registerUserAction(sftp.actions.GetHostKeyFingerprint.class);
     registrator.registerUserAction(sftp.actions.List.class);
     registrator.registerUserAction(sftp.actions.MkDir.class);
     registrator.registerUserAction(sftp.actions.ProcessKey.class);

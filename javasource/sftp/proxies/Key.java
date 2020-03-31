@@ -22,6 +22,8 @@ public class Key extends system.proxies.FileDocument
 		PublicKey("PublicKey"),
 		Valid("Valid"),
 		ValidationMessage("ValidationMessage"),
+		Format("Format"),
+		KeyType("KeyType"),
 		FileID("FileID"),
 		Name("Name"),
 		DeleteAfterDownload("DeleteAfterDownload"),
@@ -310,6 +312,94 @@ public class Key extends system.proxies.FileDocument
 	public final void setValidationMessage(com.mendix.systemwideinterfaces.core.IContext context, java.lang.String validationmessage)
 	{
 		getMendixObject().setValue(context, MemberNames.ValidationMessage.toString(), validationmessage);
+	}
+
+	/**
+	 * Set value of Format
+	 * @param format
+	 */
+	public final sftp.proxies.Format getFormat()
+	{
+		return getFormat(getContext());
+	}
+
+	/**
+	 * @param context
+	 * @return value of Format
+	 */
+	public final sftp.proxies.Format getFormat(com.mendix.systemwideinterfaces.core.IContext context)
+	{
+		Object obj = getMendixObject().getValue(context, MemberNames.Format.toString());
+		if (obj == null)
+			return null;
+
+		return sftp.proxies.Format.valueOf((java.lang.String) obj);
+	}
+
+	/**
+	 * Set value of Format
+	 * @param format
+	 */
+	public final void setFormat(sftp.proxies.Format format)
+	{
+		setFormat(getContext(), format);
+	}
+
+	/**
+	 * Set value of Format
+	 * @param context
+	 * @param format
+	 */
+	public final void setFormat(com.mendix.systemwideinterfaces.core.IContext context, sftp.proxies.Format format)
+	{
+		if (format != null)
+			getMendixObject().setValue(context, MemberNames.Format.toString(), format.toString());
+		else
+			getMendixObject().setValue(context, MemberNames.Format.toString(), null);
+	}
+
+	/**
+	 * Set value of KeyType
+	 * @param keytype
+	 */
+	public final sftp.proxies.KeyType getKeyType()
+	{
+		return getKeyType(getContext());
+	}
+
+	/**
+	 * @param context
+	 * @return value of KeyType
+	 */
+	public final sftp.proxies.KeyType getKeyType(com.mendix.systemwideinterfaces.core.IContext context)
+	{
+		Object obj = getMendixObject().getValue(context, MemberNames.KeyType.toString());
+		if (obj == null)
+			return null;
+
+		return sftp.proxies.KeyType.valueOf((java.lang.String) obj);
+	}
+
+	/**
+	 * Set value of KeyType
+	 * @param keytype
+	 */
+	public final void setKeyType(sftp.proxies.KeyType keytype)
+	{
+		setKeyType(getContext(), keytype);
+	}
+
+	/**
+	 * Set value of KeyType
+	 * @param context
+	 * @param keytype
+	 */
+	public final void setKeyType(com.mendix.systemwideinterfaces.core.IContext context, sftp.proxies.KeyType keytype)
+	{
+		if (keytype != null)
+			getMendixObject().setValue(context, MemberNames.KeyType.toString(), keytype.toString());
+		else
+			getMendixObject().setValue(context, MemberNames.KeyType.toString(), null);
 	}
 
 	/**

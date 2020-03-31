@@ -9,12 +9,19 @@
 
 package sftp.actions;
 
-import com.jcraft.jsch.ChannelSftp;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.util.EnumSet;
 import com.mendix.core.Core;
 import com.mendix.systemwideinterfaces.core.IContext;
-import com.mendix.webui.CustomJavaAction;
-import sftp.impl.SFTP;
 import com.mendix.systemwideinterfaces.core.IMendixObject;
+import com.mendix.webui.CustomJavaAction;
+import net.schmizz.sshj.sftp.OpenMode;
+import net.schmizz.sshj.sftp.RemoteFile;
+import net.schmizz.sshj.sftp.StatefulSFTPClient;
+import net.schmizz.sshj.xfer.InMemoryDestFile;
+import sftp.impl.SFTP;
 
 /**
  * Retrieve a file from the SFTP server and stores it as a Mendix FileDocument.
@@ -38,9 +45,21 @@ public class Get extends CustomJavaAction<java.lang.Boolean>
 		this.targetFile = __targetFile == null ? null : system.proxies.FileDocument.initialize(getContext(), __targetFile);
 
 		// BEGIN USER CODE
-		ChannelSftp channel = SFTP.getChannel(getContext());
-		Core.storeFileDocumentContent(getContext(), targetFile.getMendixObject(), channel.get(this.remoteFile));
-		return true;		
+		StatefulSFTPClient client = SFTP.getClient(getContext());
+		RemoteFile handle = client.open(this.remoteFile, EnumSet.of(OpenMode.READ));
+		InputStream is = handle.new RemoteFileInputStream() {
+			@Override
+			public void close() throws IOException {
+				try {
+					super.close();
+				} finally {
+					handle.close();
+				}
+			}
+		};
+		
+		Core.storeFileDocumentContent(getContext(), targetFile.getMendixObject(), is);
+		return true;
 		// END USER CODE
 	}
 

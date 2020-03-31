@@ -9,21 +9,26 @@
 
 package sftp.actions;
 
-import java.util.Base64;
-import java.util.Properties;
-import org.apache.commons.io.IOUtils;
-import com.jcraft.jsch.Channel;
-import com.jcraft.jsch.ChannelSftp;
-import com.jcraft.jsch.HostKey;
-import com.jcraft.jsch.JSch;
-import com.jcraft.jsch.Session;
+import java.io.InputStreamReader;
+import java.util.LinkedList;
+import java.util.List;
 import com.mendix.core.Core;
 import com.mendix.core.CoreException;
-import com.mendix.logging.ILogNode;
 import com.mendix.systemwideinterfaces.core.IContext;
 import com.mendix.systemwideinterfaces.core.IMendixObject;
 import com.mendix.webui.CustomJavaAction;
-import sftp.impl.MendixLogger;
+import net.schmizz.sshj.DefaultConfig;
+import net.schmizz.sshj.SSHClient;
+import net.schmizz.sshj.common.Factory.Named.Util;
+import net.schmizz.sshj.sftp.StatefulSFTPClient;
+import net.schmizz.sshj.userauth.keyprovider.FileKeyProvider;
+import net.schmizz.sshj.userauth.keyprovider.KeyFormat;
+import net.schmizz.sshj.userauth.method.AuthMethod;
+import net.schmizz.sshj.userauth.method.AuthPassword;
+import net.schmizz.sshj.userauth.method.AuthPublickey;
+import net.schmizz.sshj.userauth.password.PasswordFinder;
+import net.schmizz.sshj.userauth.password.PasswordUtils;
+import net.schmizz.sshj.userauth.password.Resource;
 import sftp.impl.SFTP;
 import sftp.proxies.Key;
 import sftp.proxies.microflows.Microflows;
@@ -58,37 +63,25 @@ public class Connect extends CustomJavaAction<IMendixObject>
 		this.configuration = __configuration == null ? null : sftp.proxies.Configuration.initialize(getContext(), __configuration);
 
 		// BEGIN USER CODE
-		ILogNode logger = SFTP.getLogger();
 		IMendixObject result = null;
-		
-		JSch jsch = new JSch();
-		Session session = null;
-		ChannelSftp channel = null;
+		SSHClient ssh = new SSHClient();
 		
 		try {
-			if (this.enableDebugging) {
-				JSch.setLogger(new MendixLogger());
-			} else {
-				JSch.setLogger(null);
+			
+			ssh.addHostKeyVerifier(configuration.getHostKeyFingerprint());
+			ssh.setConnectTimeout(configuration.getConnectTimeout());		
+			
+			List<AuthMethod> authMethods = new LinkedList<>();
+			
+			if (configuration.getPassword() != null && !"".equals(configuration.getPassword())) {
+				String decryptedPassword =
+						encryption.proxies.microflows.Microflows.decrypt(getContext(), configuration.getPassword());
+				if (decryptedPassword != null && !"".equals(decryptedPassword)) {
+					authMethods.add(new AuthPassword(
+							new PresuppliedPasswordFinder(decryptedPassword)));
+				}
 			}
 			
-			if (configuration == null) {
-				throw new CoreException("Configuration is empty.");
-			}
-			
-			Properties config = new Properties();
-			// this avoids trying different methods like kerberos and causing timeouts
-			config.put("PreferredAuthentications", "publickey,password,keyboard-interactive");
-			
-			if (!configuration.getStrictHostkeyChecking()) {
-				config.put("StrictHostKeyChecking", "no");
-			} else {
-				config.put("StrictHostKeyChecking", "yes");
-				
-				HostKey hostKey = new HostKey(configuration.getHostname(), Base64.getDecoder().decode(configuration.getHostKey()));
-				jsch.getHostKeyRepository().add(hostKey, null);
-			}
-						
 			if (configuration.getUseKey()) {
 				Key key = null;
 				if (configuration.getUseGeneralKey()) {
@@ -99,52 +92,48 @@ public class Connect extends CustomJavaAction<IMendixObject>
 					key = configuration.getConfiguration_Key();
 					if (key == null)
 						throw new CoreException("No connection specific key found.");
-					
 				}
-
-				String decryptedPassphrase =
-						encryption.proxies.microflows.Microflows.decrypt(getContext(), key.getPassPhrase());
-				jsch.addIdentity(configuration.getUsername(), IOUtils.toByteArray(Core.getFileDocumentContent(getContext(), key.getMendixObject())), 
-						null, decryptedPassphrase.getBytes());
+			
+				KeyFormat format = KeyFormat.valueOf(key.getFormat().name());
+				FileKeyProvider fkp = (FileKeyProvider) Util.create((new DefaultConfig()).getFileKeyProviderFactories(),
+						format.toString());
+				if (fkp == null) {
+					throw new CoreException("No provider available for " + format + " key file");
+				}
+				
+				String passPhrase = key.getPassPhrase();
+				if (passPhrase != null) {
+					passPhrase = encryption.proxies.microflows.Microflows.decrypt(getContext(), passPhrase);
+				}
+				
+				InputStreamReader isr = new InputStreamReader(Core.getFileDocumentContent(getContext(), 
+						key.getMendixObject()));
+				if (passPhrase != null) {
+					fkp.init(isr, PasswordUtils.createOneOff(passPhrase.toCharArray()));
+				} else {
+					fkp.init(isr);
+				}
+				
+				authMethods.add(new AuthPublickey(fkp));
 			}
 			
-			session = jsch.getSession(configuration.getUsername(), configuration.getHostname(), 
-					configuration.getPort());
+			ssh.connect(configuration.getHostname(), configuration.getPort());
+			ssh.auth(configuration.getUsername(), authMethods);
 			
-			if (configuration.getPassword() != null && !"".equals(configuration.getPassword())) {
-				String decryptedPassword =
-						encryption.proxies.microflows.Microflows.decrypt(getContext(), configuration.getPassword());
-				if (decryptedPassword != null && !"".equals(decryptedPassword)) {
-					session.setPassword(decryptedPassword);
-				}
-			}
-
-			session.setConfig(config);
-			session.connect(configuration.getConnectTimeout());
-			
-			Channel c = session.openChannel("sftp");
-			c.connect();
-			channel = (ChannelSftp) c;
-			
-			SFTP.setChannel(getContext(), channel);
-			SFTP.setJSch(getContext(), jsch);
+			StatefulSFTPClient client = new StatefulSFTPClient(ssh.newSFTPClient().getSFTPEngine());
+			SFTP.setClient(getContext(), client);
+		
 			
 			result = Core.execute(getContext(), this.microflow, this.microflowArgument);
 			
 		} catch (Exception e) {
-			logger.error("An error ocurred while using SFTP: " + e.toString(), e);
+			SFTP.getLogger().error("An error ocurred while using SFTP: " + e.toString(), e);
 			throw e;
 		} finally {
-			if (session != null) {
-				try {
-					session.disconnect();
-				} catch (Exception e) {
-					logger.error("Unable to disconnect session: " + e.toString(), e);
-				}
-			}
 			SFTP.removeContextObjects(getContext());
+			ssh.disconnect();
 		}
-		
+
 		return result;
 		// END USER CODE
 	}
@@ -159,5 +148,25 @@ public class Connect extends CustomJavaAction<IMendixObject>
 	}
 
 	// BEGIN EXTRA CODE
+	private class PresuppliedPasswordFinder implements PasswordFinder {
+
+		private String password;
+		
+		public PresuppliedPasswordFinder(String password) {
+			this.password = password;
+		}
+		
+		@Override
+		public char[] reqPassword(Resource<?> resource) {
+			return this.password.toCharArray();
+		}
+
+		@Override
+		public boolean shouldRetry(Resource<?> resource) {
+			return false;
+		}
+		
+	}
+	
 	// END EXTRA CODE
 }
