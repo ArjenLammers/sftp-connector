@@ -36,9 +36,7 @@ public class ValidatePrivateKeyRing extends CustomJavaAction<java.lang.Boolean>
 		// BEGIN USER CODE
 		
 		//This function will throw an exception if the inputstream isn't a valid private keyring
-		new PGPSecretKeyRingCollection(PGPUtil.getDecoderStream(
-				Core.getFileDocumentContent(getContext(), this.PrivateKeyRing.getMendixObject()) ),
-				new BcKeyFingerprintCalculator());
+		new PGPSecretKeyRingCollection(PGPUtil.getDecoderStream(Core.getFileDocumentContent(getContext(), this.PrivateKeyRing.getMendixObject()) ), new BcKeyFingerprintCalculator());
 		
 		
 		return true;

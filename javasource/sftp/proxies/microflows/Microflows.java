@@ -138,13 +138,26 @@ public class Microflows
 			throw new MendixRuntimeException(e);
 		}
 	}
-	public static void iVK_GenerateKeyPair(IContext context, sftp.proxies.Key _key)
+	public static void iVK_GenerateKeyPair(IContext context, sftp.proxies.GenerateNewKeyPair _generateNewKeyPair)
+	{
+		try
+		{
+			Map<java.lang.String, Object> params = new HashMap<java.lang.String, Object>();
+			params.put("GenerateNewKeyPair", _generateNewKeyPair == null ? null : _generateNewKeyPair.getMendixObject());
+			Core.execute(context, "SFTP.IVK_GenerateKeyPair", params);
+		}
+		catch (CoreException e)
+		{
+			throw new MendixRuntimeException(e);
+		}
+	}
+	public static void iVK_GenerateKeyPairRequest(IContext context, sftp.proxies.Key _key)
 	{
 		try
 		{
 			Map<java.lang.String, Object> params = new HashMap<java.lang.String, Object>();
 			params.put("Key", _key == null ? null : _key.getMendixObject());
-			Core.execute(context, "SFTP.IVK_GenerateKeyPair", params);
+			Core.execute(context, "SFTP.IVK_GenerateKeyPairRequest", params);
 		}
 		catch (CoreException e)
 		{

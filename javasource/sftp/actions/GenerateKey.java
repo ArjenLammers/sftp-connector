@@ -18,11 +18,13 @@ public class GenerateKey extends CustomJavaAction<java.lang.Boolean>
 {
 	private IMendixObject __key;
 	private sftp.proxies.Key key;
+	private sftp.proxies.NewKeyType keyType;
 
-	public GenerateKey(IContext context, IMendixObject key)
+	public GenerateKey(IContext context, IMendixObject key, java.lang.String keyType)
 	{
 		super(context);
 		this.__key = key;
+		this.keyType = keyType == null ? null : sftp.proxies.NewKeyType.valueOf(keyType);
 	}
 
 	@java.lang.Override
@@ -31,7 +33,7 @@ public class GenerateKey extends CustomJavaAction<java.lang.Boolean>
 		this.key = __key == null ? null : sftp.proxies.Key.initialize(getContext(), __key);
 
 		// BEGIN USER CODE
-		SFTP.generateKeyContents(getContext(), key);
+		SFTP.generateKeyContents(getContext(), key, keyType);
 		SFTP.validateKey(getContext(), key);
 		return true;
 		// END USER CODE

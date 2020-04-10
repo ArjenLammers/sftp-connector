@@ -6,27 +6,19 @@ import java.io.InputStreamReader;
 import java.io.StringWriter;
 import java.security.KeyPair;
 import java.security.KeyPairGenerator;
-import java.security.Provider;
 import java.security.PublicKey;
 import java.security.SecureRandom;
-import java.security.Security;
 import java.security.spec.ECGenParameterSpec;
 
 import org.apache.commons.codec.binary.Base64;
-import org.bouncycastle.asn1.nist.NISTObjectIdentifiers;
-import org.bouncycastle.asn1.pkcs.PKCSObjectIdentifiers;
-import org.bouncycastle.asn1.pkcs.PrivateKeyInfo;
+import org.bouncycastle.crypto.AsymmetricCipherKeyPair;
+import org.bouncycastle.crypto.generators.Ed25519KeyPairGenerator;
+import org.bouncycastle.crypto.params.Ed25519KeyGenerationParameters;
+import org.bouncycastle.crypto.params.Ed25519PrivateKeyParameters;
+import org.bouncycastle.crypto.util.OpenSSHPrivateKeyUtil;
 import org.bouncycastle.openssl.PEMEncryptor;
-import org.bouncycastle.openssl.PEMKeyPair;
-import org.bouncycastle.openssl.PKCS8Generator;
-import org.bouncycastle.openssl.jcajce.JcaPEMKeyConverter;
 import org.bouncycastle.openssl.jcajce.JcaPEMWriter;
-import org.bouncycastle.openssl.jcajce.JcaPKCS8Generator;
-import org.bouncycastle.openssl.jcajce.JceOpenSSLPKCS8EncryptorBuilder;
 import org.bouncycastle.openssl.jcajce.JcePEMEncryptorBuilder;
-import org.bouncycastle.pkcs.PKCS8EncryptedPrivateKeyInfoBuilder;
-import org.bouncycastle.pkcs.jcajce.JcaPKCS8EncryptedPrivateKeyInfoBuilder;
-import org.bouncycastle.pkcs.jcajce.JcePKCSPBEOutputEncryptorBuilder;
 import org.bouncycastle.util.io.pem.PemObject;
 
 import com.mendix.core.Core;
@@ -46,10 +38,10 @@ import net.schmizz.sshj.userauth.password.PasswordUtils;
 import sftp.proxies.Format;
 import sftp.proxies.Key;
 import sftp.proxies.KeyType;
+import sftp.proxies.NewKeyType;
 
 public class SFTP {
 	public static final String CONTEXT_CLIENT = "SFTPCLIENT";
-	// public static final String CONTEXT_JSCH = "SFTP_JSCH";
 	
 	private final static ILogNode LOGGER = Core.getLogger("SFTP");
 	
@@ -70,7 +62,6 @@ public class SFTP {
 	}
 	
 	public static void removeContextObjects(IContext context) {
-		// context.getData().remove(CONTEXT_JSCH);
 		context.getData().remove(CONTEXT_CLIENT);
 	}
 	
@@ -144,44 +135,62 @@ public class SFTP {
 		}
 	}
 	
-	public static void generateKeyContents(IContext context, Key key) throws CoreException {
+	public static void generateKeyContents(IContext context, Key key, NewKeyType type) throws CoreException {
 		KeyPair kp;
-		KeyPairGenerator kpg;
+		KeyPairGenerator kpg = null;
 		try {
 			String decryptedPass = encryption.proxies.microflows.Microflows.decrypt(
 					context, key.getPassPhrase());
+			Ed25519PrivateKeyParameters privateKey = null;
 			
-			kpg = SecurityUtils.getKeyPairGenerator("ECDSA");
-			ECGenParameterSpec spec = new ECGenParameterSpec("secp256r1");
-			kpg.initialize(spec);
+			switch (type) {
+			case DSA:
+				kpg = KeyPairGenerator.getInstance("DSA");
+				kpg.initialize(2048);
+				break;
+			case RSA:
+				kpg = KeyPairGenerator.getInstance("RSA");
+				kpg.initialize(4096);
+				break;
+			case ECDSA:
+				kpg = SecurityUtils.getKeyPairGenerator("ECDSA");
+				ECGenParameterSpec spec = new ECGenParameterSpec("secp256r1");
+				kpg.initialize(spec);
+				break;
+			case Ed25519:
+				Ed25519KeyPairGenerator gen = new Ed25519KeyPairGenerator();
+				gen.init(new Ed25519KeyGenerationParameters(new SecureRandom()));
+				AsymmetricCipherKeyPair asymmetricCipherKeyPair = gen.generateKeyPair();
+		        privateKey = (Ed25519PrivateKeyParameters) asymmetricCipherKeyPair.getPrivate();
+				break;
+			default:
+				throw new CoreException("No new key type given!");
+			}
 			
-			
-			kp = kpg.generateKeyPair();
 			PEMEncryptor encryptor = new JcePEMEncryptorBuilder("AES-256-CBC")
 					.setProvider(SecurityUtils.getSecurityProvider())
 					.build(decryptedPass.toCharArray());
 			
 			StringWriter sw = new StringWriter();
-			JcaPEMWriter pemWriter = new JcaPEMWriter(sw);
+		    JcaPEMWriter pemWriter = new JcaPEMWriter(sw);
 			
-			/* pemWriter.writeObject(pkcs8Builder.build(new JcePKCSPBEOutputEncryptorBuilder(
-					PKCSObjectIdentifiers.pbeWithSHAAnd3_KeyTripleDES_CBC).build(decryptedPass.toCharArray()))); */
-			pemWriter.writeObject(kp.getPrivate(), encryptor);
+			switch (type) {
+			case Ed25519:
+				byte[] content = OpenSSHPrivateKeyUtil.encodePrivateKey(
+						privateKey);
+				PemObject o = new PemObject("OPENSSH PRIVATE KEY", content);
+				pemWriter.writeObject(o, encryptor);
+				key.setFormat(Format.OpenSSHv1);
+				break;
+			default:
+				key.setFormat(Format.PKCS8);
+				kp = kpg.generateKeyPair();
+			}
+
 			pemWriter.flush();
-			// pemWriter.writeObject(kp.getPublic());
-			
-			/*
-			JcaPKCS8Generator gen2 = new JcaPKCS8Generator(kp.getPrivate(), encryptor);  
-		    PemObject obj2 = gen2.generate();  
-			
-			
-			pemWriter.writeObject(kp.getPrivate(), encryptor);
-			// pemWriter.writeObject(kp.getPublic(), encryptor);
-			 */
 			pemWriter.close();
-			
+
 			Core.storeFileDocumentContent(context, key.getMendixObject(), new ByteArrayInputStream(sw.toString().getBytes()));
-			key.setFormat(Format.PKCS8);
 			key.setName("private_key.pem");
 			
 			validateKey(context, key);

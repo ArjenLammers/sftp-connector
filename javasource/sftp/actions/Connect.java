@@ -42,16 +42,14 @@ public class Connect extends CustomJavaAction<IMendixObject>
 {
 	private IMendixObject __configuration;
 	private sftp.proxies.Configuration configuration;
-	private java.lang.Boolean enableDebugging;
 	private java.lang.String microflow;
 	private IMendixObject microflowArgument;
 	private java.lang.String microflowResult;
 
-	public Connect(IContext context, IMendixObject configuration, java.lang.Boolean enableDebugging, java.lang.String microflow, IMendixObject microflowArgument, java.lang.String microflowResult)
+	public Connect(IContext context, IMendixObject configuration, java.lang.String microflow, IMendixObject microflowArgument, java.lang.String microflowResult)
 	{
 		super(context);
 		this.__configuration = configuration;
-		this.enableDebugging = enableDebugging;
 		this.microflow = microflow;
 		this.microflowArgument = microflowArgument;
 		this.microflowResult = microflowResult;
@@ -132,6 +130,7 @@ public class Connect extends CustomJavaAction<IMendixObject>
 		} finally {
 			SFTP.removeContextObjects(getContext());
 			ssh.disconnect();
+			ssh.close();
 		}
 
 		return result;
