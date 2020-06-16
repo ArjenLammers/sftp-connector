@@ -40,8 +40,15 @@ public class PutAsString extends CustomJavaAction<java.lang.Boolean>
 	{
 		// BEGIN USER CODE
 		StatefulSFTPClient client = SFTP.getClient(getContext());
-		String fileName = destination.substring(destination.lastIndexOf('/'));
-		String path = destination.substring(0, destination.lastIndexOf('/'));
+		String fileName, path;
+		if (destination.contains("/")) {
+			fileName = destination.substring(destination.lastIndexOf('/') + 1);
+			path = destination.substring(0, destination.lastIndexOf('/'));
+		} else {
+			fileName = destination;
+			path = client.pwd();
+		}
+		
 		
 		InMemorySourceFile source = new InMemorySourceFile() {
 

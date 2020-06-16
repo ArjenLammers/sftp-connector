@@ -24,7 +24,8 @@ public class Explore
 		Explore_Configuration("SFTP.Explore_Configuration"),
 		Explore_ExplorerFile("SFTP.Explore_ExplorerFile"),
 		MkDirRequest_Explore("SFTP.MkDirRequest_Explore"),
-		RenameRequest_Explore("SFTP.RenameRequest_Explore");
+		RenameRequest_Explore("SFTP.RenameRequest_Explore"),
+		PutAsStringRequest_Explore("SFTP.PutAsStringRequest_Explore");
 
 		private java.lang.String metaName;
 
@@ -317,6 +318,49 @@ public class Explore
 			getMendixObject().setValue(context, MemberNames.RenameRequest_Explore.toString(), null);
 		else
 			getMendixObject().setValue(context, MemberNames.RenameRequest_Explore.toString(), renamerequest_explore.getMendixObject().getId());
+	}
+
+	/**
+	 * @return value of PutAsStringRequest_Explore
+	 */
+	public final sftp.proxies.PutAsStringRequest getPutAsStringRequest_Explore() throws com.mendix.core.CoreException
+	{
+		return getPutAsStringRequest_Explore(getContext());
+	}
+
+	/**
+	 * @param context
+	 * @return value of PutAsStringRequest_Explore
+	 */
+	public final sftp.proxies.PutAsStringRequest getPutAsStringRequest_Explore(com.mendix.systemwideinterfaces.core.IContext context) throws com.mendix.core.CoreException
+	{
+		sftp.proxies.PutAsStringRequest result = null;
+		com.mendix.systemwideinterfaces.core.IMendixIdentifier identifier = getMendixObject().getValue(context, MemberNames.PutAsStringRequest_Explore.toString());
+		if (identifier != null)
+			result = sftp.proxies.PutAsStringRequest.load(context, identifier);
+		return result;
+	}
+
+	/**
+	 * Set value of PutAsStringRequest_Explore
+	 * @param putasstringrequest_explore
+	 */
+	public final void setPutAsStringRequest_Explore(sftp.proxies.PutAsStringRequest putasstringrequest_explore)
+	{
+		setPutAsStringRequest_Explore(getContext(), putasstringrequest_explore);
+	}
+
+	/**
+	 * Set value of PutAsStringRequest_Explore
+	 * @param context
+	 * @param putasstringrequest_explore
+	 */
+	public final void setPutAsStringRequest_Explore(com.mendix.systemwideinterfaces.core.IContext context, sftp.proxies.PutAsStringRequest putasstringrequest_explore)
+	{
+		if (putasstringrequest_explore == null)
+			getMendixObject().setValue(context, MemberNames.PutAsStringRequest_Explore.toString(), null);
+		else
+			getMendixObject().setValue(context, MemberNames.PutAsStringRequest_Explore.toString(), putasstringrequest_explore.getMendixObject().getId());
 	}
 
 	/**
