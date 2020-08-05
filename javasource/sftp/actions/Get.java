@@ -48,13 +48,18 @@ public class Get extends CustomJavaAction<java.lang.Boolean>
 		StatefulSFTPClient client = SFTP.getClient(getContext());
 		RemoteFile handle = client.open(this.remoteFile, EnumSet.of(OpenMode.READ));
 		InputStream is = handle.new RemoteFileInputStream() {
+			private boolean closed = false;
 			@Override
-			public void close() throws IOException {
+			public synchronized void close() throws IOException {
+				if (closed) {
+					return;
+				}
 				try {
 					super.close();
 				} finally {
 					handle.close();
 				}
+				closed = true;
 			}
 		};
 		
