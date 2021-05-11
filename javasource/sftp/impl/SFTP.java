@@ -9,6 +9,8 @@ import java.security.KeyPairGenerator;
 import java.security.PublicKey;
 import java.security.SecureRandom;
 import java.security.spec.ECGenParameterSpec;
+import java.util.LinkedList;
+import java.util.List;
 
 import org.apache.commons.codec.binary.Base64;
 import org.bouncycastle.crypto.AsymmetricCipherKeyPair;
@@ -27,18 +29,27 @@ import com.mendix.logging.ILogNode;
 import com.mendix.systemwideinterfaces.core.IContext;
 
 import net.schmizz.sshj.DefaultConfig;
+import net.schmizz.sshj.SSHClient;
 import net.schmizz.sshj.common.Buffer.PlainBuffer;
 import net.schmizz.sshj.common.Factory.Named.Util;
 import net.schmizz.sshj.common.SecurityUtils;
 import net.schmizz.sshj.sftp.StatefulSFTPClient;
+import net.schmizz.sshj.transport.verification.HostKeyVerifier;
 import net.schmizz.sshj.userauth.keyprovider.FileKeyProvider;
 import net.schmizz.sshj.userauth.keyprovider.KeyFormat;
 import net.schmizz.sshj.userauth.keyprovider.KeyProviderUtil;
+import net.schmizz.sshj.userauth.method.AuthMethod;
+import net.schmizz.sshj.userauth.method.AuthPassword;
+import net.schmizz.sshj.userauth.method.AuthPublickey;
+import net.schmizz.sshj.userauth.password.PasswordFinder;
 import net.schmizz.sshj.userauth.password.PasswordUtils;
+import net.schmizz.sshj.userauth.password.Resource;
+import sftp.proxies.Configuration;
 import sftp.proxies.Format;
 import sftp.proxies.Key;
 import sftp.proxies.KeyType;
 import sftp.proxies.NewKeyType;
+import sftp.proxies.microflows.Microflows;
 
 public class SFTP {
 	public static final String CONTEXT_CLIENT = "SFTPCLIENT";
@@ -197,6 +208,116 @@ public class SFTP {
 		} catch (Exception e) {
 			throw new CoreException(e);
 		}
+	}
+	
+	public static SSHClient connect(IContext context, Configuration configuration) throws Exception {
+		SSHClient ssh = new SSHClient();
+		
+		try {
+			
+			ssh.addHostKeyVerifier(new InMemoryHostkeyVerifier(configuration.getHostKey(), 
+					configuration.getHostKeyFingerprint()));
+			ssh.setConnectTimeout(configuration.getConnectTimeout());		
+		
+			List<AuthMethod> authMethods = new LinkedList<>();
+			
+			if (configuration.getPassword() != null && !"".equals(configuration.getPassword())) {
+				String decryptedPassword =
+						encryption.proxies.microflows.Microflows.decrypt(context, configuration.getPassword());
+				if (decryptedPassword != null && !"".equals(decryptedPassword)) {
+					authMethods.add(new AuthPassword(
+							new PresuppliedPasswordFinder(decryptedPassword)));
+				}
+			}
+			
+			if (configuration.getUseKey()) {
+				Key key = null;
+				if (configuration.getUseGeneralKey()) {
+					key = Microflows.dS_GetGeneralKey(context);
+					if (key == null)
+						throw new CoreException("No general key found.");
+				} else {
+					key = configuration.getConfiguration_Key();
+					if (key == null)
+						throw new CoreException("No connection specific key found.");
+				}
+			
+				KeyFormat format = KeyFormat.valueOf(key.getFormat().name());
+				FileKeyProvider fkp = (FileKeyProvider) Util.create((new DefaultConfig()).getFileKeyProviderFactories(),
+						format.toString()); 
+				if (fkp == null) {
+					throw new CoreException("No provider available for " + format + " key file");
+				}
+				
+				String passPhrase = key.getPassPhrase();
+				if (passPhrase != null) {
+					passPhrase = encryption.proxies.microflows.Microflows.decrypt(context, passPhrase);
+				}
+				
+				InputStreamReader isr = new InputStreamReader(Core.getFileDocumentContent(context, 
+						key.getMendixObject()));
+				if (passPhrase != null) {
+					fkp.init(isr, PasswordUtils.createOneOff(passPhrase.toCharArray()));
+				} else {
+					fkp.init(isr);
+				}
+				
+				authMethods.add(new AuthPublickey(fkp));
+			}
+			
+			ssh.connect(configuration.getHostname(), configuration.getPort());
+			ssh.auth(configuration.getUsername(), authMethods);
+			return ssh;
+		} catch (Exception e) {
+			SFTP.getLogger().error("An error ocurred while using SFTP: " + e.toString(), e);
+			throw e;
+		}
+	}
+		
+	static class PresuppliedPasswordFinder implements PasswordFinder {
+
+		private String password;
+		
+		public PresuppliedPasswordFinder(String password) {
+			this.password = password;
+		}
+		
+		@Override
+		public char[] reqPassword(Resource<?> resource) {
+			return this.password.toCharArray();
+		}
+
+		@Override
+		public boolean shouldRetry(Resource<?> resource) {
+			return false;
+		}
+	}
+	
+	private static class InMemoryHostkeyVerifier implements HostKeyVerifier {
+
+		private String hostkey = null, hostkeyFingerprint = null;
+		
+		public InMemoryHostkeyVerifier(String hostkey, String hostkeyFingerprint) {
+			this.hostkey = hostkey;
+			this.hostkeyFingerprint = hostkeyFingerprint;
+		}
+		
+		@Override
+		public boolean verify(String host, int port, PublicKey pubKey) {
+			String fingerPrint = SecurityUtils.getFingerprint(pubKey);
+			if (!fingerPrint.equals(this.hostkeyFingerprint)) {
+				LOGGER.error("Fingerprint of host " + host + "(" + fingerPrint + ") does not match " + 
+						this.hostkeyFingerprint);
+				return false;
+			}
+			String key = Base64.encodeBase64String(pubKey.getEncoded());
+			if (!key.equals(this.hostkey)) {
+				LOGGER.error("Public key of host " + host + " does not match.");
+				return false;
+			}
+			return true;
+		}
 		
 	}
+			
 }

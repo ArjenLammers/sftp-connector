@@ -107,6 +107,7 @@ public class UserActionsRegistrar
     registrator.registerUserAction(librarylogging.actions.AddLibraryLogListener.class);
     registrator.registerUserAction(librarylogging.actions.InitializeLogging.class);
     registrator.registerUserAction(librarylogging.actions.SetRootLevel.class);
+    registrator.registerUserAction(myfirstmodule.actions.RemotePortForwarding.class);
     registrator.registerUserAction(sftp.actions.Cd.class);
     registrator.registerUserAction(sftp.actions.Connect.class);
     registrator.registerUserAction(sftp.actions.GenerateKey.class);

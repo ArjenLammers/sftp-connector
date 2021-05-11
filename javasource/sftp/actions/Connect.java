@@ -9,29 +9,13 @@
 
 package sftp.actions;
 
-import java.io.InputStreamReader;
-import java.util.LinkedList;
-import java.util.List;
 import com.mendix.core.Core;
-import com.mendix.core.CoreException;
 import com.mendix.systemwideinterfaces.core.IContext;
 import com.mendix.systemwideinterfaces.core.IMendixObject;
 import com.mendix.webui.CustomJavaAction;
-import net.schmizz.sshj.DefaultConfig;
 import net.schmizz.sshj.SSHClient;
-import net.schmizz.sshj.common.Factory.Named.Util;
 import net.schmizz.sshj.sftp.StatefulSFTPClient;
-import net.schmizz.sshj.userauth.keyprovider.FileKeyProvider;
-import net.schmizz.sshj.userauth.keyprovider.KeyFormat;
-import net.schmizz.sshj.userauth.method.AuthMethod;
-import net.schmizz.sshj.userauth.method.AuthPassword;
-import net.schmizz.sshj.userauth.method.AuthPublickey;
-import net.schmizz.sshj.userauth.password.PasswordFinder;
-import net.schmizz.sshj.userauth.password.PasswordUtils;
-import net.schmizz.sshj.userauth.password.Resource;
 import sftp.impl.SFTP;
-import sftp.proxies.Key;
-import sftp.proxies.microflows.Microflows;
 
 /**
  * Sets up a session to an SFTP server and executes a microflow.
@@ -62,77 +46,17 @@ public class Connect extends CustomJavaAction<IMendixObject>
 
 		// BEGIN USER CODE
 		IMendixObject result = null;
-		SSHClient ssh = new SSHClient();
-		
+		SSHClient ssh = SFTP.connect(getContext(), configuration);
 		try {
-			
-			ssh.addHostKeyVerifier(configuration.getHostKeyFingerprint());
-			ssh.setConnectTimeout(configuration.getConnectTimeout());		
-			
-			List<AuthMethod> authMethods = new LinkedList<>();
-			
-			if (configuration.getPassword() != null && !"".equals(configuration.getPassword())) {
-				String decryptedPassword =
-						encryption.proxies.microflows.Microflows.decrypt(getContext(), configuration.getPassword());
-				if (decryptedPassword != null && !"".equals(decryptedPassword)) {
-					authMethods.add(new AuthPassword(
-							new PresuppliedPasswordFinder(decryptedPassword)));
-				}
-			}
-			
-			if (configuration.getUseKey()) {
-				Key key = null;
-				if (configuration.getUseGeneralKey()) {
-					key = Microflows.dS_GetGeneralKey(getContext());
-					if (key == null)
-						throw new CoreException("No general key found.");
-				} else {
-					key = configuration.getConfiguration_Key();
-					if (key == null)
-						throw new CoreException("No connection specific key found.");
-				}
-			
-				KeyFormat format = KeyFormat.valueOf(key.getFormat().name());
-				FileKeyProvider fkp = (FileKeyProvider) Util.create((new DefaultConfig()).getFileKeyProviderFactories(),
-						format.toString());
-				if (fkp == null) {
-					throw new CoreException("No provider available for " + format + " key file");
-				}
-				
-				String passPhrase = key.getPassPhrase();
-				if (passPhrase != null) {
-					passPhrase = encryption.proxies.microflows.Microflows.decrypt(getContext(), passPhrase);
-				}
-				
-				InputStreamReader isr = new InputStreamReader(Core.getFileDocumentContent(getContext(), 
-						key.getMendixObject()));
-				if (passPhrase != null) {
-					fkp.init(isr, PasswordUtils.createOneOff(passPhrase.toCharArray()));
-				} else {
-					fkp.init(isr);
-				}
-				
-				authMethods.add(new AuthPublickey(fkp));
-			}
-			
-			ssh.connect(configuration.getHostname(), configuration.getPort());
-			ssh.auth(configuration.getUsername(), authMethods);
-			
 			StatefulSFTPClient client = new StatefulSFTPClient(ssh.newSFTPClient().getSFTPEngine());
 			SFTP.setClient(getContext(), client);
-		
-			
 			result = Core.execute(getContext(), this.microflow, this.microflowArgument);
-			
-		} catch (Exception e) {
-			SFTP.getLogger().error("An error ocurred while using SFTP: " + e.toString(), e);
-			throw e;
 		} finally {
 			SFTP.removeContextObjects(getContext());
 			ssh.disconnect();
 			ssh.close();
 		}
-
+		
 		return result;
 		// END USER CODE
 	}
@@ -147,25 +71,5 @@ public class Connect extends CustomJavaAction<IMendixObject>
 	}
 
 	// BEGIN EXTRA CODE
-	private class PresuppliedPasswordFinder implements PasswordFinder {
-
-		private String password;
-		
-		public PresuppliedPasswordFinder(String password) {
-			this.password = password;
-		}
-		
-		@Override
-		public char[] reqPassword(Resource<?> resource) {
-			return this.password.toCharArray();
-		}
-
-		@Override
-		public boolean shouldRetry(Resource<?> resource) {
-			return false;
-		}
-		
-	}
-	
 	// END EXTRA CODE
 }
