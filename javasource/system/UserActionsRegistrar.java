@@ -26,6 +26,7 @@ public class UserActionsRegistrar
     registrator.registerUserAction(communitycommons.actions.encryptMemberIfChanged.class);
     registrator.registerUserAction(communitycommons.actions.EncryptString.class);
     registrator.registerUserAction(communitycommons.actions.EndTransaction.class);
+    registrator.registerUserAction(communitycommons.actions.EnumerationFromString.class);
     registrator.registerUserAction(communitycommons.actions.EscapeHTML.class);
     registrator.registerUserAction(communitycommons.actions.executeMicroflowAsUser.class);
     registrator.registerUserAction(communitycommons.actions.executeMicroflowAsUser_1.class);
@@ -39,6 +40,7 @@ public class UserActionsRegistrar
     registrator.registerUserAction(communitycommons.actions.executeUnverifiedMicroflowInBatches.class);
     registrator.registerUserAction(communitycommons.actions.FileDocumentFromFile.class);
     registrator.registerUserAction(communitycommons.actions.FileFromFileDocument.class);
+    registrator.registerUserAction(communitycommons.actions.GenerateHMAC_SHA256.class);
     registrator.registerUserAction(communitycommons.actions.GenerateHMAC_SHA256_hash.class);
     registrator.registerUserAction(communitycommons.actions.GetApplicationUrl.class);
     registrator.registerUserAction(communitycommons.actions.GetCFInstanceIndex.class);
@@ -50,6 +52,7 @@ public class UserActionsRegistrar
     registrator.registerUserAction(communitycommons.actions.GetImageDimensions.class);
     registrator.registerUserAction(communitycommons.actions.GetIntFromDateTime.class);
     registrator.registerUserAction(communitycommons.actions.getLastChangedByUser.class);
+    registrator.registerUserAction(communitycommons.actions.GetModelVersion.class);
     registrator.registerUserAction(communitycommons.actions.getOriginalValueAsString.class);
     registrator.registerUserAction(communitycommons.actions.GetRuntimeVersion.class);
     registrator.registerUserAction(communitycommons.actions.getTypeAsString.class);
@@ -58,6 +61,7 @@ public class UserActionsRegistrar
     registrator.registerUserAction(communitycommons.actions.HTMLToPlainText.class);
     registrator.registerUserAction(communitycommons.actions.IsInDevelopment.class);
     registrator.registerUserAction(communitycommons.actions.IsStringSimplified.class);
+    registrator.registerUserAction(communitycommons.actions.ListTop.class);
     registrator.registerUserAction(communitycommons.actions.LongToDateTime.class);
     registrator.registerUserAction(communitycommons.actions.memberHasChanged.class);
     registrator.registerUserAction(communitycommons.actions.MergeMultiplePdfs.class);
@@ -74,7 +78,7 @@ public class UserActionsRegistrar
     registrator.registerUserAction(communitycommons.actions.refreshClassByObject.class);
     registrator.registerUserAction(communitycommons.actions.RegexQuote.class);
     registrator.registerUserAction(communitycommons.actions.RegexReplaceAll.class);
-    registrator.registerUserAction(communitycommons.actions.RegexTest.class);
+    registrator.registerUserAction(communitycommons.actions.RemoveEnd.class);
     registrator.registerUserAction(communitycommons.actions.retrieveURL.class);
     registrator.registerUserAction(communitycommons.actions.RunMicroflowAsyncInQueue.class);
     registrator.registerUserAction(communitycommons.actions.StartTransaction.class);
