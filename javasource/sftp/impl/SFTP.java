@@ -196,6 +196,7 @@ public class SFTP {
 			default:
 				key.setFormat(Format.PKCS8);
 				kp = kpg.generateKeyPair();
+				pemWriter.writeObject(kp.getPrivate(), encryptor);
 			}
 
 			pemWriter.flush();
