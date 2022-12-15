@@ -9,6 +9,7 @@ import java.security.KeyPairGenerator;
 import java.security.PublicKey;
 import java.security.SecureRandom;
 import java.security.spec.ECGenParameterSpec;
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -317,6 +318,11 @@ public class SFTP {
 				return false;
 			}
 			return true;
+		}
+
+		@Override
+		public List<String> findExistingAlgorithms(String arg0, int arg1) {
+			return Collections.emptyList();
 		}
 		
 	}

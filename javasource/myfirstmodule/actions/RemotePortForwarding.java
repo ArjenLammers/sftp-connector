@@ -47,7 +47,7 @@ public class RemotePortForwarding extends CustomJavaAction<java.lang.Boolean>
 					new Forward(forward.intValue()),
 					new SocketForwardingConnectListener(
 							new InetSocketAddress(forwardingAddress, forwardingPort.intValue())));
-			ssh.getTransport().setHeartbeatInterval(30);
+			ssh.getConnection().getKeepAlive().setKeepAliveInterval(10);
 			ssh.getTransport().join();
 		} finally {
 			ssh.disconnect();
