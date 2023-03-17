@@ -12,7 +12,6 @@ package sftp.actions;
 import java.security.PublicKey;
 import java.util.Collections;
 import java.util.List;
-
 import org.apache.commons.codec.binary.Base64;
 import com.mendix.systemwideinterfaces.core.IContext;
 import com.mendix.systemwideinterfaces.core.IMendixObject;

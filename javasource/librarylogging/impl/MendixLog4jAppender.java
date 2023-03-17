@@ -45,11 +45,18 @@ public class MendixLog4jAppender extends AbstractAppender {
 	
 	@Override
 	public void append(LogEvent event) {
-		String message = event.getLoggerName() + " - " + event.getMessage().getFormattedMessage();
+		String formattedMessage = event.getMessage().getFormattedMessage();
+		String message;
+		
+		if (event.getMarker() != null) {
+			String marker = event.getMarker().getName();
+			message = event.getLoggerName() + " - " + marker + " " + formattedMessage;
+		} else {
+			message = event.getLoggerName() + " - " + formattedMessage;
+		}
 
 		if (event.getLevel() == Level.TRACE) {
 			if (logNode.isTraceEnabled()) {
-				
 				logNode.trace(message, event.getThrown());
 			}
 			return;
