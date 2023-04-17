@@ -38,7 +38,7 @@ public class GetHostKey extends CustomJavaAction<IMendixObject>
 	@java.lang.Override
 	public IMendixObject executeAction() throws Exception
 	{
-		this.configuration = __configuration == null ? null : sftp.proxies.Configuration.initialize(getContext(), __configuration);
+		this.configuration = this.__configuration == null ? null : sftp.proxies.Configuration.initialize(getContext(), __configuration);
 
 		// BEGIN USER CODE
 		SSHClient client = new SSHClient();
@@ -60,6 +60,7 @@ public class GetHostKey extends CustomJavaAction<IMendixObject>
 
 	/**
 	 * Returns a string representation of this action
+	 * @return a string representation of this action
 	 */
 	@java.lang.Override
 	public java.lang.String toString()

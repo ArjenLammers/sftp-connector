@@ -38,7 +38,7 @@ public class RemotePortForwarding extends CustomJavaAction<java.lang.Boolean>
 	@java.lang.Override
 	public java.lang.Boolean executeAction() throws Exception
 	{
-		this.configuration = __configuration == null ? null : sftp.proxies.Configuration.initialize(getContext(), __configuration);
+		this.configuration = this.__configuration == null ? null : sftp.proxies.Configuration.initialize(getContext(), __configuration);
 
 		// BEGIN USER CODE
 		SSHClient ssh = SFTP.connect(getContext(), configuration);
@@ -59,6 +59,7 @@ public class RemotePortForwarding extends CustomJavaAction<java.lang.Boolean>
 
 	/**
 	 * Returns a string representation of this action
+	 * @return a string representation of this action
 	 */
 	@java.lang.Override
 	public java.lang.String toString()

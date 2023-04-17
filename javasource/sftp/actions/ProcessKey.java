@@ -28,7 +28,7 @@ public class ProcessKey extends CustomJavaAction<java.lang.Boolean>
 	@java.lang.Override
 	public java.lang.Boolean executeAction() throws Exception
 	{
-		this.key = __key == null ? null : sftp.proxies.Key.initialize(getContext(), __key);
+		this.key = this.__key == null ? null : sftp.proxies.Key.initialize(getContext(), __key);
 
 		// BEGIN USER CODE
 		SFTP.validateKey(getContext(), key);
@@ -38,6 +38,7 @@ public class ProcessKey extends CustomJavaAction<java.lang.Boolean>
 
 	/**
 	 * Returns a string representation of this action
+	 * @return a string representation of this action
 	 */
 	@java.lang.Override
 	public java.lang.String toString()

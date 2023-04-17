@@ -23,7 +23,7 @@ public class MkDirRequest
 		Name("Name"),
 		MkDirRequest_Explore("SFTP.MkDirRequest_Explore");
 
-		private java.lang.String metaName;
+		private final java.lang.String metaName;
 
 		MemberNames(java.lang.String s)
 		{
@@ -39,15 +39,17 @@ public class MkDirRequest
 
 	public MkDirRequest(com.mendix.systemwideinterfaces.core.IContext context)
 	{
-		this(context, com.mendix.core.Core.instantiate(context, "SFTP.MkDirRequest"));
+		this(context, com.mendix.core.Core.instantiate(context, entityName));
 	}
 
 	protected MkDirRequest(com.mendix.systemwideinterfaces.core.IContext context, com.mendix.systemwideinterfaces.core.IMendixObject mkDirRequestMendixObject)
 	{
-		if (mkDirRequestMendixObject == null)
+		if (mkDirRequestMendixObject == null) {
 			throw new java.lang.IllegalArgumentException("The given object cannot be null.");
-		if (!com.mendix.core.Core.isSubClassOf("SFTP.MkDirRequest", mkDirRequestMendixObject.getType()))
-			throw new java.lang.IllegalArgumentException("The given object is not a SFTP.MkDirRequest");
+		}
+		if (!com.mendix.core.Core.isSubClassOf(entityName, mkDirRequestMendixObject.getType())) {
+			throw new java.lang.IllegalArgumentException(String.format("The given object is not a %s", entityName));
+		}	
 
 		this.mkDirRequestMendixObject = mkDirRequestMendixObject;
 		this.context = context;
@@ -65,6 +67,9 @@ public class MkDirRequest
 	/**
 	 * Initialize a proxy using context (recommended). This context will be used for security checking when the get- and set-methods without context parameters are called.
 	 * The get- and set-methods with context parameter should be used when for instance sudo access is necessary (IContext.createSudoClone() can be used to obtain sudo access).
+	 * @param context The context to be used
+	 * @param mendixObject The Mendix object for the new instance
+	 * @return a new instance of this proxy class
 	 */
 	public static sftp.proxies.MkDirRequest initialize(com.mendix.systemwideinterfaces.core.IContext context, com.mendix.systemwideinterfaces.core.IMendixObject mendixObject)
 	{
@@ -79,6 +84,7 @@ public class MkDirRequest
 
 	/**
 	 * Commit the changes made on this proxy object.
+	 * @throws com.mendix.core.CoreException
 	 */
 	public final void commit() throws com.mendix.core.CoreException
 	{
@@ -87,6 +93,7 @@ public class MkDirRequest
 
 	/**
 	 * Commit the changes made on this proxy object using the specified context.
+	 * @throws com.mendix.core.CoreException
 	 */
 	public final void commit(com.mendix.systemwideinterfaces.core.IContext context) throws com.mendix.core.CoreException
 	{
@@ -145,6 +152,7 @@ public class MkDirRequest
 	}
 
 	/**
+	 * @throws com.mendix.core.CoreException
 	 * @return value of MkDirRequest_Explore
 	 */
 	public final sftp.proxies.Explore getMkDirRequest_Explore() throws com.mendix.core.CoreException
@@ -155,13 +163,15 @@ public class MkDirRequest
 	/**
 	 * @param context
 	 * @return value of MkDirRequest_Explore
+	 * @throws com.mendix.core.CoreException
 	 */
 	public final sftp.proxies.Explore getMkDirRequest_Explore(com.mendix.systemwideinterfaces.core.IContext context) throws com.mendix.core.CoreException
 	{
 		sftp.proxies.Explore result = null;
 		com.mendix.systemwideinterfaces.core.IMendixIdentifier identifier = getMendixObject().getValue(context, MemberNames.MkDirRequest_Explore.toString());
-		if (identifier != null)
+		if (identifier != null) {
 			result = sftp.proxies.Explore.load(context, identifier);
+		}
 		return result;
 	}
 
@@ -181,10 +191,11 @@ public class MkDirRequest
 	 */
 	public final void setMkDirRequest_Explore(com.mendix.systemwideinterfaces.core.IContext context, sftp.proxies.Explore mkdirrequest_explore)
 	{
-		if (mkdirrequest_explore == null)
+		if (mkdirrequest_explore == null) {
 			getMendixObject().setValue(context, MemberNames.MkDirRequest_Explore.toString(), null);
-		else
+		} else {
 			getMendixObject().setValue(context, MemberNames.MkDirRequest_Explore.toString(), mkdirrequest_explore.getMendixObject().getId());
+		}
 	}
 
 	/**
@@ -206,9 +217,9 @@ public class MkDirRequest
 	@java.lang.Override
 	public boolean equals(Object obj)
 	{
-		if (obj == this)
+		if (obj == this) {
 			return true;
-
+		}
 		if (obj != null && getClass().equals(obj.getClass()))
 		{
 			final sftp.proxies.MkDirRequest that = (sftp.proxies.MkDirRequest) obj;
@@ -228,7 +239,7 @@ public class MkDirRequest
 	 */
 	public static java.lang.String getType()
 	{
-		return "SFTP.MkDirRequest";
+		return entityName;
 	}
 
 	/**

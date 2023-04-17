@@ -42,7 +42,7 @@ public class Get extends CustomJavaAction<java.lang.Boolean>
 	@java.lang.Override
 	public java.lang.Boolean executeAction() throws Exception
 	{
-		this.targetFile = __targetFile == null ? null : system.proxies.FileDocument.initialize(getContext(), __targetFile);
+		this.targetFile = this.__targetFile == null ? null : system.proxies.FileDocument.initialize(getContext(), __targetFile);
 
 		// BEGIN USER CODE
 		StatefulSFTPClient client = SFTP.getClient(getContext());
@@ -70,6 +70,7 @@ public class Get extends CustomJavaAction<java.lang.Boolean>
 
 	/**
 	 * Returns a string representation of this action
+	 * @return a string representation of this action
 	 */
 	@java.lang.Override
 	public java.lang.String toString()

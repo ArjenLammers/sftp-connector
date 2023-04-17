@@ -23,7 +23,7 @@ public class GenerateNewKeyPair
 		KeyType("KeyType"),
 		GenerateNewKeyPair_Key("SFTP.GenerateNewKeyPair_Key");
 
-		private java.lang.String metaName;
+		private final java.lang.String metaName;
 
 		MemberNames(java.lang.String s)
 		{
@@ -39,15 +39,17 @@ public class GenerateNewKeyPair
 
 	public GenerateNewKeyPair(com.mendix.systemwideinterfaces.core.IContext context)
 	{
-		this(context, com.mendix.core.Core.instantiate(context, "SFTP.GenerateNewKeyPair"));
+		this(context, com.mendix.core.Core.instantiate(context, entityName));
 	}
 
 	protected GenerateNewKeyPair(com.mendix.systemwideinterfaces.core.IContext context, com.mendix.systemwideinterfaces.core.IMendixObject generateNewKeyPairMendixObject)
 	{
-		if (generateNewKeyPairMendixObject == null)
+		if (generateNewKeyPairMendixObject == null) {
 			throw new java.lang.IllegalArgumentException("The given object cannot be null.");
-		if (!com.mendix.core.Core.isSubClassOf("SFTP.GenerateNewKeyPair", generateNewKeyPairMendixObject.getType()))
-			throw new java.lang.IllegalArgumentException("The given object is not a SFTP.GenerateNewKeyPair");
+		}
+		if (!com.mendix.core.Core.isSubClassOf(entityName, generateNewKeyPairMendixObject.getType())) {
+			throw new java.lang.IllegalArgumentException(String.format("The given object is not a %s", entityName));
+		}	
 
 		this.generateNewKeyPairMendixObject = generateNewKeyPairMendixObject;
 		this.context = context;
@@ -65,6 +67,9 @@ public class GenerateNewKeyPair
 	/**
 	 * Initialize a proxy using context (recommended). This context will be used for security checking when the get- and set-methods without context parameters are called.
 	 * The get- and set-methods with context parameter should be used when for instance sudo access is necessary (IContext.createSudoClone() can be used to obtain sudo access).
+	 * @param context The context to be used
+	 * @param mendixObject The Mendix object for the new instance
+	 * @return a new instance of this proxy class
 	 */
 	public static sftp.proxies.GenerateNewKeyPair initialize(com.mendix.systemwideinterfaces.core.IContext context, com.mendix.systemwideinterfaces.core.IMendixObject mendixObject)
 	{
@@ -79,6 +84,7 @@ public class GenerateNewKeyPair
 
 	/**
 	 * Commit the changes made on this proxy object.
+	 * @throws com.mendix.core.CoreException
 	 */
 	public final void commit() throws com.mendix.core.CoreException
 	{
@@ -87,6 +93,7 @@ public class GenerateNewKeyPair
 
 	/**
 	 * Commit the changes made on this proxy object using the specified context.
+	 * @throws com.mendix.core.CoreException
 	 */
 	public final void commit(com.mendix.systemwideinterfaces.core.IContext context) throws com.mendix.core.CoreException
 	{
@@ -124,9 +131,9 @@ public class GenerateNewKeyPair
 	public final sftp.proxies.NewKeyType getKeyType(com.mendix.systemwideinterfaces.core.IContext context)
 	{
 		Object obj = getMendixObject().getValue(context, MemberNames.KeyType.toString());
-		if (obj == null)
+		if (obj == null) {
 			return null;
-
+		}
 		return sftp.proxies.NewKeyType.valueOf((java.lang.String) obj);
 	}
 
@@ -146,13 +153,15 @@ public class GenerateNewKeyPair
 	 */
 	public final void setKeyType(com.mendix.systemwideinterfaces.core.IContext context, sftp.proxies.NewKeyType keytype)
 	{
-		if (keytype != null)
+		if (keytype != null) {
 			getMendixObject().setValue(context, MemberNames.KeyType.toString(), keytype.toString());
-		else
+		} else {
 			getMendixObject().setValue(context, MemberNames.KeyType.toString(), null);
+		}
 	}
 
 	/**
+	 * @throws com.mendix.core.CoreException
 	 * @return value of GenerateNewKeyPair_Key
 	 */
 	public final sftp.proxies.Key getGenerateNewKeyPair_Key() throws com.mendix.core.CoreException
@@ -163,13 +172,15 @@ public class GenerateNewKeyPair
 	/**
 	 * @param context
 	 * @return value of GenerateNewKeyPair_Key
+	 * @throws com.mendix.core.CoreException
 	 */
 	public final sftp.proxies.Key getGenerateNewKeyPair_Key(com.mendix.systemwideinterfaces.core.IContext context) throws com.mendix.core.CoreException
 	{
 		sftp.proxies.Key result = null;
 		com.mendix.systemwideinterfaces.core.IMendixIdentifier identifier = getMendixObject().getValue(context, MemberNames.GenerateNewKeyPair_Key.toString());
-		if (identifier != null)
+		if (identifier != null) {
 			result = sftp.proxies.Key.load(context, identifier);
+		}
 		return result;
 	}
 
@@ -189,10 +200,11 @@ public class GenerateNewKeyPair
 	 */
 	public final void setGenerateNewKeyPair_Key(com.mendix.systemwideinterfaces.core.IContext context, sftp.proxies.Key generatenewkeypair_key)
 	{
-		if (generatenewkeypair_key == null)
+		if (generatenewkeypair_key == null) {
 			getMendixObject().setValue(context, MemberNames.GenerateNewKeyPair_Key.toString(), null);
-		else
+		} else {
 			getMendixObject().setValue(context, MemberNames.GenerateNewKeyPair_Key.toString(), generatenewkeypair_key.getMendixObject().getId());
+		}
 	}
 
 	/**
@@ -214,9 +226,9 @@ public class GenerateNewKeyPair
 	@java.lang.Override
 	public boolean equals(Object obj)
 	{
-		if (obj == this)
+		if (obj == this) {
 			return true;
-
+		}
 		if (obj != null && getClass().equals(obj.getClass()))
 		{
 			final sftp.proxies.GenerateNewKeyPair that = (sftp.proxies.GenerateNewKeyPair) obj;
@@ -236,7 +248,7 @@ public class GenerateNewKeyPair
 	 */
 	public static java.lang.String getType()
 	{
-		return "SFTP.GenerateNewKeyPair";
+		return entityName;
 	}
 
 	/**

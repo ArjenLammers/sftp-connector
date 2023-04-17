@@ -27,7 +27,7 @@ public class RemoteFile
 		Size("Size"),
 		RemoteFile_Explore("SFTP.RemoteFile_Explore");
 
-		private java.lang.String metaName;
+		private final java.lang.String metaName;
 
 		MemberNames(java.lang.String s)
 		{
@@ -43,15 +43,17 @@ public class RemoteFile
 
 	public RemoteFile(com.mendix.systemwideinterfaces.core.IContext context)
 	{
-		this(context, com.mendix.core.Core.instantiate(context, "SFTP.RemoteFile"));
+		this(context, com.mendix.core.Core.instantiate(context, entityName));
 	}
 
 	protected RemoteFile(com.mendix.systemwideinterfaces.core.IContext context, com.mendix.systemwideinterfaces.core.IMendixObject remoteFileMendixObject)
 	{
-		if (remoteFileMendixObject == null)
+		if (remoteFileMendixObject == null) {
 			throw new java.lang.IllegalArgumentException("The given object cannot be null.");
-		if (!com.mendix.core.Core.isSubClassOf("SFTP.RemoteFile", remoteFileMendixObject.getType()))
-			throw new java.lang.IllegalArgumentException("The given object is not a SFTP.RemoteFile");
+		}
+		if (!com.mendix.core.Core.isSubClassOf(entityName, remoteFileMendixObject.getType())) {
+			throw new java.lang.IllegalArgumentException(String.format("The given object is not a %s", entityName));
+		}	
 
 		this.remoteFileMendixObject = remoteFileMendixObject;
 		this.context = context;
@@ -69,6 +71,9 @@ public class RemoteFile
 	/**
 	 * Initialize a proxy using context (recommended). This context will be used for security checking when the get- and set-methods without context parameters are called.
 	 * The get- and set-methods with context parameter should be used when for instance sudo access is necessary (IContext.createSudoClone() can be used to obtain sudo access).
+	 * @param context The context to be used
+	 * @param mendixObject The Mendix object for the new instance
+	 * @return a new instance of this proxy class
 	 */
 	public static sftp.proxies.RemoteFile initialize(com.mendix.systemwideinterfaces.core.IContext context, com.mendix.systemwideinterfaces.core.IMendixObject mendixObject)
 	{
@@ -83,6 +88,7 @@ public class RemoteFile
 
 	/**
 	 * Commit the changes made on this proxy object.
+	 * @throws com.mendix.core.CoreException
 	 */
 	public final void commit() throws com.mendix.core.CoreException
 	{
@@ -91,6 +97,7 @@ public class RemoteFile
 
 	/**
 	 * Commit the changes made on this proxy object using the specified context.
+	 * @throws com.mendix.core.CoreException
 	 */
 	public final void commit(com.mendix.systemwideinterfaces.core.IContext context) throws com.mendix.core.CoreException
 	{
@@ -236,9 +243,9 @@ public class RemoteFile
 	public final sftp.proxies.FileType getFileType(com.mendix.systemwideinterfaces.core.IContext context)
 	{
 		Object obj = getMendixObject().getValue(context, MemberNames.FileType.toString());
-		if (obj == null)
+		if (obj == null) {
 			return null;
-
+		}
 		return sftp.proxies.FileType.valueOf((java.lang.String) obj);
 	}
 
@@ -258,10 +265,11 @@ public class RemoteFile
 	 */
 	public final void setFileType(com.mendix.systemwideinterfaces.core.IContext context, sftp.proxies.FileType filetype)
 	{
-		if (filetype != null)
+		if (filetype != null) {
 			getMendixObject().setValue(context, MemberNames.FileType.toString(), filetype.toString());
-		else
+		} else {
 			getMendixObject().setValue(context, MemberNames.FileType.toString(), null);
+		}
 	}
 
 	/**
@@ -301,6 +309,7 @@ public class RemoteFile
 	}
 
 	/**
+	 * @throws com.mendix.core.CoreException
 	 * @return value of RemoteFile_Explore
 	 */
 	public final sftp.proxies.Explore getRemoteFile_Explore() throws com.mendix.core.CoreException
@@ -311,13 +320,15 @@ public class RemoteFile
 	/**
 	 * @param context
 	 * @return value of RemoteFile_Explore
+	 * @throws com.mendix.core.CoreException
 	 */
 	public final sftp.proxies.Explore getRemoteFile_Explore(com.mendix.systemwideinterfaces.core.IContext context) throws com.mendix.core.CoreException
 	{
 		sftp.proxies.Explore result = null;
 		com.mendix.systemwideinterfaces.core.IMendixIdentifier identifier = getMendixObject().getValue(context, MemberNames.RemoteFile_Explore.toString());
-		if (identifier != null)
+		if (identifier != null) {
 			result = sftp.proxies.Explore.load(context, identifier);
+		}
 		return result;
 	}
 
@@ -337,10 +348,11 @@ public class RemoteFile
 	 */
 	public final void setRemoteFile_Explore(com.mendix.systemwideinterfaces.core.IContext context, sftp.proxies.Explore remotefile_explore)
 	{
-		if (remotefile_explore == null)
+		if (remotefile_explore == null) {
 			getMendixObject().setValue(context, MemberNames.RemoteFile_Explore.toString(), null);
-		else
+		} else {
 			getMendixObject().setValue(context, MemberNames.RemoteFile_Explore.toString(), remotefile_explore.getMendixObject().getId());
+		}
 	}
 
 	/**
@@ -362,9 +374,9 @@ public class RemoteFile
 	@java.lang.Override
 	public boolean equals(Object obj)
 	{
-		if (obj == this)
+		if (obj == this) {
 			return true;
-
+		}
 		if (obj != null && getClass().equals(obj.getClass()))
 		{
 			final sftp.proxies.RemoteFile that = (sftp.proxies.RemoteFile) obj;
@@ -384,7 +396,7 @@ public class RemoteFile
 	 */
 	public static java.lang.String getType()
 	{
-		return "SFTP.RemoteFile";
+		return entityName;
 	}
 
 	/**

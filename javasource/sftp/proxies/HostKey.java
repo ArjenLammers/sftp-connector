@@ -26,7 +26,7 @@ public class HostKey
 		Key("Key"),
 		HostKey_Configuration("SFTP.HostKey_Configuration");
 
-		private java.lang.String metaName;
+		private final java.lang.String metaName;
 
 		MemberNames(java.lang.String s)
 		{
@@ -42,15 +42,17 @@ public class HostKey
 
 	public HostKey(com.mendix.systemwideinterfaces.core.IContext context)
 	{
-		this(context, com.mendix.core.Core.instantiate(context, "SFTP.HostKey"));
+		this(context, com.mendix.core.Core.instantiate(context, entityName));
 	}
 
 	protected HostKey(com.mendix.systemwideinterfaces.core.IContext context, com.mendix.systemwideinterfaces.core.IMendixObject hostKeyMendixObject)
 	{
-		if (hostKeyMendixObject == null)
+		if (hostKeyMendixObject == null) {
 			throw new java.lang.IllegalArgumentException("The given object cannot be null.");
-		if (!com.mendix.core.Core.isSubClassOf("SFTP.HostKey", hostKeyMendixObject.getType()))
-			throw new java.lang.IllegalArgumentException("The given object is not a SFTP.HostKey");
+		}
+		if (!com.mendix.core.Core.isSubClassOf(entityName, hostKeyMendixObject.getType())) {
+			throw new java.lang.IllegalArgumentException(String.format("The given object is not a %s", entityName));
+		}	
 
 		this.hostKeyMendixObject = hostKeyMendixObject;
 		this.context = context;
@@ -68,6 +70,9 @@ public class HostKey
 	/**
 	 * Initialize a proxy using context (recommended). This context will be used for security checking when the get- and set-methods without context parameters are called.
 	 * The get- and set-methods with context parameter should be used when for instance sudo access is necessary (IContext.createSudoClone() can be used to obtain sudo access).
+	 * @param context The context to be used
+	 * @param mendixObject The Mendix object for the new instance
+	 * @return a new instance of this proxy class
 	 */
 	public static sftp.proxies.HostKey initialize(com.mendix.systemwideinterfaces.core.IContext context, com.mendix.systemwideinterfaces.core.IMendixObject mendixObject)
 	{
@@ -82,6 +87,7 @@ public class HostKey
 
 	/**
 	 * Commit the changes made on this proxy object.
+	 * @throws com.mendix.core.CoreException
 	 */
 	public final void commit() throws com.mendix.core.CoreException
 	{
@@ -90,6 +96,7 @@ public class HostKey
 
 	/**
 	 * Commit the changes made on this proxy object using the specified context.
+	 * @throws com.mendix.core.CoreException
 	 */
 	public final void commit(com.mendix.systemwideinterfaces.core.IContext context) throws com.mendix.core.CoreException
 	{
@@ -256,6 +263,7 @@ public class HostKey
 	}
 
 	/**
+	 * @throws com.mendix.core.CoreException
 	 * @return value of HostKey_Configuration
 	 */
 	public final sftp.proxies.Configuration getHostKey_Configuration() throws com.mendix.core.CoreException
@@ -266,13 +274,15 @@ public class HostKey
 	/**
 	 * @param context
 	 * @return value of HostKey_Configuration
+	 * @throws com.mendix.core.CoreException
 	 */
 	public final sftp.proxies.Configuration getHostKey_Configuration(com.mendix.systemwideinterfaces.core.IContext context) throws com.mendix.core.CoreException
 	{
 		sftp.proxies.Configuration result = null;
 		com.mendix.systemwideinterfaces.core.IMendixIdentifier identifier = getMendixObject().getValue(context, MemberNames.HostKey_Configuration.toString());
-		if (identifier != null)
+		if (identifier != null) {
 			result = sftp.proxies.Configuration.load(context, identifier);
+		}
 		return result;
 	}
 
@@ -292,10 +302,11 @@ public class HostKey
 	 */
 	public final void setHostKey_Configuration(com.mendix.systemwideinterfaces.core.IContext context, sftp.proxies.Configuration hostkey_configuration)
 	{
-		if (hostkey_configuration == null)
+		if (hostkey_configuration == null) {
 			getMendixObject().setValue(context, MemberNames.HostKey_Configuration.toString(), null);
-		else
+		} else {
 			getMendixObject().setValue(context, MemberNames.HostKey_Configuration.toString(), hostkey_configuration.getMendixObject().getId());
+		}
 	}
 
 	/**
@@ -317,9 +328,9 @@ public class HostKey
 	@java.lang.Override
 	public boolean equals(Object obj)
 	{
-		if (obj == this)
+		if (obj == this) {
 			return true;
-
+		}
 		if (obj != null && getClass().equals(obj.getClass()))
 		{
 			final sftp.proxies.HostKey that = (sftp.proxies.HostKey) obj;
@@ -339,7 +350,7 @@ public class HostKey
 	 */
 	public static java.lang.String getType()
 	{
-		return "SFTP.HostKey";
+		return entityName;
 	}
 
 	/**

@@ -32,7 +32,7 @@ public class Key extends system.proxies.FileDocument
 		Size("Size"),
 		Configuration_Key("SFTP.Configuration_Key");
 
-		private java.lang.String metaName;
+		private final java.lang.String metaName;
 
 		MemberNames(java.lang.String s)
 		{
@@ -48,14 +48,15 @@ public class Key extends system.proxies.FileDocument
 
 	public Key(com.mendix.systemwideinterfaces.core.IContext context)
 	{
-		this(context, com.mendix.core.Core.instantiate(context, "SFTP.Key"));
+		this(context, com.mendix.core.Core.instantiate(context, entityName));
 	}
 
 	protected Key(com.mendix.systemwideinterfaces.core.IContext context, com.mendix.systemwideinterfaces.core.IMendixObject keyMendixObject)
 	{
 		super(context, keyMendixObject);
-		if (!com.mendix.core.Core.isSubClassOf("SFTP.Key", keyMendixObject.getType()))
-			throw new java.lang.IllegalArgumentException("The given object is not a SFTP.Key");
+		if (!com.mendix.core.Core.isSubClassOf(entityName, keyMendixObject.getType())) {
+			throw new java.lang.IllegalArgumentException(String.format("The given object is not a %s", entityName));
+		}	
 	}
 
 	/**
@@ -70,6 +71,9 @@ public class Key extends system.proxies.FileDocument
 	/**
 	 * Initialize a proxy using context (recommended). This context will be used for security checking when the get- and set-methods without context parameters are called.
 	 * The get- and set-methods with context parameter should be used when for instance sudo access is necessary (IContext.createSudoClone() can be used to obtain sudo access).
+	 * @param context The context to be used
+	 * @param mendixObject The Mendix object for the new instance
+	 * @return a new instance of this proxy class
 	 */
 	public static sftp.proxies.Key initialize(com.mendix.systemwideinterfaces.core.IContext context, com.mendix.systemwideinterfaces.core.IMendixObject mendixObject)
 	{
@@ -84,10 +88,11 @@ public class Key extends system.proxies.FileDocument
 
 	public static java.util.List<sftp.proxies.Key> load(com.mendix.systemwideinterfaces.core.IContext context, java.lang.String xpathConstraint) throws com.mendix.core.CoreException
 	{
-		java.util.List<sftp.proxies.Key> result = new java.util.ArrayList<sftp.proxies.Key>();
-		for (com.mendix.systemwideinterfaces.core.IMendixObject obj : com.mendix.core.Core.retrieveXPathQuery(context, "//SFTP.Key" + xpathConstraint))
-			result.add(sftp.proxies.Key.initialize(context, obj));
-		return result;
+		return com.mendix.core.Core.createXPathQuery(String.format("//%1$s%2$s", entityName, xpathConstraint))
+			.execute(context)
+			.stream()
+			.map(obj -> sftp.proxies.Key.initialize(context, obj))
+			.collect(java.util.stream.Collectors.toList());
 	}
 
 	/**
@@ -178,9 +183,9 @@ public class Key extends system.proxies.FileDocument
 	public final sftp.proxies.KeyPurpose getPurpose(com.mendix.systemwideinterfaces.core.IContext context)
 	{
 		Object obj = getMendixObject().getValue(context, MemberNames.Purpose.toString());
-		if (obj == null)
+		if (obj == null) {
 			return null;
-
+		}
 		return sftp.proxies.KeyPurpose.valueOf((java.lang.String) obj);
 	}
 
@@ -200,10 +205,11 @@ public class Key extends system.proxies.FileDocument
 	 */
 	public final void setPurpose(com.mendix.systemwideinterfaces.core.IContext context, sftp.proxies.KeyPurpose purpose)
 	{
-		if (purpose != null)
+		if (purpose != null) {
 			getMendixObject().setValue(context, MemberNames.Purpose.toString(), purpose.toString());
-		else
+		} else {
 			getMendixObject().setValue(context, MemberNames.Purpose.toString(), null);
+		}
 	}
 
 	/**
@@ -330,9 +336,9 @@ public class Key extends system.proxies.FileDocument
 	public final sftp.proxies.Format getFormat(com.mendix.systemwideinterfaces.core.IContext context)
 	{
 		Object obj = getMendixObject().getValue(context, MemberNames.Format.toString());
-		if (obj == null)
+		if (obj == null) {
 			return null;
-
+		}
 		return sftp.proxies.Format.valueOf((java.lang.String) obj);
 	}
 
@@ -352,10 +358,11 @@ public class Key extends system.proxies.FileDocument
 	 */
 	public final void setFormat(com.mendix.systemwideinterfaces.core.IContext context, sftp.proxies.Format format)
 	{
-		if (format != null)
+		if (format != null) {
 			getMendixObject().setValue(context, MemberNames.Format.toString(), format.toString());
-		else
+		} else {
 			getMendixObject().setValue(context, MemberNames.Format.toString(), null);
+		}
 	}
 
 	/**
@@ -374,9 +381,9 @@ public class Key extends system.proxies.FileDocument
 	public final sftp.proxies.KeyType getKeyType(com.mendix.systemwideinterfaces.core.IContext context)
 	{
 		Object obj = getMendixObject().getValue(context, MemberNames.KeyType.toString());
-		if (obj == null)
+		if (obj == null) {
 			return null;
-
+		}
 		return sftp.proxies.KeyType.valueOf((java.lang.String) obj);
 	}
 
@@ -396,13 +403,15 @@ public class Key extends system.proxies.FileDocument
 	 */
 	public final void setKeyType(com.mendix.systemwideinterfaces.core.IContext context, sftp.proxies.KeyType keytype)
 	{
-		if (keytype != null)
+		if (keytype != null) {
 			getMendixObject().setValue(context, MemberNames.KeyType.toString(), keytype.toString());
-		else
+		} else {
 			getMendixObject().setValue(context, MemberNames.KeyType.toString(), null);
+		}
 	}
 
 	/**
+	 * @throws com.mendix.core.CoreException
 	 * @return value of Configuration_Key
 	 */
 	public final sftp.proxies.Configuration getConfiguration_Key() throws com.mendix.core.CoreException
@@ -413,13 +422,15 @@ public class Key extends system.proxies.FileDocument
 	/**
 	 * @param context
 	 * @return value of Configuration_Key
+	 * @throws com.mendix.core.CoreException
 	 */
 	public final sftp.proxies.Configuration getConfiguration_Key(com.mendix.systemwideinterfaces.core.IContext context) throws com.mendix.core.CoreException
 	{
 		sftp.proxies.Configuration result = null;
 		com.mendix.systemwideinterfaces.core.IMendixIdentifier identifier = getMendixObject().getValue(context, MemberNames.Configuration_Key.toString());
-		if (identifier != null)
+		if (identifier != null) {
 			result = sftp.proxies.Configuration.load(context, identifier);
+		}
 		return result;
 	}
 
@@ -439,18 +450,19 @@ public class Key extends system.proxies.FileDocument
 	 */
 	public final void setConfiguration_Key(com.mendix.systemwideinterfaces.core.IContext context, sftp.proxies.Configuration configuration_key)
 	{
-		if (configuration_key == null)
+		if (configuration_key == null) {
 			getMendixObject().setValue(context, MemberNames.Configuration_Key.toString(), null);
-		else
+		} else {
 			getMendixObject().setValue(context, MemberNames.Configuration_Key.toString(), configuration_key.getMendixObject().getId());
+		}
 	}
 
 	@java.lang.Override
 	public boolean equals(Object obj)
 	{
-		if (obj == this)
+		if (obj == this) {
 			return true;
-
+		}
 		if (obj != null && getClass().equals(obj.getClass()))
 		{
 			final sftp.proxies.Key that = (sftp.proxies.Key) obj;
@@ -470,7 +482,7 @@ public class Key extends system.proxies.FileDocument
 	 */
 	public static java.lang.String getType()
 	{
-		return "SFTP.Key";
+		return entityName;
 	}
 
 	/**

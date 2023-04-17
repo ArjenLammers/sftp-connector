@@ -24,7 +24,7 @@ public class ExplorerFile extends system.proxies.FileDocument
 		HasContents("HasContents"),
 		Size("Size");
 
-		private java.lang.String metaName;
+		private final java.lang.String metaName;
 
 		MemberNames(java.lang.String s)
 		{
@@ -40,14 +40,15 @@ public class ExplorerFile extends system.proxies.FileDocument
 
 	public ExplorerFile(com.mendix.systemwideinterfaces.core.IContext context)
 	{
-		this(context, com.mendix.core.Core.instantiate(context, "SFTP.ExplorerFile"));
+		this(context, com.mendix.core.Core.instantiate(context, entityName));
 	}
 
 	protected ExplorerFile(com.mendix.systemwideinterfaces.core.IContext context, com.mendix.systemwideinterfaces.core.IMendixObject explorerFileMendixObject)
 	{
 		super(context, explorerFileMendixObject);
-		if (!com.mendix.core.Core.isSubClassOf("SFTP.ExplorerFile", explorerFileMendixObject.getType()))
-			throw new java.lang.IllegalArgumentException("The given object is not a SFTP.ExplorerFile");
+		if (!com.mendix.core.Core.isSubClassOf(entityName, explorerFileMendixObject.getType())) {
+			throw new java.lang.IllegalArgumentException(String.format("The given object is not a %s", entityName));
+		}	
 	}
 
 	/**
@@ -62,6 +63,9 @@ public class ExplorerFile extends system.proxies.FileDocument
 	/**
 	 * Initialize a proxy using context (recommended). This context will be used for security checking when the get- and set-methods without context parameters are called.
 	 * The get- and set-methods with context parameter should be used when for instance sudo access is necessary (IContext.createSudoClone() can be used to obtain sudo access).
+	 * @param context The context to be used
+	 * @param mendixObject The Mendix object for the new instance
+	 * @return a new instance of this proxy class
 	 */
 	public static sftp.proxies.ExplorerFile initialize(com.mendix.systemwideinterfaces.core.IContext context, com.mendix.systemwideinterfaces.core.IMendixObject mendixObject)
 	{
@@ -76,10 +80,11 @@ public class ExplorerFile extends system.proxies.FileDocument
 
 	public static java.util.List<sftp.proxies.ExplorerFile> load(com.mendix.systemwideinterfaces.core.IContext context, java.lang.String xpathConstraint) throws com.mendix.core.CoreException
 	{
-		java.util.List<sftp.proxies.ExplorerFile> result = new java.util.ArrayList<sftp.proxies.ExplorerFile>();
-		for (com.mendix.systemwideinterfaces.core.IMendixObject obj : com.mendix.core.Core.retrieveXPathQuery(context, "//SFTP.ExplorerFile" + xpathConstraint))
-			result.add(sftp.proxies.ExplorerFile.initialize(context, obj));
-		return result;
+		return com.mendix.core.Core.createXPathQuery(String.format("//%1$s%2$s", entityName, xpathConstraint))
+			.execute(context)
+			.stream()
+			.map(obj -> sftp.proxies.ExplorerFile.initialize(context, obj))
+			.collect(java.util.stream.Collectors.toList());
 	}
 
 	/**
@@ -121,9 +126,9 @@ public class ExplorerFile extends system.proxies.FileDocument
 	@java.lang.Override
 	public boolean equals(Object obj)
 	{
-		if (obj == this)
+		if (obj == this) {
 			return true;
-
+		}
 		if (obj != null && getClass().equals(obj.getClass()))
 		{
 			final sftp.proxies.ExplorerFile that = (sftp.proxies.ExplorerFile) obj;
@@ -143,7 +148,7 @@ public class ExplorerFile extends system.proxies.FileDocument
 	 */
 	public static java.lang.String getType()
 	{
-		return "SFTP.ExplorerFile";
+		return entityName;
 	}
 
 	/**

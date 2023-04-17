@@ -27,7 +27,7 @@ public class Explore
 		RenameRequest_Explore("SFTP.RenameRequest_Explore"),
 		PutAsStringRequest_Explore("SFTP.PutAsStringRequest_Explore");
 
-		private java.lang.String metaName;
+		private final java.lang.String metaName;
 
 		MemberNames(java.lang.String s)
 		{
@@ -43,15 +43,17 @@ public class Explore
 
 	public Explore(com.mendix.systemwideinterfaces.core.IContext context)
 	{
-		this(context, com.mendix.core.Core.instantiate(context, "SFTP.Explore"));
+		this(context, com.mendix.core.Core.instantiate(context, entityName));
 	}
 
 	protected Explore(com.mendix.systemwideinterfaces.core.IContext context, com.mendix.systemwideinterfaces.core.IMendixObject exploreMendixObject)
 	{
-		if (exploreMendixObject == null)
+		if (exploreMendixObject == null) {
 			throw new java.lang.IllegalArgumentException("The given object cannot be null.");
-		if (!com.mendix.core.Core.isSubClassOf("SFTP.Explore", exploreMendixObject.getType()))
-			throw new java.lang.IllegalArgumentException("The given object is not a SFTP.Explore");
+		}
+		if (!com.mendix.core.Core.isSubClassOf(entityName, exploreMendixObject.getType())) {
+			throw new java.lang.IllegalArgumentException(String.format("The given object is not a %s", entityName));
+		}	
 
 		this.exploreMendixObject = exploreMendixObject;
 		this.context = context;
@@ -69,6 +71,9 @@ public class Explore
 	/**
 	 * Initialize a proxy using context (recommended). This context will be used for security checking when the get- and set-methods without context parameters are called.
 	 * The get- and set-methods with context parameter should be used when for instance sudo access is necessary (IContext.createSudoClone() can be used to obtain sudo access).
+	 * @param context The context to be used
+	 * @param mendixObject The Mendix object for the new instance
+	 * @return a new instance of this proxy class
 	 */
 	public static sftp.proxies.Explore initialize(com.mendix.systemwideinterfaces.core.IContext context, com.mendix.systemwideinterfaces.core.IMendixObject mendixObject)
 	{
@@ -83,6 +88,7 @@ public class Explore
 
 	/**
 	 * Commit the changes made on this proxy object.
+	 * @throws com.mendix.core.CoreException
 	 */
 	public final void commit() throws com.mendix.core.CoreException
 	{
@@ -91,6 +97,7 @@ public class Explore
 
 	/**
 	 * Commit the changes made on this proxy object using the specified context.
+	 * @throws com.mendix.core.CoreException
 	 */
 	public final void commit(com.mendix.systemwideinterfaces.core.IContext context) throws com.mendix.core.CoreException
 	{
@@ -149,6 +156,7 @@ public class Explore
 	}
 
 	/**
+	 * @throws com.mendix.core.CoreException
 	 * @return value of Explore_Configuration
 	 */
 	public final sftp.proxies.Configuration getExplore_Configuration() throws com.mendix.core.CoreException
@@ -159,13 +167,15 @@ public class Explore
 	/**
 	 * @param context
 	 * @return value of Explore_Configuration
+	 * @throws com.mendix.core.CoreException
 	 */
 	public final sftp.proxies.Configuration getExplore_Configuration(com.mendix.systemwideinterfaces.core.IContext context) throws com.mendix.core.CoreException
 	{
 		sftp.proxies.Configuration result = null;
 		com.mendix.systemwideinterfaces.core.IMendixIdentifier identifier = getMendixObject().getValue(context, MemberNames.Explore_Configuration.toString());
-		if (identifier != null)
+		if (identifier != null) {
 			result = sftp.proxies.Configuration.load(context, identifier);
+		}
 		return result;
 	}
 
@@ -185,13 +195,15 @@ public class Explore
 	 */
 	public final void setExplore_Configuration(com.mendix.systemwideinterfaces.core.IContext context, sftp.proxies.Configuration explore_configuration)
 	{
-		if (explore_configuration == null)
+		if (explore_configuration == null) {
 			getMendixObject().setValue(context, MemberNames.Explore_Configuration.toString(), null);
-		else
+		} else {
 			getMendixObject().setValue(context, MemberNames.Explore_Configuration.toString(), explore_configuration.getMendixObject().getId());
+		}
 	}
 
 	/**
+	 * @throws com.mendix.core.CoreException
 	 * @return value of Explore_ExplorerFile
 	 */
 	public final sftp.proxies.ExplorerFile getExplore_ExplorerFile() throws com.mendix.core.CoreException
@@ -202,13 +214,15 @@ public class Explore
 	/**
 	 * @param context
 	 * @return value of Explore_ExplorerFile
+	 * @throws com.mendix.core.CoreException
 	 */
 	public final sftp.proxies.ExplorerFile getExplore_ExplorerFile(com.mendix.systemwideinterfaces.core.IContext context) throws com.mendix.core.CoreException
 	{
 		sftp.proxies.ExplorerFile result = null;
 		com.mendix.systemwideinterfaces.core.IMendixIdentifier identifier = getMendixObject().getValue(context, MemberNames.Explore_ExplorerFile.toString());
-		if (identifier != null)
+		if (identifier != null) {
 			result = sftp.proxies.ExplorerFile.load(context, identifier);
+		}
 		return result;
 	}
 
@@ -228,13 +242,15 @@ public class Explore
 	 */
 	public final void setExplore_ExplorerFile(com.mendix.systemwideinterfaces.core.IContext context, sftp.proxies.ExplorerFile explore_explorerfile)
 	{
-		if (explore_explorerfile == null)
+		if (explore_explorerfile == null) {
 			getMendixObject().setValue(context, MemberNames.Explore_ExplorerFile.toString(), null);
-		else
+		} else {
 			getMendixObject().setValue(context, MemberNames.Explore_ExplorerFile.toString(), explore_explorerfile.getMendixObject().getId());
+		}
 	}
 
 	/**
+	 * @throws com.mendix.core.CoreException
 	 * @return value of MkDirRequest_Explore
 	 */
 	public final sftp.proxies.MkDirRequest getMkDirRequest_Explore() throws com.mendix.core.CoreException
@@ -245,13 +261,15 @@ public class Explore
 	/**
 	 * @param context
 	 * @return value of MkDirRequest_Explore
+	 * @throws com.mendix.core.CoreException
 	 */
 	public final sftp.proxies.MkDirRequest getMkDirRequest_Explore(com.mendix.systemwideinterfaces.core.IContext context) throws com.mendix.core.CoreException
 	{
 		sftp.proxies.MkDirRequest result = null;
 		com.mendix.systemwideinterfaces.core.IMendixIdentifier identifier = getMendixObject().getValue(context, MemberNames.MkDirRequest_Explore.toString());
-		if (identifier != null)
+		if (identifier != null) {
 			result = sftp.proxies.MkDirRequest.load(context, identifier);
+		}
 		return result;
 	}
 
@@ -271,13 +289,15 @@ public class Explore
 	 */
 	public final void setMkDirRequest_Explore(com.mendix.systemwideinterfaces.core.IContext context, sftp.proxies.MkDirRequest mkdirrequest_explore)
 	{
-		if (mkdirrequest_explore == null)
+		if (mkdirrequest_explore == null) {
 			getMendixObject().setValue(context, MemberNames.MkDirRequest_Explore.toString(), null);
-		else
+		} else {
 			getMendixObject().setValue(context, MemberNames.MkDirRequest_Explore.toString(), mkdirrequest_explore.getMendixObject().getId());
+		}
 	}
 
 	/**
+	 * @throws com.mendix.core.CoreException
 	 * @return value of RenameRequest_Explore
 	 */
 	public final sftp.proxies.RenameRequest getRenameRequest_Explore() throws com.mendix.core.CoreException
@@ -288,13 +308,15 @@ public class Explore
 	/**
 	 * @param context
 	 * @return value of RenameRequest_Explore
+	 * @throws com.mendix.core.CoreException
 	 */
 	public final sftp.proxies.RenameRequest getRenameRequest_Explore(com.mendix.systemwideinterfaces.core.IContext context) throws com.mendix.core.CoreException
 	{
 		sftp.proxies.RenameRequest result = null;
 		com.mendix.systemwideinterfaces.core.IMendixIdentifier identifier = getMendixObject().getValue(context, MemberNames.RenameRequest_Explore.toString());
-		if (identifier != null)
+		if (identifier != null) {
 			result = sftp.proxies.RenameRequest.load(context, identifier);
+		}
 		return result;
 	}
 
@@ -314,13 +336,15 @@ public class Explore
 	 */
 	public final void setRenameRequest_Explore(com.mendix.systemwideinterfaces.core.IContext context, sftp.proxies.RenameRequest renamerequest_explore)
 	{
-		if (renamerequest_explore == null)
+		if (renamerequest_explore == null) {
 			getMendixObject().setValue(context, MemberNames.RenameRequest_Explore.toString(), null);
-		else
+		} else {
 			getMendixObject().setValue(context, MemberNames.RenameRequest_Explore.toString(), renamerequest_explore.getMendixObject().getId());
+		}
 	}
 
 	/**
+	 * @throws com.mendix.core.CoreException
 	 * @return value of PutAsStringRequest_Explore
 	 */
 	public final sftp.proxies.PutAsStringRequest getPutAsStringRequest_Explore() throws com.mendix.core.CoreException
@@ -331,13 +355,15 @@ public class Explore
 	/**
 	 * @param context
 	 * @return value of PutAsStringRequest_Explore
+	 * @throws com.mendix.core.CoreException
 	 */
 	public final sftp.proxies.PutAsStringRequest getPutAsStringRequest_Explore(com.mendix.systemwideinterfaces.core.IContext context) throws com.mendix.core.CoreException
 	{
 		sftp.proxies.PutAsStringRequest result = null;
 		com.mendix.systemwideinterfaces.core.IMendixIdentifier identifier = getMendixObject().getValue(context, MemberNames.PutAsStringRequest_Explore.toString());
-		if (identifier != null)
+		if (identifier != null) {
 			result = sftp.proxies.PutAsStringRequest.load(context, identifier);
+		}
 		return result;
 	}
 
@@ -357,10 +383,11 @@ public class Explore
 	 */
 	public final void setPutAsStringRequest_Explore(com.mendix.systemwideinterfaces.core.IContext context, sftp.proxies.PutAsStringRequest putasstringrequest_explore)
 	{
-		if (putasstringrequest_explore == null)
+		if (putasstringrequest_explore == null) {
 			getMendixObject().setValue(context, MemberNames.PutAsStringRequest_Explore.toString(), null);
-		else
+		} else {
 			getMendixObject().setValue(context, MemberNames.PutAsStringRequest_Explore.toString(), putasstringrequest_explore.getMendixObject().getId());
+		}
 	}
 
 	/**
@@ -382,9 +409,9 @@ public class Explore
 	@java.lang.Override
 	public boolean equals(Object obj)
 	{
-		if (obj == this)
+		if (obj == this) {
 			return true;
-
+		}
 		if (obj != null && getClass().equals(obj.getClass()))
 		{
 			final sftp.proxies.Explore that = (sftp.proxies.Explore) obj;
@@ -404,7 +431,7 @@ public class Explore
 	 */
 	public static java.lang.String getType()
 	{
-		return "SFTP.Explore";
+		return entityName;
 	}
 
 	/**
