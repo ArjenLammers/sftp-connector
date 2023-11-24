@@ -24,6 +24,7 @@ public class HostKey
 		Algorithm("Algorithm"),
 		Format("Format"),
 		Key("Key"),
+		HostKeyChoice("HostKeyChoice"),
 		HostKey_Configuration("SFTP.HostKey_Configuration");
 
 		private final java.lang.String metaName;
@@ -260,6 +261,51 @@ public class HostKey
 	public final void setKey(com.mendix.systemwideinterfaces.core.IContext context, java.lang.String key)
 	{
 		getMendixObject().setValue(context, MemberNames.Key.toString(), key);
+	}
+
+	/**
+	 * Set value of HostKeyChoice
+	 * @param hostkeychoice
+	 */
+	public final sftp.proxies.HostKeyChoice getHostKeyChoice()
+	{
+		return getHostKeyChoice(getContext());
+	}
+
+	/**
+	 * @param context
+	 * @return value of HostKeyChoice
+	 */
+	public final sftp.proxies.HostKeyChoice getHostKeyChoice(com.mendix.systemwideinterfaces.core.IContext context)
+	{
+		Object obj = getMendixObject().getValue(context, MemberNames.HostKeyChoice.toString());
+		if (obj == null) {
+			return null;
+		}
+		return sftp.proxies.HostKeyChoice.valueOf((java.lang.String) obj);
+	}
+
+	/**
+	 * Set value of HostKeyChoice
+	 * @param hostkeychoice
+	 */
+	public final void setHostKeyChoice(sftp.proxies.HostKeyChoice hostkeychoice)
+	{
+		setHostKeyChoice(getContext(), hostkeychoice);
+	}
+
+	/**
+	 * Set value of HostKeyChoice
+	 * @param context
+	 * @param hostkeychoice
+	 */
+	public final void setHostKeyChoice(com.mendix.systemwideinterfaces.core.IContext context, sftp.proxies.HostKeyChoice hostkeychoice)
+	{
+		if (hostkeychoice != null) {
+			getMendixObject().setValue(context, MemberNames.HostKeyChoice.toString(), hostkeychoice.toString());
+		} else {
+			getMendixObject().setValue(context, MemberNames.HostKeyChoice.toString(), null);
+		}
 	}
 
 	/**
