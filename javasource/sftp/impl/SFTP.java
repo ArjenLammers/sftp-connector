@@ -219,6 +219,10 @@ public class SFTP {
 			
 			ssh.addHostKeyVerifier(new InMemoryHostkeyVerifier(configuration.getHostKey(), 
 					configuration.getHostKeyFingerprint()));
+			if (configuration.getHostKey_2() != null) {
+				ssh.addHostKeyVerifier(new InMemoryHostkeyVerifier(configuration.getHostKey_2(), 
+					configuration.getHostKeyFingerprint_2()));
+			}
 			ssh.setConnectTimeout(configuration.getConnectTimeout());		
 		
 			List<AuthMethod> authMethods = new LinkedList<>();
@@ -308,15 +312,16 @@ public class SFTP {
 		public boolean verify(String host, int port, PublicKey pubKey) {
 			String fingerPrint = SecurityUtils.getFingerprint(pubKey);
 			if (!fingerPrint.equals(this.hostkeyFingerprint)) {
-				LOGGER.error("Fingerprint of host " + host + "(" + fingerPrint + ") does not match " + 
-						this.hostkeyFingerprint);
+				LOGGER.debug("Fingerprint of host " + host + " (" + fingerPrint + ") does not match " + this.hostkeyFingerprint);
 				return false;
 			}
+			LOGGER.debug("Fingerprint of host " + host + " (" + fingerPrint + ") matches known fingerprint.");
 			String key = Base64.encodeBase64String(pubKey.getEncoded());
 			if (!key.equals(this.hostkey)) {
-				LOGGER.error("Public key of host " + host + " does not match.");
+				LOGGER.debug("Public key of host " + host + " (" + key + ") does not match known key " + this.hostkey);
 				return false;
 			}
+			LOGGER.debug("Public key of host " + host + " (" + key + ") matches known hostkey.");
 			return true;
 		}
 

@@ -25,9 +25,10 @@ public class Configuration
 		Port("Port"),
 		Username("Username"),
 		Password("Password"),
-		StrictHostkeyChecking("StrictHostkeyChecking"),
 		HostKey("HostKey"),
 		HostKeyFingerprint("HostKeyFingerprint"),
+		HostKey_2("HostKey_2"),
+		HostKeyFingerprint_2("HostKeyFingerprint_2"),
 		UseKey("UseKey"),
 		UseGeneralKey("UseGeneralKey"),
 		ConnectTimeout("ConnectTimeout"),
@@ -315,42 +316,6 @@ public class Configuration
 	}
 
 	/**
-	 * @return value of StrictHostkeyChecking
-	 */
-	public final java.lang.Boolean getStrictHostkeyChecking()
-	{
-		return getStrictHostkeyChecking(getContext());
-	}
-
-	/**
-	 * @param context
-	 * @return value of StrictHostkeyChecking
-	 */
-	public final java.lang.Boolean getStrictHostkeyChecking(com.mendix.systemwideinterfaces.core.IContext context)
-	{
-		return (java.lang.Boolean) getMendixObject().getValue(context, MemberNames.StrictHostkeyChecking.toString());
-	}
-
-	/**
-	 * Set value of StrictHostkeyChecking
-	 * @param stricthostkeychecking
-	 */
-	public final void setStrictHostkeyChecking(java.lang.Boolean stricthostkeychecking)
-	{
-		setStrictHostkeyChecking(getContext(), stricthostkeychecking);
-	}
-
-	/**
-	 * Set value of StrictHostkeyChecking
-	 * @param context
-	 * @param stricthostkeychecking
-	 */
-	public final void setStrictHostkeyChecking(com.mendix.systemwideinterfaces.core.IContext context, java.lang.Boolean stricthostkeychecking)
-	{
-		getMendixObject().setValue(context, MemberNames.StrictHostkeyChecking.toString(), stricthostkeychecking);
-	}
-
-	/**
 	 * @return value of HostKey
 	 */
 	public final java.lang.String getHostKey()
@@ -420,6 +385,78 @@ public class Configuration
 	public final void setHostKeyFingerprint(com.mendix.systemwideinterfaces.core.IContext context, java.lang.String hostkeyfingerprint)
 	{
 		getMendixObject().setValue(context, MemberNames.HostKeyFingerprint.toString(), hostkeyfingerprint);
+	}
+
+	/**
+	 * @return value of HostKey_2
+	 */
+	public final java.lang.String getHostKey_2()
+	{
+		return getHostKey_2(getContext());
+	}
+
+	/**
+	 * @param context
+	 * @return value of HostKey_2
+	 */
+	public final java.lang.String getHostKey_2(com.mendix.systemwideinterfaces.core.IContext context)
+	{
+		return (java.lang.String) getMendixObject().getValue(context, MemberNames.HostKey_2.toString());
+	}
+
+	/**
+	 * Set value of HostKey_2
+	 * @param hostkey_2
+	 */
+	public final void setHostKey_2(java.lang.String hostkey_2)
+	{
+		setHostKey_2(getContext(), hostkey_2);
+	}
+
+	/**
+	 * Set value of HostKey_2
+	 * @param context
+	 * @param hostkey_2
+	 */
+	public final void setHostKey_2(com.mendix.systemwideinterfaces.core.IContext context, java.lang.String hostkey_2)
+	{
+		getMendixObject().setValue(context, MemberNames.HostKey_2.toString(), hostkey_2);
+	}
+
+	/**
+	 * @return value of HostKeyFingerprint_2
+	 */
+	public final java.lang.String getHostKeyFingerprint_2()
+	{
+		return getHostKeyFingerprint_2(getContext());
+	}
+
+	/**
+	 * @param context
+	 * @return value of HostKeyFingerprint_2
+	 */
+	public final java.lang.String getHostKeyFingerprint_2(com.mendix.systemwideinterfaces.core.IContext context)
+	{
+		return (java.lang.String) getMendixObject().getValue(context, MemberNames.HostKeyFingerprint_2.toString());
+	}
+
+	/**
+	 * Set value of HostKeyFingerprint_2
+	 * @param hostkeyfingerprint_2
+	 */
+	public final void setHostKeyFingerprint_2(java.lang.String hostkeyfingerprint_2)
+	{
+		setHostKeyFingerprint_2(getContext(), hostkeyfingerprint_2);
+	}
+
+	/**
+	 * Set value of HostKeyFingerprint_2
+	 * @param context
+	 * @param hostkeyfingerprint_2
+	 */
+	public final void setHostKeyFingerprint_2(com.mendix.systemwideinterfaces.core.IContext context, java.lang.String hostkeyfingerprint_2)
+	{
+		getMendixObject().setValue(context, MemberNames.HostKeyFingerprint_2.toString(), hostkeyfingerprint_2);
 	}
 
 	/**
