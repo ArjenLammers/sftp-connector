@@ -108,6 +108,12 @@ public class Microflows
 		params.put("Certificate", _certificate == null ? null : _certificate.getMendixObject());
 		Core.microflowCall("Encryption.MB_SaveCertificate").withParams(params).execute(context);
 	}
+	public static void mB_SavePassword(IContext context, encryption.proxies.ExampleConfiguration _exampleConfiguration)
+	{
+		Map<java.lang.String, Object> params = new HashMap<>();
+		params.put("ExampleConfiguration", _exampleConfiguration == null ? null : _exampleConfiguration.getMendixObject());
+		Core.microflowCall("Encryption.MB_SavePassword").withParams(params).execute(context);
+	}
 	public static void mB_ShowChangePassword(IContext context, encryption.proxies.ExampleConfiguration _exampleConfiguration)
 	{
 		Map<java.lang.String, Object> params = new HashMap<>();
