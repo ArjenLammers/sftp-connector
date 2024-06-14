@@ -29,6 +29,8 @@ import com.mendix.core.CoreException;
 import com.mendix.logging.ILogNode;
 import com.mendix.systemwideinterfaces.core.IContext;
 
+import net.schmizz.sshj.Config;
+import net.schmizz.sshj.ConfigImpl;
 import net.schmizz.sshj.DefaultConfig;
 import net.schmizz.sshj.SSHClient;
 import net.schmizz.sshj.common.Buffer.PlainBuffer;
@@ -216,10 +218,10 @@ public class SFTP {
 		SSHClient ssh = new SSHClient();
 		
 		try {
-			
 			ssh.addHostKeyVerifier(new InMemoryHostkeyVerifier(configuration.getHostKey(), 
 					configuration.getHostKeyFingerprint()));
-			ssh.setConnectTimeout(configuration.getConnectTimeout());		
+			ssh.setConnectTimeout(configuration.getConnectTimeout());
+			
 		
 			List<AuthMethod> authMethods = new LinkedList<>();
 			
@@ -265,6 +267,13 @@ public class SFTP {
 				}
 				
 				authMethods.add(new AuthPublickey(fkp));
+			}
+			
+			if (configuration.getPrioritizeSshRsaKeyAlgorithm()) {
+				Config transportConfig = ssh.getTransport().getConfig();
+				if (transportConfig instanceof ConfigImpl) {
+					((ConfigImpl)transportConfig).prioritizeSshRsaKeyAlgorithm();
+				}
 			}
 			
 			ssh.connect(configuration.getHostname(), configuration.getPort());

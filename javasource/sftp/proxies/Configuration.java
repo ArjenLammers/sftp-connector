@@ -31,6 +31,7 @@ public class Configuration
 		UseKey("UseKey"),
 		UseGeneralKey("UseGeneralKey"),
 		ConnectTimeout("ConnectTimeout"),
+		PrioritizeSshRsaKeyAlgorithm("PrioritizeSshRsaKeyAlgorithm"),
 		Configuration_Key("SFTP.Configuration_Key");
 
 		private final java.lang.String metaName;
@@ -528,6 +529,42 @@ public class Configuration
 	public final void setConnectTimeout(com.mendix.systemwideinterfaces.core.IContext context, java.lang.Integer connecttimeout)
 	{
 		getMendixObject().setValue(context, MemberNames.ConnectTimeout.toString(), connecttimeout);
+	}
+
+	/**
+	 * @return value of PrioritizeSshRsaKeyAlgorithm
+	 */
+	public final java.lang.Boolean getPrioritizeSshRsaKeyAlgorithm()
+	{
+		return getPrioritizeSshRsaKeyAlgorithm(getContext());
+	}
+
+	/**
+	 * @param context
+	 * @return value of PrioritizeSshRsaKeyAlgorithm
+	 */
+	public final java.lang.Boolean getPrioritizeSshRsaKeyAlgorithm(com.mendix.systemwideinterfaces.core.IContext context)
+	{
+		return (java.lang.Boolean) getMendixObject().getValue(context, MemberNames.PrioritizeSshRsaKeyAlgorithm.toString());
+	}
+
+	/**
+	 * Set value of PrioritizeSshRsaKeyAlgorithm
+	 * @param prioritizesshrsakeyalgorithm
+	 */
+	public final void setPrioritizeSshRsaKeyAlgorithm(java.lang.Boolean prioritizesshrsakeyalgorithm)
+	{
+		setPrioritizeSshRsaKeyAlgorithm(getContext(), prioritizesshrsakeyalgorithm);
+	}
+
+	/**
+	 * Set value of PrioritizeSshRsaKeyAlgorithm
+	 * @param context
+	 * @param prioritizesshrsakeyalgorithm
+	 */
+	public final void setPrioritizeSshRsaKeyAlgorithm(com.mendix.systemwideinterfaces.core.IContext context, java.lang.Boolean prioritizesshrsakeyalgorithm)
+	{
+		getMendixObject().setValue(context, MemberNames.PrioritizeSshRsaKeyAlgorithm.toString(), prioritizesshrsakeyalgorithm);
 	}
 
 	/**
