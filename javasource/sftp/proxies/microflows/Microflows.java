@@ -38,6 +38,20 @@ public class Microflows
 		IMendixObject result = (IMendixObject)Core.microflowCall("SFTP.CreateConfiguration").withParams(params).execute(context);
 		return result == null ? null : sftp.proxies.Configuration.initialize(context, result);
 	}
+	public static sftp.proxies.PasswordInput dS_CreatePasswordInputForConfiguration(IContext context, sftp.proxies.Configuration _configuration)
+	{
+		Map<java.lang.String, Object> params = new HashMap<>();
+		params.put("Configuration", _configuration == null ? null : _configuration.getMendixObject());
+		IMendixObject result = (IMendixObject)Core.microflowCall("SFTP.DS_CreatePasswordInputForConfiguration").withParams(params).execute(context);
+		return result == null ? null : sftp.proxies.PasswordInput.initialize(context, result);
+	}
+	public static sftp.proxies.PasswordInput dS_CreatePasswordInputForKey(IContext context, sftp.proxies.Key _key)
+	{
+		Map<java.lang.String, Object> params = new HashMap<>();
+		params.put("Key", _key == null ? null : _key.getMendixObject());
+		IMendixObject result = (IMendixObject)Core.microflowCall("SFTP.DS_CreatePasswordInputForKey").withParams(params).execute(context);
+		return result == null ? null : sftp.proxies.PasswordInput.initialize(context, result);
+	}
 	public static java.util.List<sftp.proxies.RemoteFile> dS_GetContents(IContext context, sftp.proxies.Explore _explore)
 	{
 		Map<java.lang.String, Object> params = new HashMap<>();
