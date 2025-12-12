@@ -13,20 +13,25 @@ import com.mendix.systemwideinterfaces.core.IContext;
 import com.mendix.webui.CustomJavaAction;
 import net.schmizz.sshj.sftp.StatefulSFTPClient;
 import sftp.impl.SFTP;
+import com.mendix.systemwideinterfaces.core.UserAction;
 
 /**
  * Renames or moves a file or directory on the SFTP server.
  */
-public class Rename extends CustomJavaAction<java.lang.Boolean>
+public class Rename extends UserAction<java.lang.Boolean>
 {
-	private java.lang.String from;
-	private java.lang.String to;
+	private final java.lang.String from;
+	private final java.lang.String to;
 
-	public Rename(IContext context, java.lang.String from, java.lang.String to)
+	public Rename(
+		IContext context,
+		java.lang.String _from,
+		java.lang.String _to
+	)
 	{
 		super(context);
-		this.from = from;
-		this.to = to;
+		this.from = _from;
+		this.to = _to;
 	}
 
 	@java.lang.Override

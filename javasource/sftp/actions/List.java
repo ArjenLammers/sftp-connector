@@ -22,18 +22,22 @@ import sftp.impl.SFTP;
 import sftp.proxies.FileType;
 import sftp.proxies.RemoteFile;
 import com.mendix.systemwideinterfaces.core.IMendixObject;
+import com.mendix.systemwideinterfaces.core.UserAction;
 
 /**
  * Retrieves a list of files and directories from the remote SFTP server as RemoteFile objects.
  */
-public class List extends CustomJavaAction<java.util.List<IMendixObject>>
+public class List extends UserAction<java.util.List<IMendixObject>>
 {
-	private java.lang.String path;
+	private final java.lang.String path;
 
-	public List(IContext context, java.lang.String path)
+	public List(
+		IContext context,
+		java.lang.String _path
+	)
 	{
 		super(context);
-		this.path = path;
+		this.path = _path;
 	}
 
 	@java.lang.Override

@@ -4,280 +4,770 @@
 
 package sftp.proxies.microflows;
 
-import java.util.HashMap;
-import java.util.Map;
 import com.mendix.core.Core;
 import com.mendix.systemwideinterfaces.core.IContext;
 import com.mendix.systemwideinterfaces.core.IMendixObject;
 
-public class Microflows
+public final class Microflows
 {
 	/**
-	 * @deprecated
-	 * The default constructor of the Microflows class should not be used.
-	 * Use the static microflow invocation methods instead.
+	 * Private constructor to prevent instantiation of this class. 
 	 */
-	@java.lang.Deprecated(since = "9.12", forRemoval = true)
-	public Microflows() {}
+	private Microflows() {}
 
 	// These are the microflows for the SFTP module
+	public static com.mendix.core.actionmanagement.MicroflowCallBuilder afterStartupBuilder()
+	{
+		com.mendix.core.actionmanagement.MicroflowCallBuilder builder = Core.microflowCall("SFTP.AfterStartup");
+		return builder;
+	}
+
 	public static boolean afterStartup(IContext context)
 	{
-		Map<java.lang.String, Object> params = new HashMap<>();
-		return (java.lang.Boolean) Core.microflowCall("SFTP.AfterStartup").withParams(params).execute(context);
+		Object result = afterStartupBuilder().execute(context);
+		return (boolean) result;
 	}
-	public static boolean bCo_Key(IContext context, sftp.proxies.Key _key)
+	public static com.mendix.core.actionmanagement.MicroflowCallBuilder bCo_KeyBuilder(
+		sftp.proxies.Key _key
+	)
 	{
-		Map<java.lang.String, Object> params = new HashMap<>();
-		params.put("Key", _key == null ? null : _key.getMendixObject());
-		return (java.lang.Boolean) Core.microflowCall("SFTP.BCo_Key").withParams(params).execute(context);
+		com.mendix.core.actionmanagement.MicroflowCallBuilder builder = Core.microflowCall("SFTP.BCo_Key");
+		builder = builder.withParam("Key", _key);
+		return builder;
 	}
+
+	public static boolean bCo_Key(
+		IContext context,
+		sftp.proxies.Key _key
+	)
+	{
+		Object result = bCo_KeyBuilder(
+				_key
+			)
+			.execute(context);
+		return (boolean) result;
+	}
+	public static com.mendix.core.actionmanagement.MicroflowCallBuilder createConfigurationBuilder()
+	{
+		com.mendix.core.actionmanagement.MicroflowCallBuilder builder = Core.microflowCall("SFTP.CreateConfiguration");
+		return builder;
+	}
+
 	public static sftp.proxies.Configuration createConfiguration(IContext context)
 	{
-		Map<java.lang.String, Object> params = new HashMap<>();
-		IMendixObject result = (IMendixObject)Core.microflowCall("SFTP.CreateConfiguration").withParams(params).execute(context);
-		return result == null ? null : sftp.proxies.Configuration.initialize(context, result);
+		Object result = createConfigurationBuilder().execute(context);
+		return result == null ? null : sftp.proxies.Configuration.initialize(context, (IMendixObject) result);
 	}
-	public static sftp.proxies.PasswordInput dS_CreatePasswordInputForConfiguration(IContext context, sftp.proxies.Configuration _configuration)
+	public static com.mendix.core.actionmanagement.MicroflowCallBuilder dS_CreatePasswordInputForConfigurationBuilder(
+		sftp.proxies.Configuration _configuration
+	)
 	{
-		Map<java.lang.String, Object> params = new HashMap<>();
-		params.put("Configuration", _configuration == null ? null : _configuration.getMendixObject());
-		IMendixObject result = (IMendixObject)Core.microflowCall("SFTP.DS_CreatePasswordInputForConfiguration").withParams(params).execute(context);
-		return result == null ? null : sftp.proxies.PasswordInput.initialize(context, result);
+		com.mendix.core.actionmanagement.MicroflowCallBuilder builder = Core.microflowCall("SFTP.DS_CreatePasswordInputForConfiguration");
+		builder = builder.withParam("Configuration", _configuration);
+		return builder;
 	}
-	public static sftp.proxies.PasswordInput dS_CreatePasswordInputForKey(IContext context, sftp.proxies.Key _key)
+
+	public static sftp.proxies.PasswordInput dS_CreatePasswordInputForConfiguration(
+		IContext context,
+		sftp.proxies.Configuration _configuration
+	)
 	{
-		Map<java.lang.String, Object> params = new HashMap<>();
-		params.put("Key", _key == null ? null : _key.getMendixObject());
-		IMendixObject result = (IMendixObject)Core.microflowCall("SFTP.DS_CreatePasswordInputForKey").withParams(params).execute(context);
-		return result == null ? null : sftp.proxies.PasswordInput.initialize(context, result);
+		Object result = dS_CreatePasswordInputForConfigurationBuilder(
+				_configuration
+			)
+			.execute(context);
+		return result == null ? null : sftp.proxies.PasswordInput.initialize(context, (IMendixObject) result);
 	}
-	public static java.util.List<sftp.proxies.RemoteFile> dS_GetContents(IContext context, sftp.proxies.Explore _explore)
+	public static com.mendix.core.actionmanagement.MicroflowCallBuilder dS_CreatePasswordInputForKeyBuilder(
+		sftp.proxies.Key _key
+	)
 	{
-		Map<java.lang.String, Object> params = new HashMap<>();
-		params.put("Explore", _explore == null ? null : _explore.getMendixObject());
-		java.util.List<IMendixObject> objs = Core.microflowCall("SFTP.DS_GetContents").withParams(params).execute(context);
-		if (objs == null) {
-			return null;
-		} else {
-			return objs.stream()
-				.map(obj -> sftp.proxies.RemoteFile.initialize(context, obj))
-				.collect(java.util.stream.Collectors.toList());
-		}
+		com.mendix.core.actionmanagement.MicroflowCallBuilder builder = Core.microflowCall("SFTP.DS_CreatePasswordInputForKey");
+		builder = builder.withParam("Key", _key);
+		return builder;
 	}
+
+	public static sftp.proxies.PasswordInput dS_CreatePasswordInputForKey(
+		IContext context,
+		sftp.proxies.Key _key
+	)
+	{
+		Object result = dS_CreatePasswordInputForKeyBuilder(
+				_key
+			)
+			.execute(context);
+		return result == null ? null : sftp.proxies.PasswordInput.initialize(context, (IMendixObject) result);
+	}
+	public static com.mendix.core.actionmanagement.MicroflowCallBuilder dS_GetContentsBuilder(
+		sftp.proxies.Explore _explore
+	)
+	{
+		com.mendix.core.actionmanagement.MicroflowCallBuilder builder = Core.microflowCall("SFTP.DS_GetContents");
+		builder = builder.withParam("Explore", _explore);
+		return builder;
+	}
+
+	public static java.util.List<sftp.proxies.RemoteFile> dS_GetContents(
+		IContext context,
+		sftp.proxies.Explore _explore
+	)
+	{
+		Object result = dS_GetContentsBuilder(
+				_explore
+			)
+			.execute(context);
+		return result == null ? null : com.mendix.utils.ListUtils.map((java.util.List<IMendixObject>) result, obj -> sftp.proxies.RemoteFile.initialize(context, obj));
+	}
+	public static com.mendix.core.actionmanagement.MicroflowCallBuilder dS_GetGeneralKeyBuilder()
+	{
+		com.mendix.core.actionmanagement.MicroflowCallBuilder builder = Core.microflowCall("SFTP.DS_GetGeneralKey");
+		return builder;
+	}
+
 	public static sftp.proxies.Key dS_GetGeneralKey(IContext context)
 	{
-		Map<java.lang.String, Object> params = new HashMap<>();
-		IMendixObject result = (IMendixObject)Core.microflowCall("SFTP.DS_GetGeneralKey").withParams(params).execute(context);
-		return result == null ? null : sftp.proxies.Key.initialize(context, result);
+		Object result = dS_GetGeneralKeyBuilder().execute(context);
+		return result == null ? null : sftp.proxies.Key.initialize(context, (IMendixObject) result);
 	}
-	public static void iVK_ChangeKey(IContext context, sftp.proxies.Key _key)
+	public static com.mendix.core.actionmanagement.MicroflowCallBuilder iVK_ChangeKeyBuilder(
+		sftp.proxies.Key _key
+	)
 	{
-		Map<java.lang.String, Object> params = new HashMap<>();
-		params.put("Key", _key == null ? null : _key.getMendixObject());
-		Core.microflowCall("SFTP.IVK_ChangeKey").withParams(params).execute(context);
+		com.mendix.core.actionmanagement.MicroflowCallBuilder builder = Core.microflowCall("SFTP.IVK_ChangeKey");
+		builder = builder.withParam("Key", _key);
+		return builder;
 	}
-	public static void iVK_ConfirmHostkey(IContext context, sftp.proxies.HostKey _hostKey)
+
+	public static void iVK_ChangeKey(
+		IContext context,
+		sftp.proxies.Key _key
+	)
 	{
-		Map<java.lang.String, Object> params = new HashMap<>();
-		params.put("HostKey", _hostKey == null ? null : _hostKey.getMendixObject());
-		Core.microflowCall("SFTP.IVK_ConfirmHostkey").withParams(params).execute(context);
+		iVK_ChangeKeyBuilder(
+				_key
+			)
+			.execute(context);
 	}
+	public static com.mendix.core.actionmanagement.MicroflowCallBuilder iVK_ConfirmHostkeyBuilder(
+		sftp.proxies.HostKey _hostKey
+	)
+	{
+		com.mendix.core.actionmanagement.MicroflowCallBuilder builder = Core.microflowCall("SFTP.IVK_ConfirmHostkey");
+		builder = builder.withParam("HostKey", _hostKey);
+		return builder;
+	}
+
+	public static void iVK_ConfirmHostkey(
+		IContext context,
+		sftp.proxies.HostKey _hostKey
+	)
+	{
+		iVK_ConfirmHostkeyBuilder(
+				_hostKey
+			)
+			.execute(context);
+	}
+	public static com.mendix.core.actionmanagement.MicroflowCallBuilder iVK_CreateConfigurationBuilder()
+	{
+		com.mendix.core.actionmanagement.MicroflowCallBuilder builder = Core.microflowCall("SFTP.IVK_CreateConfiguration");
+		return builder;
+	}
+
 	public static void iVK_CreateConfiguration(IContext context)
 	{
-		Map<java.lang.String, Object> params = new HashMap<>();
-		Core.microflowCall("SFTP.IVK_CreateConfiguration").withParams(params).execute(context);
+		iVK_CreateConfigurationBuilder().execute(context);
 	}
-	public static void iVK_DeleteConfiguration(IContext context, sftp.proxies.Configuration _configuration)
+	public static com.mendix.core.actionmanagement.MicroflowCallBuilder iVK_DeleteConfigurationBuilder(
+		sftp.proxies.Configuration _configuration
+	)
 	{
-		Map<java.lang.String, Object> params = new HashMap<>();
-		params.put("Configuration", _configuration == null ? null : _configuration.getMendixObject());
-		Core.microflowCall("SFTP.IVK_DeleteConfiguration").withParams(params).execute(context);
+		com.mendix.core.actionmanagement.MicroflowCallBuilder builder = Core.microflowCall("SFTP.IVK_DeleteConfiguration");
+		builder = builder.withParam("Configuration", _configuration);
+		return builder;
 	}
-	public static void iVK_GenerateKeyPair(IContext context, sftp.proxies.GenerateNewKeyPair _generateNewKeyPair)
+
+	public static void iVK_DeleteConfiguration(
+		IContext context,
+		sftp.proxies.Configuration _configuration
+	)
 	{
-		Map<java.lang.String, Object> params = new HashMap<>();
-		params.put("GenerateNewKeyPair", _generateNewKeyPair == null ? null : _generateNewKeyPair.getMendixObject());
-		Core.microflowCall("SFTP.IVK_GenerateKeyPair").withParams(params).execute(context);
+		iVK_DeleteConfigurationBuilder(
+				_configuration
+			)
+			.execute(context);
 	}
-	public static void iVK_GenerateKeyPairRequest(IContext context, sftp.proxies.Key _key)
+	public static com.mendix.core.actionmanagement.MicroflowCallBuilder iVK_GenerateKeyPairBuilder(
+		sftp.proxies.GenerateNewKeyPair _generateNewKeyPair
+	)
 	{
-		Map<java.lang.String, Object> params = new HashMap<>();
-		params.put("Key", _key == null ? null : _key.getMendixObject());
-		Core.microflowCall("SFTP.IVK_GenerateKeyPairRequest").withParams(params).execute(context);
+		com.mendix.core.actionmanagement.MicroflowCallBuilder builder = Core.microflowCall("SFTP.IVK_GenerateKeyPair");
+		builder = builder.withParam("GenerateNewKeyPair", _generateNewKeyPair);
+		return builder;
 	}
-	public static void iVK_MkDir(IContext context, sftp.proxies.MkDirRequest _mkDirRequest)
+
+	public static void iVK_GenerateKeyPair(
+		IContext context,
+		sftp.proxies.GenerateNewKeyPair _generateNewKeyPair
+	)
 	{
-		Map<java.lang.String, Object> params = new HashMap<>();
-		params.put("MkDirRequest", _mkDirRequest == null ? null : _mkDirRequest.getMendixObject());
-		Core.microflowCall("SFTP.IVK_MkDir").withParams(params).execute(context);
+		iVK_GenerateKeyPairBuilder(
+				_generateNewKeyPair
+			)
+			.execute(context);
 	}
-	public static void iVK_ObtainHostkey(IContext context, sftp.proxies.Configuration _configuration)
+	public static com.mendix.core.actionmanagement.MicroflowCallBuilder iVK_GenerateKeyPairRequestBuilder(
+		sftp.proxies.Key _key
+	)
 	{
-		Map<java.lang.String, Object> params = new HashMap<>();
-		params.put("Configuration", _configuration == null ? null : _configuration.getMendixObject());
-		Core.microflowCall("SFTP.IVK_ObtainHostkey").withParams(params).execute(context);
+		com.mendix.core.actionmanagement.MicroflowCallBuilder builder = Core.microflowCall("SFTP.IVK_GenerateKeyPairRequest");
+		builder = builder.withParam("Key", _key);
+		return builder;
 	}
-	public static void iVK_Open(IContext context, sftp.proxies.RemoteFile _remoteFile, sftp.proxies.Explore _explore)
+
+	public static void iVK_GenerateKeyPairRequest(
+		IContext context,
+		sftp.proxies.Key _key
+	)
 	{
-		Map<java.lang.String, Object> params = new HashMap<>();
-		params.put("RemoteFile", _remoteFile == null ? null : _remoteFile.getMendixObject());
-		params.put("Explore", _explore == null ? null : _explore.getMendixObject());
-		Core.microflowCall("SFTP.IVK_Open").withParams(params).execute(context);
+		iVK_GenerateKeyPairRequestBuilder(
+				_key
+			)
+			.execute(context);
 	}
-	public static void iVK_OpenExplorer(IContext context, sftp.proxies.Configuration _configuration)
+	public static com.mendix.core.actionmanagement.MicroflowCallBuilder iVK_MkDirBuilder(
+		sftp.proxies.MkDirRequest _mkDirRequest
+	)
 	{
-		Map<java.lang.String, Object> params = new HashMap<>();
-		params.put("Configuration", _configuration == null ? null : _configuration.getMendixObject());
-		Core.microflowCall("SFTP.IVK_OpenExplorer").withParams(params).execute(context);
+		com.mendix.core.actionmanagement.MicroflowCallBuilder builder = Core.microflowCall("SFTP.IVK_MkDir");
+		builder = builder.withParam("MkDirRequest", _mkDirRequest);
+		return builder;
 	}
-	public static void iVK_OpenMkDir(IContext context, sftp.proxies.Explore _explore)
+
+	public static void iVK_MkDir(
+		IContext context,
+		sftp.proxies.MkDirRequest _mkDirRequest
+	)
 	{
-		Map<java.lang.String, Object> params = new HashMap<>();
-		params.put("Explore", _explore == null ? null : _explore.getMendixObject());
-		Core.microflowCall("SFTP.IVK_OpenMkDir").withParams(params).execute(context);
+		iVK_MkDirBuilder(
+				_mkDirRequest
+			)
+			.execute(context);
 	}
-	public static void iVK_OpenRename(IContext context, sftp.proxies.Explore _explore, sftp.proxies.RemoteFile _remoteFile)
+	public static com.mendix.core.actionmanagement.MicroflowCallBuilder iVK_ObtainHostkeyBuilder(
+		sftp.proxies.Configuration _configuration
+	)
 	{
-		Map<java.lang.String, Object> params = new HashMap<>();
-		params.put("Explore", _explore == null ? null : _explore.getMendixObject());
-		params.put("RemoteFile", _remoteFile == null ? null : _remoteFile.getMendixObject());
-		Core.microflowCall("SFTP.IVK_OpenRename").withParams(params).execute(context);
+		com.mendix.core.actionmanagement.MicroflowCallBuilder builder = Core.microflowCall("SFTP.IVK_ObtainHostkey");
+		builder = builder.withParam("Configuration", _configuration);
+		return builder;
 	}
-	public static void iVK_OpenUpload(IContext context, sftp.proxies.Explore _explore)
+
+	public static void iVK_ObtainHostkey(
+		IContext context,
+		sftp.proxies.Configuration _configuration
+	)
 	{
-		Map<java.lang.String, Object> params = new HashMap<>();
-		params.put("Explore", _explore == null ? null : _explore.getMendixObject());
-		Core.microflowCall("SFTP.IVK_OpenUpload").withParams(params).execute(context);
+		iVK_ObtainHostkeyBuilder(
+				_configuration
+			)
+			.execute(context);
 	}
-	public static void iVK_Put(IContext context, sftp.proxies.Explore _explore, sftp.proxies.ExplorerFile _explorerFile)
+	public static com.mendix.core.actionmanagement.MicroflowCallBuilder iVK_OpenBuilder(
+		sftp.proxies.RemoteFile _remoteFile,
+		sftp.proxies.Explore _explore
+	)
 	{
-		Map<java.lang.String, Object> params = new HashMap<>();
-		params.put("Explore", _explore == null ? null : _explore.getMendixObject());
-		params.put("ExplorerFile", _explorerFile == null ? null : _explorerFile.getMendixObject());
-		Core.microflowCall("SFTP.IVK_Put").withParams(params).execute(context);
+		com.mendix.core.actionmanagement.MicroflowCallBuilder builder = Core.microflowCall("SFTP.IVK_Open");
+		builder = builder.withParam("RemoteFile", _remoteFile);
+		builder = builder.withParam("Explore", _explore);
+		return builder;
 	}
-	public static void iVK_Remove(IContext context, sftp.proxies.RemoteFile _remoteFile)
+
+	public static void iVK_Open(
+		IContext context,
+		sftp.proxies.RemoteFile _remoteFile,
+		sftp.proxies.Explore _explore
+	)
 	{
-		Map<java.lang.String, Object> params = new HashMap<>();
-		params.put("RemoteFile", _remoteFile == null ? null : _remoteFile.getMendixObject());
-		Core.microflowCall("SFTP.IVK_Remove").withParams(params).execute(context);
+		iVK_OpenBuilder(
+				_remoteFile,
+				_explore
+			)
+			.execute(context);
 	}
-	public static void iVK_Rename(IContext context, sftp.proxies.RenameRequest _renameRequest)
+	public static com.mendix.core.actionmanagement.MicroflowCallBuilder iVK_OpenExplorerBuilder(
+		sftp.proxies.Configuration _configuration
+	)
 	{
-		Map<java.lang.String, Object> params = new HashMap<>();
-		params.put("RenameRequest", _renameRequest == null ? null : _renameRequest.getMendixObject());
-		Core.microflowCall("SFTP.IVK_Rename").withParams(params).execute(context);
+		com.mendix.core.actionmanagement.MicroflowCallBuilder builder = Core.microflowCall("SFTP.IVK_OpenExplorer");
+		builder = builder.withParam("Configuration", _configuration);
+		return builder;
 	}
-	public static void iVK_SaveConfiguration(IContext context, sftp.proxies.Configuration _configuration)
+
+	public static void iVK_OpenExplorer(
+		IContext context,
+		sftp.proxies.Configuration _configuration
+	)
 	{
-		Map<java.lang.String, Object> params = new HashMap<>();
-		params.put("Configuration", _configuration == null ? null : _configuration.getMendixObject());
-		Core.microflowCall("SFTP.IVK_SaveConfiguration").withParams(params).execute(context);
+		iVK_OpenExplorerBuilder(
+				_configuration
+			)
+			.execute(context);
 	}
-	public static void iVK_SaveContents(IContext context, sftp.proxies.ExplorerFile _explorerFile)
+	public static com.mendix.core.actionmanagement.MicroflowCallBuilder iVK_OpenMkDirBuilder(
+		sftp.proxies.Explore _explore
+	)
 	{
-		Map<java.lang.String, Object> params = new HashMap<>();
-		params.put("ExplorerFile", _explorerFile == null ? null : _explorerFile.getMendixObject());
-		Core.microflowCall("SFTP.IVK_SaveContents").withParams(params).execute(context);
+		com.mendix.core.actionmanagement.MicroflowCallBuilder builder = Core.microflowCall("SFTP.IVK_OpenMkDir");
+		builder = builder.withParam("Explore", _explore);
+		return builder;
 	}
-	public static void iVK_TestConfiguration(IContext context, sftp.proxies.Configuration _configuration)
+
+	public static void iVK_OpenMkDir(
+		IContext context,
+		sftp.proxies.Explore _explore
+	)
 	{
-		Map<java.lang.String, Object> params = new HashMap<>();
-		params.put("Configuration", _configuration == null ? null : _configuration.getMendixObject());
-		Core.microflowCall("SFTP.IVK_TestConfiguration").withParams(params).execute(context);
+		iVK_OpenMkDirBuilder(
+				_explore
+			)
+			.execute(context);
 	}
-	public static void iVK_ValidateKey(IContext context, sftp.proxies.Key _key)
+	public static com.mendix.core.actionmanagement.MicroflowCallBuilder iVK_OpenRenameBuilder(
+		sftp.proxies.Explore _explore,
+		sftp.proxies.RemoteFile _remoteFile
+	)
 	{
-		Map<java.lang.String, Object> params = new HashMap<>();
-		params.put("Key", _key == null ? null : _key.getMendixObject());
-		Core.microflowCall("SFTP.IVK_ValidateKey").withParams(params).execute(context);
+		com.mendix.core.actionmanagement.MicroflowCallBuilder builder = Core.microflowCall("SFTP.IVK_OpenRename");
+		builder = builder.withParam("Explore", _explore);
+		builder = builder.withParam("RemoteFile", _remoteFile);
+		return builder;
 	}
-	public static void iVK_ViewContents(IContext context, sftp.proxies.RemoteFile _remoteFile, sftp.proxies.Explore _explore)
+
+	public static void iVK_OpenRename(
+		IContext context,
+		sftp.proxies.Explore _explore,
+		sftp.proxies.RemoteFile _remoteFile
+	)
 	{
-		Map<java.lang.String, Object> params = new HashMap<>();
-		params.put("RemoteFile", _remoteFile == null ? null : _remoteFile.getMendixObject());
-		params.put("Explore", _explore == null ? null : _explore.getMendixObject());
-		Core.microflowCall("SFTP.IVK_ViewContents").withParams(params).execute(context);
+		iVK_OpenRenameBuilder(
+				_explore,
+				_remoteFile
+			)
+			.execute(context);
 	}
+	public static com.mendix.core.actionmanagement.MicroflowCallBuilder iVK_OpenUploadBuilder(
+		sftp.proxies.Explore _explore
+	)
+	{
+		com.mendix.core.actionmanagement.MicroflowCallBuilder builder = Core.microflowCall("SFTP.IVK_OpenUpload");
+		builder = builder.withParam("Explore", _explore);
+		return builder;
+	}
+
+	public static void iVK_OpenUpload(
+		IContext context,
+		sftp.proxies.Explore _explore
+	)
+	{
+		iVK_OpenUploadBuilder(
+				_explore
+			)
+			.execute(context);
+	}
+	public static com.mendix.core.actionmanagement.MicroflowCallBuilder iVK_PutBuilder(
+		sftp.proxies.Explore _explore,
+		sftp.proxies.ExplorerFile _explorerFile
+	)
+	{
+		com.mendix.core.actionmanagement.MicroflowCallBuilder builder = Core.microflowCall("SFTP.IVK_Put");
+		builder = builder.withParam("Explore", _explore);
+		builder = builder.withParam("ExplorerFile", _explorerFile);
+		return builder;
+	}
+
+	public static void iVK_Put(
+		IContext context,
+		sftp.proxies.Explore _explore,
+		sftp.proxies.ExplorerFile _explorerFile
+	)
+	{
+		iVK_PutBuilder(
+				_explore,
+				_explorerFile
+			)
+			.execute(context);
+	}
+	public static com.mendix.core.actionmanagement.MicroflowCallBuilder iVK_RemoveBuilder(
+		sftp.proxies.RemoteFile _remoteFile
+	)
+	{
+		com.mendix.core.actionmanagement.MicroflowCallBuilder builder = Core.microflowCall("SFTP.IVK_Remove");
+		builder = builder.withParam("RemoteFile", _remoteFile);
+		return builder;
+	}
+
+	public static void iVK_Remove(
+		IContext context,
+		sftp.proxies.RemoteFile _remoteFile
+	)
+	{
+		iVK_RemoveBuilder(
+				_remoteFile
+			)
+			.execute(context);
+	}
+	public static com.mendix.core.actionmanagement.MicroflowCallBuilder iVK_RenameBuilder(
+		sftp.proxies.RenameRequest _renameRequest
+	)
+	{
+		com.mendix.core.actionmanagement.MicroflowCallBuilder builder = Core.microflowCall("SFTP.IVK_Rename");
+		builder = builder.withParam("RenameRequest", _renameRequest);
+		return builder;
+	}
+
+	public static void iVK_Rename(
+		IContext context,
+		sftp.proxies.RenameRequest _renameRequest
+	)
+	{
+		iVK_RenameBuilder(
+				_renameRequest
+			)
+			.execute(context);
+	}
+	public static com.mendix.core.actionmanagement.MicroflowCallBuilder iVK_SaveConfigurationBuilder(
+		sftp.proxies.Configuration _configuration
+	)
+	{
+		com.mendix.core.actionmanagement.MicroflowCallBuilder builder = Core.microflowCall("SFTP.IVK_SaveConfiguration");
+		builder = builder.withParam("Configuration", _configuration);
+		return builder;
+	}
+
+	public static void iVK_SaveConfiguration(
+		IContext context,
+		sftp.proxies.Configuration _configuration
+	)
+	{
+		iVK_SaveConfigurationBuilder(
+				_configuration
+			)
+			.execute(context);
+	}
+	public static com.mendix.core.actionmanagement.MicroflowCallBuilder iVK_SaveContentsBuilder(
+		sftp.proxies.ExplorerFile _explorerFile
+	)
+	{
+		com.mendix.core.actionmanagement.MicroflowCallBuilder builder = Core.microflowCall("SFTP.IVK_SaveContents");
+		builder = builder.withParam("ExplorerFile", _explorerFile);
+		return builder;
+	}
+
+	public static void iVK_SaveContents(
+		IContext context,
+		sftp.proxies.ExplorerFile _explorerFile
+	)
+	{
+		iVK_SaveContentsBuilder(
+				_explorerFile
+			)
+			.execute(context);
+	}
+	public static com.mendix.core.actionmanagement.MicroflowCallBuilder iVK_TestConfigurationBuilder(
+		sftp.proxies.Configuration _configuration
+	)
+	{
+		com.mendix.core.actionmanagement.MicroflowCallBuilder builder = Core.microflowCall("SFTP.IVK_TestConfiguration");
+		builder = builder.withParam("Configuration", _configuration);
+		return builder;
+	}
+
+	public static void iVK_TestConfiguration(
+		IContext context,
+		sftp.proxies.Configuration _configuration
+	)
+	{
+		iVK_TestConfigurationBuilder(
+				_configuration
+			)
+			.execute(context);
+	}
+	public static com.mendix.core.actionmanagement.MicroflowCallBuilder iVK_ValidateKeyBuilder(
+		sftp.proxies.Key _key
+	)
+	{
+		com.mendix.core.actionmanagement.MicroflowCallBuilder builder = Core.microflowCall("SFTP.IVK_ValidateKey");
+		builder = builder.withParam("Key", _key);
+		return builder;
+	}
+
+	public static void iVK_ValidateKey(
+		IContext context,
+		sftp.proxies.Key _key
+	)
+	{
+		iVK_ValidateKeyBuilder(
+				_key
+			)
+			.execute(context);
+	}
+	public static com.mendix.core.actionmanagement.MicroflowCallBuilder iVK_ViewContentsBuilder(
+		sftp.proxies.RemoteFile _remoteFile,
+		sftp.proxies.Explore _explore
+	)
+	{
+		com.mendix.core.actionmanagement.MicroflowCallBuilder builder = Core.microflowCall("SFTP.IVK_ViewContents");
+		builder = builder.withParam("RemoteFile", _remoteFile);
+		builder = builder.withParam("Explore", _explore);
+		return builder;
+	}
+
+	public static void iVK_ViewContents(
+		IContext context,
+		sftp.proxies.RemoteFile _remoteFile,
+		sftp.proxies.Explore _explore
+	)
+	{
+		iVK_ViewContentsBuilder(
+				_remoteFile,
+				_explore
+			)
+			.execute(context);
+	}
+	public static com.mendix.core.actionmanagement.MicroflowCallBuilder pollRemoteDirectoryBuilder()
+	{
+		com.mendix.core.actionmanagement.MicroflowCallBuilder builder = Core.microflowCall("SFTP.PollRemoteDirectory");
+		return builder;
+	}
+
 	public static void pollRemoteDirectory(IContext context)
 	{
-		Map<java.lang.String, Object> params = new HashMap<>();
-		Core.microflowCall("SFTP.PollRemoteDirectory").withParams(params).execute(context);
+		pollRemoteDirectoryBuilder().execute(context);
 	}
-	public static boolean saveConfiguration(IContext context, sftp.proxies.Configuration _configuration)
+	public static com.mendix.core.actionmanagement.MicroflowCallBuilder saveConfigurationBuilder(
+		sftp.proxies.Configuration _configuration
+	)
 	{
-		Map<java.lang.String, Object> params = new HashMap<>();
-		params.put("Configuration", _configuration == null ? null : _configuration.getMendixObject());
-		return (java.lang.Boolean) Core.microflowCall("SFTP.SaveConfiguration").withParams(params).execute(context);
+		com.mendix.core.actionmanagement.MicroflowCallBuilder builder = Core.microflowCall("SFTP.SaveConfiguration");
+		builder = builder.withParam("Configuration", _configuration);
+		return builder;
 	}
-	public static sftp.proxies.ExplorerFile sFTP_Get(IContext context, sftp.proxies.RemoteFile _remoteFile)
+
+	public static boolean saveConfiguration(
+		IContext context,
+		sftp.proxies.Configuration _configuration
+	)
 	{
-		Map<java.lang.String, Object> params = new HashMap<>();
-		params.put("RemoteFile", _remoteFile == null ? null : _remoteFile.getMendixObject());
-		IMendixObject result = (IMendixObject)Core.microflowCall("SFTP.SFTP_Get").withParams(params).execute(context);
-		return result == null ? null : sftp.proxies.ExplorerFile.initialize(context, result);
+		Object result = saveConfigurationBuilder(
+				_configuration
+			)
+			.execute(context);
+		return (boolean) result;
 	}
-	public static void sFTP_MkDir(IContext context, sftp.proxies.MkDirRequest _mkDirRequest)
+	public static com.mendix.core.actionmanagement.MicroflowCallBuilder sFTP_GetBuilder(
+		sftp.proxies.RemoteFile _remoteFile
+	)
 	{
-		Map<java.lang.String, Object> params = new HashMap<>();
-		params.put("MkDirRequest", _mkDirRequest == null ? null : _mkDirRequest.getMendixObject());
-		Core.microflowCall("SFTP.SFTP_MkDir").withParams(params).execute(context);
+		com.mendix.core.actionmanagement.MicroflowCallBuilder builder = Core.microflowCall("SFTP.SFTP_Get");
+		builder = builder.withParam("RemoteFile", _remoteFile);
+		return builder;
 	}
-	public static sftp.proxies.Explore sFTP_Open(IContext context, sftp.proxies.Explore _explore)
+
+	public static sftp.proxies.ExplorerFile sFTP_Get(
+		IContext context,
+		sftp.proxies.RemoteFile _remoteFile
+	)
 	{
-		Map<java.lang.String, Object> params = new HashMap<>();
-		params.put("Explore", _explore == null ? null : _explore.getMendixObject());
-		IMendixObject result = (IMendixObject)Core.microflowCall("SFTP.SFTP_Open").withParams(params).execute(context);
-		return result == null ? null : sftp.proxies.Explore.initialize(context, result);
+		Object result = sFTP_GetBuilder(
+				_remoteFile
+			)
+			.execute(context);
+		return result == null ? null : sftp.proxies.ExplorerFile.initialize(context, (IMendixObject) result);
 	}
+	public static com.mendix.core.actionmanagement.MicroflowCallBuilder sFTP_MkDirBuilder(
+		sftp.proxies.MkDirRequest _mkDirRequest
+	)
+	{
+		com.mendix.core.actionmanagement.MicroflowCallBuilder builder = Core.microflowCall("SFTP.SFTP_MkDir");
+		builder = builder.withParam("MkDirRequest", _mkDirRequest);
+		return builder;
+	}
+
+	public static void sFTP_MkDir(
+		IContext context,
+		sftp.proxies.MkDirRequest _mkDirRequest
+	)
+	{
+		sFTP_MkDirBuilder(
+				_mkDirRequest
+			)
+			.execute(context);
+	}
+	public static com.mendix.core.actionmanagement.MicroflowCallBuilder sFTP_OpenBuilder(
+		sftp.proxies.Explore _explore
+	)
+	{
+		com.mendix.core.actionmanagement.MicroflowCallBuilder builder = Core.microflowCall("SFTP.SFTP_Open");
+		builder = builder.withParam("Explore", _explore);
+		return builder;
+	}
+
+	public static sftp.proxies.Explore sFTP_Open(
+		IContext context,
+		sftp.proxies.Explore _explore
+	)
+	{
+		Object result = sFTP_OpenBuilder(
+				_explore
+			)
+			.execute(context);
+		return result == null ? null : sftp.proxies.Explore.initialize(context, (IMendixObject) result);
+	}
+	public static com.mendix.core.actionmanagement.MicroflowCallBuilder sFTP_PollRemoteDirectoryBuilder()
+	{
+		com.mendix.core.actionmanagement.MicroflowCallBuilder builder = Core.microflowCall("SFTP.SFTP_PollRemoteDirectory");
+		return builder;
+	}
+
 	public static void sFTP_PollRemoteDirectory(IContext context)
 	{
-		Map<java.lang.String, Object> params = new HashMap<>();
-		Core.microflowCall("SFTP.SFTP_PollRemoteDirectory").withParams(params).execute(context);
+		sFTP_PollRemoteDirectoryBuilder().execute(context);
 	}
-	public static void sFTP_Put(IContext context, sftp.proxies.Explore _explore)
+	public static com.mendix.core.actionmanagement.MicroflowCallBuilder sFTP_PutBuilder(
+		sftp.proxies.Explore _explore
+	)
 	{
-		Map<java.lang.String, Object> params = new HashMap<>();
-		params.put("Explore", _explore == null ? null : _explore.getMendixObject());
-		Core.microflowCall("SFTP.SFTP_Put").withParams(params).execute(context);
+		com.mendix.core.actionmanagement.MicroflowCallBuilder builder = Core.microflowCall("SFTP.SFTP_Put");
+		builder = builder.withParam("Explore", _explore);
+		return builder;
 	}
-	public static void sFTP_Remove(IContext context, sftp.proxies.RemoteFile _remoteFile)
+
+	public static void sFTP_Put(
+		IContext context,
+		sftp.proxies.Explore _explore
+	)
 	{
-		Map<java.lang.String, Object> params = new HashMap<>();
-		params.put("RemoteFile", _remoteFile == null ? null : _remoteFile.getMendixObject());
-		Core.microflowCall("SFTP.SFTP_Remove").withParams(params).execute(context);
+		sFTP_PutBuilder(
+				_explore
+			)
+			.execute(context);
 	}
-	public static void sFTP_Rename(IContext context, sftp.proxies.RenameRequest _renameRequest)
+	public static com.mendix.core.actionmanagement.MicroflowCallBuilder sFTP_RemoveBuilder(
+		sftp.proxies.RemoteFile _remoteFile
+	)
 	{
-		Map<java.lang.String, Object> params = new HashMap<>();
-		params.put("RenameRequest", _renameRequest == null ? null : _renameRequest.getMendixObject());
-		Core.microflowCall("SFTP.SFTP_Rename").withParams(params).execute(context);
+		com.mendix.core.actionmanagement.MicroflowCallBuilder builder = Core.microflowCall("SFTP.SFTP_Remove");
+		builder = builder.withParam("RemoteFile", _remoteFile);
+		return builder;
 	}
-	public static void sFTP_SaveContents(IContext context, sftp.proxies.Explore _explore)
+
+	public static void sFTP_Remove(
+		IContext context,
+		sftp.proxies.RemoteFile _remoteFile
+	)
 	{
-		Map<java.lang.String, Object> params = new HashMap<>();
-		params.put("Explore", _explore == null ? null : _explore.getMendixObject());
-		Core.microflowCall("SFTP.SFTP_SaveContents").withParams(params).execute(context);
+		sFTP_RemoveBuilder(
+				_remoteFile
+			)
+			.execute(context);
 	}
-	public static sftp.proxies.Configuration sFTP_TestConnection(IContext context, sftp.proxies.Configuration _configuration)
+	public static com.mendix.core.actionmanagement.MicroflowCallBuilder sFTP_RenameBuilder(
+		sftp.proxies.RenameRequest _renameRequest
+	)
 	{
-		Map<java.lang.String, Object> params = new HashMap<>();
-		params.put("Configuration", _configuration == null ? null : _configuration.getMendixObject());
-		IMendixObject result = (IMendixObject)Core.microflowCall("SFTP.SFTP_TestConnection").withParams(params).execute(context);
-		return result == null ? null : sftp.proxies.Configuration.initialize(context, result);
+		com.mendix.core.actionmanagement.MicroflowCallBuilder builder = Core.microflowCall("SFTP.SFTP_Rename");
+		builder = builder.withParam("RenameRequest", _renameRequest);
+		return builder;
 	}
-	public static sftp.proxies.ExplorerFile sFTP_ViewContents(IContext context, sftp.proxies.RemoteFile _remoteFile)
+
+	public static void sFTP_Rename(
+		IContext context,
+		sftp.proxies.RenameRequest _renameRequest
+	)
 	{
-		Map<java.lang.String, Object> params = new HashMap<>();
-		params.put("RemoteFile", _remoteFile == null ? null : _remoteFile.getMendixObject());
-		IMendixObject result = (IMendixObject)Core.microflowCall("SFTP.SFTP_ViewContents").withParams(params).execute(context);
-		return result == null ? null : sftp.proxies.ExplorerFile.initialize(context, result);
+		sFTP_RenameBuilder(
+				_renameRequest
+			)
+			.execute(context);
 	}
-	public static boolean validate_Configuration(IContext context, sftp.proxies.Configuration _configuration)
+	public static com.mendix.core.actionmanagement.MicroflowCallBuilder sFTP_SaveContentsBuilder(
+		sftp.proxies.Explore _explore
+	)
 	{
-		Map<java.lang.String, Object> params = new HashMap<>();
-		params.put("Configuration", _configuration == null ? null : _configuration.getMendixObject());
-		return (java.lang.Boolean) Core.microflowCall("SFTP.Validate_Configuration").withParams(params).execute(context);
+		com.mendix.core.actionmanagement.MicroflowCallBuilder builder = Core.microflowCall("SFTP.SFTP_SaveContents");
+		builder = builder.withParam("Explore", _explore);
+		return builder;
+	}
+
+	public static void sFTP_SaveContents(
+		IContext context,
+		sftp.proxies.Explore _explore
+	)
+	{
+		sFTP_SaveContentsBuilder(
+				_explore
+			)
+			.execute(context);
+	}
+	public static com.mendix.core.actionmanagement.MicroflowCallBuilder sFTP_TestConnectionBuilder(
+		sftp.proxies.Configuration _configuration
+	)
+	{
+		com.mendix.core.actionmanagement.MicroflowCallBuilder builder = Core.microflowCall("SFTP.SFTP_TestConnection");
+		builder = builder.withParam("Configuration", _configuration);
+		return builder;
+	}
+
+	public static sftp.proxies.Configuration sFTP_TestConnection(
+		IContext context,
+		sftp.proxies.Configuration _configuration
+	)
+	{
+		Object result = sFTP_TestConnectionBuilder(
+				_configuration
+			)
+			.execute(context);
+		return result == null ? null : sftp.proxies.Configuration.initialize(context, (IMendixObject) result);
+	}
+	public static com.mendix.core.actionmanagement.MicroflowCallBuilder sFTP_ViewContentsBuilder(
+		sftp.proxies.RemoteFile _remoteFile
+	)
+	{
+		com.mendix.core.actionmanagement.MicroflowCallBuilder builder = Core.microflowCall("SFTP.SFTP_ViewContents");
+		builder = builder.withParam("RemoteFile", _remoteFile);
+		return builder;
+	}
+
+	public static sftp.proxies.ExplorerFile sFTP_ViewContents(
+		IContext context,
+		sftp.proxies.RemoteFile _remoteFile
+	)
+	{
+		Object result = sFTP_ViewContentsBuilder(
+				_remoteFile
+			)
+			.execute(context);
+		return result == null ? null : sftp.proxies.ExplorerFile.initialize(context, (IMendixObject) result);
+	}
+	public static com.mendix.core.actionmanagement.MicroflowCallBuilder validate_ConfigurationBuilder(
+		sftp.proxies.Configuration _configuration
+	)
+	{
+		com.mendix.core.actionmanagement.MicroflowCallBuilder builder = Core.microflowCall("SFTP.Validate_Configuration");
+		builder = builder.withParam("Configuration", _configuration);
+		return builder;
+	}
+
+	public static boolean validate_Configuration(
+		IContext context,
+		sftp.proxies.Configuration _configuration
+	)
+	{
+		Object result = validate_ConfigurationBuilder(
+				_configuration
+			)
+			.execute(context);
+		return (boolean) result;
 	}
 }

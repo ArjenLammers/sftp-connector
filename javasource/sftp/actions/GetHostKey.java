@@ -20,26 +20,31 @@ import net.schmizz.sshj.SSHClient;
 import net.schmizz.sshj.common.SecurityUtils;
 import net.schmizz.sshj.transport.verification.HostKeyVerifier;
 import sftp.proxies.HostKey;
+import com.mendix.systemwideinterfaces.core.UserAction;
 
 /**
  * Retrieves the HostKey from the session.
  */
-public class GetHostKey extends CustomJavaAction<IMendixObject>
+public class GetHostKey extends UserAction<IMendixObject>
 {
-	private IMendixObject __configuration;
-	private sftp.proxies.Configuration configuration;
+	/** @deprecated use configuration.getMendixObject() instead. */
+	@java.lang.Deprecated(forRemoval = true)
+	private final IMendixObject __configuration;
+	private final sftp.proxies.Configuration configuration;
 
-	public GetHostKey(IContext context, IMendixObject configuration)
+	public GetHostKey(
+		IContext context,
+		IMendixObject _configuration
+	)
 	{
 		super(context);
-		this.__configuration = configuration;
+		this.__configuration = _configuration;
+		this.configuration = _configuration == null ? null : sftp.proxies.Configuration.initialize(getContext(), _configuration);
 	}
 
 	@java.lang.Override
 	public IMendixObject executeAction() throws Exception
 	{
-		this.configuration = this.__configuration == null ? null : sftp.proxies.Configuration.initialize(getContext(), __configuration);
-
 		// BEGIN USER CODE
 		SSHClient client = new SSHClient();
 		PubKeyHostVerifier verifier = new PubKeyHostVerifier();

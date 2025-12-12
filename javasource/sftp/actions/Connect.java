@@ -20,34 +20,42 @@ import com.mendix.webui.CustomJavaAction;
 import net.schmizz.sshj.SSHClient;
 import net.schmizz.sshj.sftp.StatefulSFTPClient;
 import sftp.impl.SFTP;
+import com.mendix.systemwideinterfaces.core.UserAction;
 
 /**
  * Sets up a session to an SFTP server and executes a microflow.
  * Within the microflow actions on the SFTP can be performed.
  * If the microflow is finished, the connection to the SFTP will be disconnected.
  */
-public class Connect extends CustomJavaAction<IMendixObject>
+public class Connect extends UserAction<IMendixObject>
 {
-	private IMendixObject __configuration;
-	private sftp.proxies.Configuration configuration;
-	private java.lang.String microflow;
-	private IMendixObject microflowArgument;
-	private java.lang.String microflowResult;
+	/** @deprecated use configuration.getMendixObject() instead. */
+	@java.lang.Deprecated(forRemoval = true)
+	private final IMendixObject __configuration;
+	private final sftp.proxies.Configuration configuration;
+	private final java.lang.String microflow;
+	private final IMendixObject microflowArgument;
+	private final java.lang.String microflowResult;
 
-	public Connect(IContext context, IMendixObject configuration, java.lang.String microflow, IMendixObject microflowArgument, java.lang.String microflowResult)
+	public Connect(
+		IContext context,
+		IMendixObject _configuration,
+		java.lang.String _microflow,
+		IMendixObject _microflowArgument,
+		java.lang.String _microflowResult
+	)
 	{
 		super(context);
-		this.__configuration = configuration;
-		this.microflow = microflow;
-		this.microflowArgument = microflowArgument;
-		this.microflowResult = microflowResult;
+		this.__configuration = _configuration;
+		this.configuration = _configuration == null ? null : sftp.proxies.Configuration.initialize(getContext(), _configuration);
+		this.microflow = _microflow;
+		this.microflowArgument = _microflowArgument;
+		this.microflowResult = _microflowResult;
 	}
 
 	@java.lang.Override
 	public IMendixObject executeAction() throws Exception
 	{
-		this.configuration = this.__configuration == null ? null : sftp.proxies.Configuration.initialize(getContext(), __configuration);
-
 		// BEGIN USER CODE
 		IMendixObject result = null;
 		SSHClient ssh = SFTP.connect(getContext(), configuration);

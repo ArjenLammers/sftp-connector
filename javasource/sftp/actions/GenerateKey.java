@@ -13,25 +13,31 @@ import com.mendix.systemwideinterfaces.core.IContext;
 import com.mendix.webui.CustomJavaAction;
 import sftp.impl.SFTP;
 import com.mendix.systemwideinterfaces.core.IMendixObject;
+import com.mendix.systemwideinterfaces.core.UserAction;
 
-public class GenerateKey extends CustomJavaAction<java.lang.Boolean>
+public class GenerateKey extends UserAction<java.lang.Boolean>
 {
-	private IMendixObject __key;
-	private sftp.proxies.Key key;
-	private sftp.proxies.NewKeyType keyType;
+	/** @deprecated use key.getMendixObject() instead. */
+	@java.lang.Deprecated(forRemoval = true)
+	private final IMendixObject __key;
+	private final sftp.proxies.Key key;
+	private final sftp.proxies.NewKeyType keyType;
 
-	public GenerateKey(IContext context, IMendixObject key, java.lang.String keyType)
+	public GenerateKey(
+		IContext context,
+		IMendixObject _key,
+		java.lang.String _keyType
+	)
 	{
 		super(context);
-		this.__key = key;
-		this.keyType = keyType == null ? null : sftp.proxies.NewKeyType.valueOf(keyType);
+		this.__key = _key;
+		this.key = _key == null ? null : sftp.proxies.Key.initialize(getContext(), _key);
+		this.keyType = _keyType == null ? null : sftp.proxies.NewKeyType.valueOf(_keyType);
 	}
 
 	@java.lang.Override
 	public java.lang.Boolean executeAction() throws Exception
 	{
-		this.key = this.__key == null ? null : sftp.proxies.Key.initialize(getContext(), __key);
-
 		// BEGIN USER CODE
 		SFTP.generateKeyContents(getContext(), key, keyType);
 		SFTP.validateKey(getContext(), key);

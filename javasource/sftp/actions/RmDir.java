@@ -13,18 +13,22 @@ import com.mendix.systemwideinterfaces.core.IContext;
 import com.mendix.webui.CustomJavaAction;
 import net.schmizz.sshj.sftp.StatefulSFTPClient;
 import sftp.impl.SFTP;
+import com.mendix.systemwideinterfaces.core.UserAction;
 
 /**
  * Removes a directory from the SFTP server.
  */
-public class RmDir extends CustomJavaAction<java.lang.Boolean>
+public class RmDir extends UserAction<java.lang.Boolean>
 {
-	private java.lang.String destination;
+	private final java.lang.String destination;
 
-	public RmDir(IContext context, java.lang.String destination)
+	public RmDir(
+		IContext context,
+		java.lang.String _destination
+	)
 	{
 		super(context);
-		this.destination = destination;
+		this.destination = _destination;
 	}
 
 	@java.lang.Override

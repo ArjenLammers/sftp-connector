@@ -17,20 +17,24 @@ import com.mendix.systemwideinterfaces.core.IContext;
 import com.mendix.webui.CustomJavaAction;
 import net.schmizz.sshj.sftp.StatefulSFTPClient;
 import sftp.impl.SFTP;
+import com.mendix.systemwideinterfaces.core.UserAction;
 
 /**
  * Retrieve a file from the SFTP server and store its contents within a string.
  * This action was introduced for optimization purposes.
  * In case the remote file is assumed to be a text file and should be directly processed, it doesn't make sense to store it as a FileDocument (leading to upload/download to e.g. S3 buckets).
  */
-public class GetAsString extends CustomJavaAction<java.lang.String>
+public class GetAsString extends UserAction<java.lang.String>
 {
-	private java.lang.String remoteFile;
+	private final java.lang.String remoteFile;
 
-	public GetAsString(IContext context, java.lang.String remoteFile)
+	public GetAsString(
+		IContext context,
+		java.lang.String _remoteFile
+	)
 	{
 		super(context);
-		this.remoteFile = remoteFile;
+		this.remoteFile = _remoteFile;
 	}
 
 	@java.lang.Override

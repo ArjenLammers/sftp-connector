@@ -17,22 +17,27 @@ import com.mendix.webui.CustomJavaAction;
 import net.schmizz.sshj.sftp.StatefulSFTPClient;
 import net.schmizz.sshj.xfer.InMemorySourceFile;
 import sftp.impl.SFTP;
+import com.mendix.systemwideinterfaces.core.UserAction;
 
 /**
  * Creates and uploads a file on a SFTP server coming from a String.
  * This action was introduced for optimization purposes.
  * In case the remote file is assumed to be a text file and should be directly processed, it doesn't make sense to store it as a FileDocument (leading to upload/download to e.g. S3 buckets).
  */
-public class PutAsString extends CustomJavaAction<java.lang.Boolean>
+public class PutAsString extends UserAction<java.lang.Boolean>
 {
-	private java.lang.String destination;
-	private java.lang.String contents;
+	private final java.lang.String destination;
+	private final java.lang.String contents;
 
-	public PutAsString(IContext context, java.lang.String destination, java.lang.String contents)
+	public PutAsString(
+		IContext context,
+		java.lang.String _destination,
+		java.lang.String _contents
+	)
 	{
 		super(context);
-		this.destination = destination;
-		this.contents = contents;
+		this.destination = _destination;
+		this.contents = _contents;
 	}
 
 	@java.lang.Override

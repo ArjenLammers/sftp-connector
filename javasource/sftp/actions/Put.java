@@ -18,28 +18,34 @@ import com.mendix.webui.CustomJavaAction;
 import net.schmizz.sshj.sftp.StatefulSFTPClient;
 import net.schmizz.sshj.xfer.InMemorySourceFile;
 import sftp.impl.SFTP;
+import com.mendix.systemwideinterfaces.core.UserAction;
 
 /**
  * Creates and uploads a file on a SFTP server coming from a Mendix FileDocument.
  */
-public class Put extends CustomJavaAction<java.lang.Boolean>
+public class Put extends UserAction<java.lang.Boolean>
 {
-	private java.lang.String destination;
-	private IMendixObject __file;
-	private system.proxies.FileDocument file;
+	private final java.lang.String destination;
+	/** @deprecated use file.getMendixObject() instead. */
+	@java.lang.Deprecated(forRemoval = true)
+	private final IMendixObject __file;
+	private final system.proxies.FileDocument file;
 
-	public Put(IContext context, java.lang.String destination, IMendixObject file)
+	public Put(
+		IContext context,
+		java.lang.String _destination,
+		IMendixObject _file
+	)
 	{
 		super(context);
-		this.destination = destination;
-		this.__file = file;
+		this.destination = _destination;
+		this.__file = _file;
+		this.file = _file == null ? null : system.proxies.FileDocument.initialize(getContext(), _file);
 	}
 
 	@java.lang.Override
 	public java.lang.Boolean executeAction() throws Exception
 	{
-		this.file = this.__file == null ? null : system.proxies.FileDocument.initialize(getContext(), __file);
-
 		// BEGIN USER CODE
 		StatefulSFTPClient client = SFTP.getClient(getContext());
 		String fileName, path;

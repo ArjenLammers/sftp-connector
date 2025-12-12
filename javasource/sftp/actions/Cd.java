@@ -13,18 +13,22 @@ import com.mendix.systemwideinterfaces.core.IContext;
 import com.mendix.webui.CustomJavaAction;
 import net.schmizz.sshj.sftp.StatefulSFTPClient;
 import sftp.impl.SFTP;
+import com.mendix.systemwideinterfaces.core.UserAction;
 
 /**
  * Changes the working directory within the SFTP session.
  */
-public class Cd extends CustomJavaAction<java.lang.Boolean>
+public class Cd extends UserAction<java.lang.Boolean>
 {
-	private java.lang.String path;
+	private final java.lang.String path;
 
-	public Cd(IContext context, java.lang.String path)
+	public Cd(
+		IContext context,
+		java.lang.String _path
+	)
 	{
 		super(context);
-		this.path = path;
+		this.path = _path;
 	}
 
 	@java.lang.Override

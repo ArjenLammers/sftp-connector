@@ -13,11 +13,12 @@ import com.mendix.systemwideinterfaces.core.IContext;
 import com.mendix.webui.CustomJavaAction;
 import net.schmizz.sshj.sftp.StatefulSFTPClient;
 import sftp.impl.SFTP;
+import com.mendix.systemwideinterfaces.core.UserAction;
 
 /**
  * Returns the current working directory.
  */
-public class Pwd extends CustomJavaAction<java.lang.String>
+public class Pwd extends UserAction<java.lang.String>
 {
 	public Pwd(IContext context)
 	{

@@ -13,23 +13,28 @@ import com.mendix.systemwideinterfaces.core.IContext;
 import com.mendix.systemwideinterfaces.core.IMendixObject;
 import com.mendix.webui.CustomJavaAction;
 import sftp.impl.SFTP;
+import com.mendix.systemwideinterfaces.core.UserAction;
 
-public class ProcessKey extends CustomJavaAction<java.lang.Boolean>
+public class ProcessKey extends UserAction<java.lang.Boolean>
 {
-	private IMendixObject __key;
-	private sftp.proxies.Key key;
+	/** @deprecated use key.getMendixObject() instead. */
+	@java.lang.Deprecated(forRemoval = true)
+	private final IMendixObject __key;
+	private final sftp.proxies.Key key;
 
-	public ProcessKey(IContext context, IMendixObject key)
+	public ProcessKey(
+		IContext context,
+		IMendixObject _key
+	)
 	{
 		super(context);
-		this.__key = key;
+		this.__key = _key;
+		this.key = _key == null ? null : sftp.proxies.Key.initialize(getContext(), _key);
 	}
 
 	@java.lang.Override
 	public java.lang.Boolean executeAction() throws Exception
 	{
-		this.key = this.__key == null ? null : sftp.proxies.Key.initialize(getContext(), __key);
-
 		// BEGIN USER CODE
 		SFTP.validateKey(getContext(), key);
 		return true;

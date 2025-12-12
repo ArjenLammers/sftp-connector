@@ -17,29 +17,37 @@ import net.schmizz.sshj.connection.channel.forwarded.RemotePortForwarder.Forward
 import net.schmizz.sshj.connection.channel.forwarded.SocketForwardingConnectListener;
 import sftp.impl.SFTP;
 import com.mendix.systemwideinterfaces.core.IMendixObject;
+import com.mendix.systemwideinterfaces.core.UserAction;
 
-public class RemotePortForwarding extends CustomJavaAction<java.lang.Boolean>
+public class RemotePortForwarding extends UserAction<java.lang.Boolean>
 {
-	private IMendixObject __configuration;
-	private sftp.proxies.Configuration configuration;
-	private java.lang.Long forward;
-	private java.lang.String forwardingAddress;
-	private java.lang.Long forwardingPort;
+	/** @deprecated use configuration.getMendixObject() instead. */
+	@java.lang.Deprecated(forRemoval = true)
+	private final IMendixObject __configuration;
+	private final sftp.proxies.Configuration configuration;
+	private final java.lang.Long forward;
+	private final java.lang.String forwardingAddress;
+	private final java.lang.Long forwardingPort;
 
-	public RemotePortForwarding(IContext context, IMendixObject configuration, java.lang.Long forward, java.lang.String forwardingAddress, java.lang.Long forwardingPort)
+	public RemotePortForwarding(
+		IContext context,
+		IMendixObject _configuration,
+		java.lang.Long _forward,
+		java.lang.String _forwardingAddress,
+		java.lang.Long _forwardingPort
+	)
 	{
 		super(context);
-		this.__configuration = configuration;
-		this.forward = forward;
-		this.forwardingAddress = forwardingAddress;
-		this.forwardingPort = forwardingPort;
+		this.__configuration = _configuration;
+		this.configuration = _configuration == null ? null : sftp.proxies.Configuration.initialize(getContext(), _configuration);
+		this.forward = _forward;
+		this.forwardingAddress = _forwardingAddress;
+		this.forwardingPort = _forwardingPort;
 	}
 
 	@java.lang.Override
 	public java.lang.Boolean executeAction() throws Exception
 	{
-		this.configuration = this.__configuration == null ? null : sftp.proxies.Configuration.initialize(getContext(), __configuration);
-
 		// BEGIN USER CODE
 		SSHClient ssh = SFTP.connect(getContext(), configuration);
 		try {

@@ -13,18 +13,22 @@ import com.mendix.systemwideinterfaces.core.IContext;
 import com.mendix.webui.CustomJavaAction;
 import net.schmizz.sshj.sftp.StatefulSFTPClient;
 import sftp.impl.SFTP;
+import com.mendix.systemwideinterfaces.core.UserAction;
 
 /**
  * Creates a directory on the SFTP server.
  */
-public class MkDir extends CustomJavaAction<java.lang.Boolean>
+public class MkDir extends UserAction<java.lang.Boolean>
 {
-	private java.lang.String destination;
+	private final java.lang.String destination;
 
-	public MkDir(IContext context, java.lang.String destination)
+	public MkDir(
+		IContext context,
+		java.lang.String _destination
+	)
 	{
 		super(context);
-		this.destination = destination;
+		this.destination = _destination;
 	}
 
 	@java.lang.Override

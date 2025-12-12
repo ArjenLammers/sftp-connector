@@ -22,28 +22,34 @@ import net.schmizz.sshj.sftp.RemoteFile;
 import net.schmizz.sshj.sftp.StatefulSFTPClient;
 import net.schmizz.sshj.xfer.InMemoryDestFile;
 import sftp.impl.SFTP;
+import com.mendix.systemwideinterfaces.core.UserAction;
 
 /**
  * Retrieve a file from the SFTP server and stores it as a Mendix FileDocument.
  */
-public class Get extends CustomJavaAction<java.lang.Boolean>
+public class Get extends UserAction<java.lang.Boolean>
 {
-	private java.lang.String remoteFile;
-	private IMendixObject __targetFile;
-	private system.proxies.FileDocument targetFile;
+	private final java.lang.String remoteFile;
+	/** @deprecated use targetFile.getMendixObject() instead. */
+	@java.lang.Deprecated(forRemoval = true)
+	private final IMendixObject __targetFile;
+	private final system.proxies.FileDocument targetFile;
 
-	public Get(IContext context, java.lang.String remoteFile, IMendixObject targetFile)
+	public Get(
+		IContext context,
+		java.lang.String _remoteFile,
+		IMendixObject _targetFile
+	)
 	{
 		super(context);
-		this.remoteFile = remoteFile;
-		this.__targetFile = targetFile;
+		this.remoteFile = _remoteFile;
+		this.__targetFile = _targetFile;
+		this.targetFile = _targetFile == null ? null : system.proxies.FileDocument.initialize(getContext(), _targetFile);
 	}
 
 	@java.lang.Override
 	public java.lang.Boolean executeAction() throws Exception
 	{
-		this.targetFile = this.__targetFile == null ? null : system.proxies.FileDocument.initialize(getContext(), __targetFile);
-
 		// BEGIN USER CODE
 		StatefulSFTPClient client = SFTP.getClient(getContext());
 		RemoteFile handle = client.open(this.remoteFile, EnumSet.of(OpenMode.READ));
