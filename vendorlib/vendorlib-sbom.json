@@ -22,43 +22,105 @@
   "components" : [
     {
       "type" : "library",
-      "bom-ref" : "pkg:maven/org.bouncycastle/bcutil-jdk18on@1.81?type=jar",
-      "group" : "org.bouncycastle",
-      "name" : "bcutil-jdk18on",
-      "version" : "1.81",
-      "description" : "The Bouncy Castle Java APIs for ASN.1 extension and utility APIs used to support bcpkix and bctls. This jar contains APIs for Java 8 and later.",
+      "bom-ref" : "pkg:maven/commons-codec/commons-codec@1.16.1?type=jar",
+      "group" : "commons-codec",
+      "name" : "commons-codec",
+      "version" : "1.16.1",
+      "description" : "The Apache Commons Codec component contains encoder and decoders for various formats such as Base16, Base32, Base64, digest, and Hexadecimal. In addition to these widely used encoders and decoders, the codec package also maintains a collection of phonetic encoding utilities.",
       "hashes" : [
         {
           "alg" : "MD5",
-          "content" : "c75f3409ceba35d90b00dd9d1937d9db"
+          "content" : "6c5be822d8d3fa61c3b54c4c8978dfdc"
         },
         {
           "alg" : "SHA-1",
-          "content" : "e2dd79395ab435094142b6aba219f35adcba0f01"
+          "content" : "47bd4d333fba53406f6c6c51884ddbca435c8862"
         },
         {
           "alg" : "SHA-256",
-          "content" : "31a5fe3a7ba42e3457b83930f0ff8d679fb5b76eaadf2b51f5740c92a394bf52"
+          "content" : "ec87bfb55f22cbd1b21e2190eeda28b2b312ed2a431ee49fbdcc01812d04a5e4"
         },
         {
           "alg" : "SHA-512",
-          "content" : "e9876cf07776a2703c93a7d22a1557acc307774f00dce72dc1ff35d1bebd2c76dc625a269a803109a1ad0d473674c06662fcfc71377405c801cb2876e5b1afdb"
+          "content" : "bd33fd5340757ea0616a8c2a48760cfc9932f93b8e067701f4a122fd59735083468a016d8c0fd65973dd3fa4fc3537855e71a1fae7d14e1777e31ff1c47708ce"
         },
         {
           "alg" : "SHA-384",
-          "content" : "bb10fa7dcbaad60a384caa7183a30ca83542f9c3915fd76d28998bd6aa44671ad28afee0310bdfaa325462ef285b909b"
+          "content" : "ee7f4c3e5c01cf77f4d82b09c358087738e6e79507ced9f2c82fdce3b32825bb62b2d66b30ef897e2972d3253478c525"
         },
         {
           "alg" : "SHA3-384",
-          "content" : "88ef60e1aaaec69b7d103effb9d52eff26ce5a54d51d03d7ebceb254c403c360deb82da663d497301ad72ba36fa21408"
+          "content" : "c200875af6359f6a584b108ecae3d83496942e1216dfacbd86e3c22e54b90b9519a9b01a229e71552111b10c8734c327"
         },
         {
           "alg" : "SHA3-256",
-          "content" : "87f2dc00ccb78ea4654863798746e8e5c9322c038fdbc320525e86317daa0385"
+          "content" : "81cd8a4c12e0b7ac84222e33b159cbd6f658b3e0f48e5fd8075d50cd03b05837"
         },
         {
           "alg" : "SHA3-512",
-          "content" : "64b23ed0f13c598c7e45ca626dafab48b6b52c3165d9ec6297437fc6e91e1e22fcb3438ddac20de5bdd40edb74b6ab3d24677fa6aa4b0d74b8675c6814d8b5b0"
+          "content" : "c821b99a5b4a3fbf052f562d60479bc252aafa8057fcbe095e09e96cf01594a23455658f9c666866e1937910ff44a1a891760d04c22d5187cb98be9d0d58952b"
+        }
+      ],
+      "licenses" : [
+        {
+          "license" : {
+            "id" : "Apache-2.0",
+            "url" : "https://www.apache.org/licenses/LICENSE-2.0"
+          }
+        }
+      ],
+      "purl" : "pkg:maven/commons-codec/commons-codec@1.16.1?type=jar",
+      "modified" : false,
+      "externalReferences" : [
+        {
+          "type" : "issue-tracker",
+          "url" : "https://issues.apache.org/jira/browse/CODEC"
+        },
+        {
+          "type" : "vcs",
+          "url" : "https://github.com/apache/commons-codec"
+        }
+      ]
+    },
+    {
+      "type" : "library",
+      "bom-ref" : "pkg:maven/org.bouncycastle/bcpkix-jdk18on@1.85?type=jar",
+      "group" : "org.bouncycastle",
+      "name" : "bcpkix-jdk18on",
+      "version" : "1.85",
+      "description" : "The Bouncy Castle Java APIs for CMS, PKCS, EAC, TSP, CMP, CRMF, OCSP, and certificate generation. This jar contains APIs for Java 1.8 and later. The APIs are designed primarily to be used in conjunction with the BC Java provider but may also be used with other providers providing cryptographic services.",
+      "hashes" : [
+        {
+          "alg" : "MD5",
+          "content" : "8247f481c8eeef03925277ca33f72255"
+        },
+        {
+          "alg" : "SHA-1",
+          "content" : "b33d047adc6801a1cfc8ffe1634b23b306a670c1"
+        },
+        {
+          "alg" : "SHA-256",
+          "content" : "c9f82b2d4e99c4bbdfccf684e52cc06ea06a0b567bfd0d08f9c5a3f417055996"
+        },
+        {
+          "alg" : "SHA-512",
+          "content" : "142ce817145f7348dc97f62872eac931280c578bc61ff4cfcff927d4247ab2bf15e858edf74f2549074c4685ebe8de1d815c42637eacdb65b344b741c2bf1415"
+        },
+        {
+          "alg" : "SHA-384",
+          "content" : "1bb7f6d3c0e83cbefcd27828575a9554a087c19b5230817291fe979cf54890fbe7ccbd8134563011b4d409d7729c1ea5"
+        },
+        {
+          "alg" : "SHA3-384",
+          "content" : "fba8a68f6b52298e7634fc8f6363134ccd32f4c549bfbe9c3696aa74e6a41289ee6f09095f7c66f9df8736f83ec88cc7"
+        },
+        {
+          "alg" : "SHA3-256",
+          "content" : "b1d11ec6466b1789e093bb21a59eb51c83c7f7e1edc5e1aaaf407c36efb90e04"
+        },
+        {
+          "alg" : "SHA3-512",
+          "content" : "93b46f93a07037b8c774f337dc83f0652191fedfe1d66342360174c29c0030b7dbfc7b3d9b23de54f482697b274f2c36c8ce6139eb82df62eb7d7d7d96ea642e"
         }
       ],
       "licenses" : [
@@ -69,7 +131,130 @@
           }
         }
       ],
-      "purl" : "pkg:maven/org.bouncycastle/bcutil-jdk18on@1.81?type=jar",
+      "purl" : "pkg:maven/org.bouncycastle/bcpkix-jdk18on@1.85?type=jar",
+      "modified" : false,
+      "externalReferences" : [
+        {
+          "type" : "issue-tracker",
+          "url" : "https://github.com/bcgit/bc-java/issues"
+        },
+        {
+          "type" : "vcs",
+          "url" : "https://github.com/bcgit/bc-java"
+        }
+      ]
+    },
+    {
+      "type" : "library",
+      "bom-ref" : "pkg:maven/com.hierynomus/sshj@0.40.0?type=jar",
+      "group" : "com.hierynomus",
+      "name" : "sshj",
+      "version" : "0.40.0",
+      "description" : "SSHv2 library for Java",
+      "hashes" : [
+        {
+          "alg" : "MD5",
+          "content" : "15b476d1e1705afe8ebeb1dd40a8f29b"
+        },
+        {
+          "alg" : "SHA-1",
+          "content" : "755b2aef8b3e50ab86cfaff29bcb3804639b5862"
+        },
+        {
+          "alg" : "SHA-256",
+          "content" : "a6a5533f6580e0418dfcacbb5396680186698585c325fa950c788e749f24d1e2"
+        },
+        {
+          "alg" : "SHA-512",
+          "content" : "8ffdbc3e5c807ef1ed40ac126ea394ed65369f51824408380005c94a794af1e7720560a52ee4d87a7d7103ae75d8ab3e8e6bea33dafbb51c4717ba78265feafa"
+        },
+        {
+          "alg" : "SHA-384",
+          "content" : "9f7512c3cd447341b458cbbabe7c0ca6af66e028dda156684943e4ccdaef80ae7398237697c7793f512722d9c2be959e"
+        },
+        {
+          "alg" : "SHA3-384",
+          "content" : "f10364ba4a81281a9e4e7fa7c96aa1f990078966d080d06966e0dcb3b08e1d654d4736aa32b11582d1e68c5b37f13ee0"
+        },
+        {
+          "alg" : "SHA3-256",
+          "content" : "a1b3ee24ec39cddee8d9e390f415bc9bdde6ecf8ae2b7d09b34e7dbe2fca5297"
+        },
+        {
+          "alg" : "SHA3-512",
+          "content" : "876132a6d668c075ecbb9ff8b08cbb65f15fb5ab2884a39641354717ab17c09a900a02846782d852591996527944e44b6acbc5a679a317660110e747191110d9"
+        }
+      ],
+      "licenses" : [
+        {
+          "license" : {
+            "id" : "Apache-2.0"
+          }
+        }
+      ],
+      "purl" : "pkg:maven/com.hierynomus/sshj@0.40.0?type=jar",
+      "modified" : false,
+      "externalReferences" : [
+        {
+          "type" : "issue-tracker",
+          "url" : "https://github.com/hierynomus/sshj/issues"
+        },
+        {
+          "type" : "vcs",
+          "url" : "https://github.com/hierynomus/sshj"
+        }
+      ]
+    },
+    {
+      "type" : "library",
+      "bom-ref" : "pkg:maven/org.bouncycastle/bcprov-jdk18on@1.85?type=jar",
+      "group" : "org.bouncycastle",
+      "name" : "bcprov-jdk18on",
+      "version" : "1.85",
+      "description" : "The Bouncy Castle Crypto package is a Java implementation of cryptographic algorithms. This jar contains the JCA/JCE provider and low-level API for the BC Java version 1.85 for Java 1.8 and later.",
+      "hashes" : [
+        {
+          "alg" : "MD5",
+          "content" : "e564b4f846cd76cca8253c7c9febb44e"
+        },
+        {
+          "alg" : "SHA-1",
+          "content" : "2320b854dffe134687f7266bb22021b779e576d3"
+        },
+        {
+          "alg" : "SHA-256",
+          "content" : "20af26bf6060bb8005cc2389916812c1e0e998dc48d2ced7131b89461b54cff7"
+        },
+        {
+          "alg" : "SHA-512",
+          "content" : "33bbcbc3ad823898bda1fec8cea270fffa4688886b1c351afd93e713f41d29afd71aae9982cbe896d510aa98fece8b9a66c132536625801fe2c1af283a76e2b5"
+        },
+        {
+          "alg" : "SHA-384",
+          "content" : "50a64acda277531b4aa2faa476eae6842c8505224b560c05f8a8fe4f5e4a9a245aed4622a4a1ad57da197b93fa2eafd6"
+        },
+        {
+          "alg" : "SHA3-384",
+          "content" : "d753d24ac69ee4f167d4d11c6094b2671e7990fa73471b6c34a7eb89c04f3c3f7b96756505e776a22c55acbdd32d2637"
+        },
+        {
+          "alg" : "SHA3-256",
+          "content" : "bcc230dbf643d7d4f758c31ba0762b2eb2f6bc0f565f4336eeb013e75b05a1ff"
+        },
+        {
+          "alg" : "SHA3-512",
+          "content" : "ebd7c353f357fbca7a7e596c79c9023dc37cbc48a0eacf6fd1644932214131eb02f164969f5b429e3bbc7f5bdff519833a5ed0ca934a2c172d9b49af2e7df7d7"
+        }
+      ],
+      "licenses" : [
+        {
+          "license" : {
+            "name" : "Bouncy Castle Licence",
+            "url" : "https://www.bouncycastle.org/licence.html"
+          }
+        }
+      ],
+      "purl" : "pkg:maven/org.bouncycastle/bcprov-jdk18on@1.85?type=jar",
       "modified" : false,
       "externalReferences" : [
         {
@@ -145,105 +330,43 @@
     },
     {
       "type" : "library",
-      "bom-ref" : "pkg:maven/commons-codec/commons-codec@1.16.1?type=jar",
-      "group" : "commons-codec",
-      "name" : "commons-codec",
-      "version" : "1.16.1",
-      "description" : "The Apache Commons Codec component contains encoder and decoders for various formats such as Base16, Base32, Base64, digest, and Hexadecimal. In addition to these widely used encoders and decoders, the codec package also maintains a collection of phonetic encoding utilities.",
-      "hashes" : [
-        {
-          "alg" : "MD5",
-          "content" : "6c5be822d8d3fa61c3b54c4c8978dfdc"
-        },
-        {
-          "alg" : "SHA-1",
-          "content" : "47bd4d333fba53406f6c6c51884ddbca435c8862"
-        },
-        {
-          "alg" : "SHA-256",
-          "content" : "ec87bfb55f22cbd1b21e2190eeda28b2b312ed2a431ee49fbdcc01812d04a5e4"
-        },
-        {
-          "alg" : "SHA-512",
-          "content" : "bd33fd5340757ea0616a8c2a48760cfc9932f93b8e067701f4a122fd59735083468a016d8c0fd65973dd3fa4fc3537855e71a1fae7d14e1777e31ff1c47708ce"
-        },
-        {
-          "alg" : "SHA-384",
-          "content" : "ee7f4c3e5c01cf77f4d82b09c358087738e6e79507ced9f2c82fdce3b32825bb62b2d66b30ef897e2972d3253478c525"
-        },
-        {
-          "alg" : "SHA3-384",
-          "content" : "c200875af6359f6a584b108ecae3d83496942e1216dfacbd86e3c22e54b90b9519a9b01a229e71552111b10c8734c327"
-        },
-        {
-          "alg" : "SHA3-256",
-          "content" : "81cd8a4c12e0b7ac84222e33b159cbd6f658b3e0f48e5fd8075d50cd03b05837"
-        },
-        {
-          "alg" : "SHA3-512",
-          "content" : "c821b99a5b4a3fbf052f562d60479bc252aafa8057fcbe095e09e96cf01594a23455658f9c666866e1937910ff44a1a891760d04c22d5187cb98be9d0d58952b"
-        }
-      ],
-      "licenses" : [
-        {
-          "license" : {
-            "id" : "Apache-2.0",
-            "url" : "https://www.apache.org/licenses/LICENSE-2.0"
-          }
-        }
-      ],
-      "purl" : "pkg:maven/commons-codec/commons-codec@1.16.1?type=jar",
-      "modified" : false,
-      "externalReferences" : [
-        {
-          "type" : "issue-tracker",
-          "url" : "https://issues.apache.org/jira/browse/CODEC"
-        },
-        {
-          "type" : "vcs",
-          "url" : "https://github.com/apache/commons-codec"
-        }
-      ]
-    },
-    {
-      "type" : "library",
-      "bom-ref" : "pkg:maven/org.bouncycastle/bcpkix-jdk18on@1.81?type=jar",
+      "bom-ref" : "pkg:maven/org.bouncycastle/bcutil-jdk18on@1.85?type=jar",
       "group" : "org.bouncycastle",
-      "name" : "bcpkix-jdk18on",
-      "version" : "1.81",
-      "description" : "The Bouncy Castle Java APIs for CMS, PKCS, EAC, TSP, CMP, CRMF, OCSP, and certificate generation. This jar contains APIs for JDK 1.8 and up. The APIs are designed primarily to be used in conjunction with the BC Java provider but may also be used with other providers providing cryptographic services.",
+      "name" : "bcutil-jdk18on",
+      "version" : "1.85",
+      "description" : "The Bouncy Castle Java APIs for ASN.1 extension and utility APIs used to support bcpkix and bctls. This jar contains APIs for Java 1.8 and later.",
       "hashes" : [
         {
           "alg" : "MD5",
-          "content" : "a66bdc5d32d086737b86803cd87cd187"
+          "content" : "7c90e18e7e709e7ceb14b2682e5ddcca"
         },
         {
           "alg" : "SHA-1",
-          "content" : "819fd6f5d170c8b8bf8c5acc73816e9c36574042"
+          "content" : "c41082d6f61628919b675970563f5615e4427c9f"
         },
         {
           "alg" : "SHA-256",
-          "content" : "b38c604871f3690109a3c00982d9145634125de3365a817ba16eb90d88e242c9"
+          "content" : "590f55ed5d68529239898a4a5c4f730b6e37f45d1cfa3fbe51f8485abe32c42d"
         },
         {
           "alg" : "SHA-512",
-          "content" : "830aa649f0e40c4a1e3ac808857af2465ebaf3284fd821819962bf44233f67d3b2ddb01f937be522332b63be1dc0a8735afc5ebbcc85e448a684bacdf6083432"
+          "content" : "1cf5011448dfaed7daea587807b9513961bdfd7b41ee5ce42444254dfa3677fdba78fe5191bca4ecf2a51eb3883be59f0374affc1efae3fd1728a64fa094027d"
         },
         {
           "alg" : "SHA-384",
-          "content" : "c58a0e8d20f3c874dbbc0b2680409c1e9802a166c676443c14e5c3734111363050d8397bcf43b30ee1cee87c1bd14fcb"
+          "content" : "fdab70a9a0fc9011214c1d484f315077bb68ef586669a2922e261df7e8ac8eae290fa90d411fbad04cc8642a9b7596d0"
         },
         {
           "alg" : "SHA3-384",
-          "content" : "b625876c0da1f9f5b975e5df13c0f30d2e8faeb86a271930059fd5f5d84b0507f5e9c26c0e7fdfd23b7bfda2e34f7513"
+          "content" : "811f67ad491483f79e93827556db2cbe5c66eea384638259429617ed3ea06a42b0cf5e6bbb2d7ca13dd6a2c094164b93"
         },
         {
           "alg" : "SHA3-256",
-          "content" : "ee5788e24c7ea3446d938a45c320a69d526183c9250ba9b0090de875d3e69c7b"
+          "content" : "990e116a1143574594f0ae6d134d4541d22e9551d48a3347f73c7bcef278b6cc"
         },
         {
           "alg" : "SHA3-512",
-          "content" : "d33c509714a0b0eb5cac46c58582e8990160a3fb6079fefd64370fcffa7a91cf3d7b984f6aa623dabf8aee029a43a95d4fba19a9496e5745a3943158570b5ff8"
+          "content" : "a969f3ae17dd9a6141572ae2da2eb3b6414abea4d6dc6e1139959475ba3e9ed3b5a4696832e7382bc1e256b839fe0bf30ba54fb2e8490dae36c046b374e78c89"
         }
       ],
       "licenses" : [
@@ -254,7 +377,7 @@
           }
         }
       ],
-      "purl" : "pkg:maven/org.bouncycastle/bcpkix-jdk18on@1.81?type=jar",
+      "purl" : "pkg:maven/org.bouncycastle/bcutil-jdk18on@1.85?type=jar",
       "modified" : false,
       "externalReferences" : [
         {
@@ -331,58 +454,6 @@
     },
     {
       "type" : "library",
-      "bom-ref" : "pkg:maven/org.slf4j/slf4j-api@2.0.7?type=jar",
-      "group" : "org.slf4j",
-      "name" : "slf4j-api",
-      "version" : "2.0.7",
-      "description" : "The slf4j API",
-      "hashes" : [
-        {
-          "alg" : "MD5",
-          "content" : "403dffa46cdd2e3c82da19df4f394a4c"
-        },
-        {
-          "alg" : "SHA-1",
-          "content" : "41eb7184ea9d556f23e18b5cb99cad1f8581fc00"
-        },
-        {
-          "alg" : "SHA-256",
-          "content" : "5d6298b93a1905c32cda6478808ac14c2d4a47e91535e53c41f7feeb85d946f4"
-        },
-        {
-          "alg" : "SHA-512",
-          "content" : "216d2cac27d501972c888f94dfa747d700b80d60813884b6ab4b12c6a3b17ed0c21a1d27e1aa4332c97c828f20039e3913d2763d7e1a3cef36ae4389a276e7a8"
-        },
-        {
-          "alg" : "SHA-384",
-          "content" : "c25b39f418aa726ba8405dfd9b356131f89984e2ef5a55a724a2abf3b7c78443f671105835161d2414d602cf03da9f2d"
-        },
-        {
-          "alg" : "SHA3-384",
-          "content" : "f33abfaac21badae6f85d3ebbc6c1204fd7fda3bb15173e763fa8cee95bce6a8270eec2c8f49343c66c8d2767bc317e1"
-        },
-        {
-          "alg" : "SHA3-256",
-          "content" : "6e00d4b264a2afc4ca4e98f716ecece66c32c626ca3f8c5d56b22092b6fe417b"
-        },
-        {
-          "alg" : "SHA3-512",
-          "content" : "ad7b9142d370fc532a07cdd43881a129b012ff50e2bede3ac27d9bd31ec707bf2f45e82002fa59e962955cc38ab73cdd77713fca50cedc926c046f5617c1285b"
-        }
-      ],
-      "licenses" : [
-        {
-          "license" : {
-            "id" : "MIT",
-            "url" : "https://opensource.org/license/mit/"
-          }
-        }
-      ],
-      "purl" : "pkg:maven/org.slf4j/slf4j-api@2.0.7?type=jar",
-      "modified" : false
-    },
-    {
-      "type" : "library",
       "bom-ref" : "pkg:maven/org.bouncycastle/bcpg-jdk18on@1.81?type=jar",
       "group" : "org.bouncycastle",
       "name" : "bcpg-jdk18on",
@@ -450,211 +521,82 @@
     },
     {
       "type" : "library",
-      "bom-ref" : "pkg:maven/com.hierynomus/sshj@0.38.0?type=jar",
-      "group" : "com.hierynomus",
-      "name" : "sshj",
-      "version" : "0.38.0",
-      "description" : "SSHv2 library for Java",
+      "bom-ref" : "pkg:maven/org.slf4j/slf4j-api@2.0.17?type=jar",
+      "group" : "org.slf4j",
+      "name" : "slf4j-api",
+      "version" : "2.0.17",
+      "description" : "The slf4j API",
       "hashes" : [
         {
           "alg" : "MD5",
-          "content" : "baa0b84edecd76fccc09f95c6537098b"
+          "content" : "b6480d114a23683498ac3f746f959d2f"
         },
         {
           "alg" : "SHA-1",
-          "content" : "8830154d7c3a54713bd7d841073dba4ac17a999e"
+          "content" : "d9e58ac9c7779ba3bf8142aff6c830617a7fe60f"
         },
         {
           "alg" : "SHA-256",
-          "content" : "197326457b1e8a49444c8e8fe3c297f38aa818c827b34aad933826eef718dba4"
+          "content" : "7b751d952061954d5abfed7181c1f645d336091b679891591d63329c622eb832"
         },
         {
           "alg" : "SHA-512",
-          "content" : "ea20ffaccfbd88dee84175478c985bb5f21ba4ad3ae51dbde512c84b3728dfc9aeb40715a092687e80a37e6d44a5e70f72d85a5711dad9a7566399ad128dfdba"
+          "content" : "9a3e79db6666a6096a3021bb2e1d918f30f589d8de51d6b600f8ebd92515a510ae2d8f87919cc2dfa8365d64f10194cac8dfa0fb950160eef0e9da06f6caaeb9"
         },
         {
           "alg" : "SHA-384",
-          "content" : "b1270505ba2844cf0739930263067a7276d14ba398032f0eada3bd9a54d470d0b44efca6c0449d2b82d1f97ce4da4a5f"
+          "content" : "6ea24f814a9b6ece428cfd0535e2f3b8927005745ef61006b50fdb5a90126ee5ea05650155382b3b755c5bce38ef3944"
         },
         {
           "alg" : "SHA3-384",
-          "content" : "88a028eb4141bbaeb5a3c21dd423caf2a103496c28c12a47572b266c39a90b7b796814fc6490d758c70d6a1f01eaaacb"
+          "content" : "9b1015052f0ec43f9be09764e131834157599611cb52f6fe591c4ac6a8ab4817518f2a4b8871e5e738c8678e93af5557"
         },
         {
           "alg" : "SHA3-256",
-          "content" : "d00f6baa7d9fcb869a98b5f2bc02d5adee33be56f88f852049ddfcd0cbddaf25"
+          "content" : "00559b4f4066b4917ba4fe2a6f23111eaeada321112d030910d218ced9084b5e"
         },
         {
           "alg" : "SHA3-512",
-          "content" : "22cd4c275452a8acd250a8b38f393a66edc1f360a16639fe13efe337705750e6fbb968260ace74846c7611c118950f88fa262c31b713beafa5ba87a32aa0c610"
+          "content" : "9579c2f7e7516e177c2d493ccc9eb8150978cf19f6f09b28d116f6935239fd56dc6af2b62b3336f79b0b462445550cd1fb5377a07001a6f44aaab6a32fa2fa47"
         }
       ],
       "licenses" : [
         {
           "license" : {
-            "id" : "Apache-2.0"
+            "id" : "MIT",
+            "url" : "https://opensource.org/license/mit/"
           }
         }
       ],
-      "purl" : "pkg:maven/com.hierynomus/sshj@0.38.0?type=jar",
-      "modified" : false,
-      "externalReferences" : [
-        {
-          "type" : "issue-tracker",
-          "url" : "https://github.com/hierynomus/sshj/issues"
-        },
-        {
-          "type" : "vcs",
-          "url" : "https://github.com/hierynomus/sshj"
-        }
-      ]
-    },
-    {
-      "type" : "library",
-      "bom-ref" : "pkg:maven/net.i2p.crypto/eddsa@0.3.0?type=jar",
-      "group" : "net.i2p.crypto",
-      "name" : "eddsa",
-      "version" : "0.3.0",
-      "description" : "Implementation of EdDSA in Java",
-      "hashes" : [
-        {
-          "alg" : "MD5",
-          "content" : "ee7de3b6f19de76a06e465efc978f669"
-        },
-        {
-          "alg" : "SHA-1",
-          "content" : "1901c8d4d8bffb7d79027686cfb91e704217c3e1"
-        },
-        {
-          "alg" : "SHA-256",
-          "content" : "4dda1120db856640dbec04140ed23242215a075fe127bdefa0dcfa29fb31267d"
-        },
-        {
-          "alg" : "SHA-512",
-          "content" : "637e75ef4b58b280af057546afc176dbf3becf2b69f7dd31a716a90e01c01d7b1bcd400b29efeeea6b34df9ade7922c0665a000a3a2db5a446df293f8d1429cc"
-        },
-        {
-          "alg" : "SHA-384",
-          "content" : "e13f22b10a675c9a4180ac051c7e07b839e2131188837071e8760162377c649d7c56e64e279f5ff990547495535b4632"
-        },
-        {
-          "alg" : "SHA3-384",
-          "content" : "fa7f056ced9efd6cd90b124ef97a63007d9fe68ffd954c9bbdc15229af958807122460a79aa46f1bcbfff0036afc71d4"
-        },
-        {
-          "alg" : "SHA3-256",
-          "content" : "852e263100c291206a8a2afa9a2d9e6f486d3ef40a7fe3b1c3d58e5a8a2c8b60"
-        },
-        {
-          "alg" : "SHA3-512",
-          "content" : "0a8c062bec2abdbf97028611b5001b392a433183c1467383e61deab3bf4481f3766c3c7290cdca8bd02a007d7dcd8f2ace99a6c07eb3f74aac48ecd139ba3884"
-        }
-      ],
-      "licenses" : [
-        {
-          "license" : {
-            "id" : "CC0-1.0"
-          }
-        }
-      ],
-      "purl" : "pkg:maven/net.i2p.crypto/eddsa@0.3.0?type=jar",
-      "modified" : false,
-      "externalReferences" : [
-        {
-          "type" : "vcs",
-          "url" : "https://github.com/str4d/ed25519-java"
-        }
-      ]
-    },
-    {
-      "type" : "library",
-      "bom-ref" : "pkg:maven/org.bouncycastle/bcprov-jdk18on@1.81?type=jar",
-      "group" : "org.bouncycastle",
-      "name" : "bcprov-jdk18on",
-      "version" : "1.81",
-      "description" : "The Bouncy Castle Crypto package is a Java implementation of cryptographic algorithms. This jar contains the JCA/JCE provider and low-level API for the BC Java version 1.81 for Java 8 and later.",
-      "hashes" : [
-        {
-          "alg" : "MD5",
-          "content" : "3913a176dc36b31e867be5360f3ee524"
-        },
-        {
-          "alg" : "SHA-1",
-          "content" : "d17c094daef57dbd80af71687a475aa6df7cbe54"
-        },
-        {
-          "alg" : "SHA-256",
-          "content" : "249f396412b0c0ce67f25c8197da757b241b8be3ec4199386c00704a2457459b"
-        },
-        {
-          "alg" : "SHA-512",
-          "content" : "e44c612fd4658ae5ee9f451b865e4f490ed73bb229e772c4c14769b1d14ba1879b130983e87557609ee815d7c56f8b339b37e00404088e5bc5f0c3715880f4eb"
-        },
-        {
-          "alg" : "SHA-384",
-          "content" : "ec82fd783817fb3634813258ba4e4c82cffa9f0d23d849ec0c1749de2b04a2e1f432e43545eb5f06acc52a9bd5c43921"
-        },
-        {
-          "alg" : "SHA3-384",
-          "content" : "772d4b813c9733b70d7fd1fe2c5fedbfa5fec05f0bdf21afd49c26c40777b4b7048a6fa4e662da7e7f3b8d69c5b792bf"
-        },
-        {
-          "alg" : "SHA3-256",
-          "content" : "472a56ef6828dab569e4d7e14c8844ddb25c35ad4be363b4ada7b1f4c02aead8"
-        },
-        {
-          "alg" : "SHA3-512",
-          "content" : "6c68600dbb4c6b9b32a3dd3fcf5bc056b8ce0aaba6e243fc96014dc702eb29e7236f6da1ac584bb42bd69c03b135c4d222901c4bf9bdd22d05a1b9f9a1d1ac5d"
-        }
-      ],
-      "licenses" : [
-        {
-          "license" : {
-            "name" : "Bouncy Castle Licence",
-            "url" : "https://www.bouncycastle.org/licence.html"
-          }
-        }
-      ],
-      "purl" : "pkg:maven/org.bouncycastle/bcprov-jdk18on@1.81?type=jar",
-      "modified" : false,
-      "externalReferences" : [
-        {
-          "type" : "issue-tracker",
-          "url" : "https://github.com/bcgit/bc-java/issues"
-        },
-        {
-          "type" : "vcs",
-          "url" : "https://github.com/bcgit/bc-java"
-        }
-      ]
+      "purl" : "pkg:maven/org.slf4j/slf4j-api@2.0.17?type=jar",
+      "modified" : false
     }
   ],
   "dependencies" : [
     {
       "ref" : "pkg:maven/com.hierynomus/asn-one@0.6.0?type=jar",
       "dependsOn" : [
-        "pkg:maven/org.slf4j/slf4j-api@2.0.7?type=jar"
+        "pkg:maven/org.slf4j/slf4j-api@2.0.17?type=jar"
       ]
     },
     {
-      "ref" : "pkg:maven/com.hierynomus/sshj@0.38.0?type=jar",
+      "ref" : "pkg:maven/com.hierynomus/sshj@0.40.0?type=jar",
       "dependsOn" : [
-        "pkg:maven/org.bouncycastle/bcpkix-jdk18on@1.81?type=jar",
-        "pkg:maven/org.bouncycastle/bcprov-jdk18on@1.81?type=jar",
+        "pkg:maven/org.bouncycastle/bcpkix-jdk18on@1.85?type=jar",
+        "pkg:maven/org.bouncycastle/bcprov-jdk18on@1.85?type=jar",
         "pkg:maven/com.hierynomus/asn-one@0.6.0?type=jar",
-        "pkg:maven/org.slf4j/slf4j-api@2.0.7?type=jar",
-        "pkg:maven/net.i2p.crypto/eddsa@0.3.0?type=jar"
+        "pkg:maven/org.slf4j/slf4j-api@2.0.17?type=jar"
       ]
     },
     {
       "ref" : "pkg:maven/com.mendix/temp@1.0.0?type=jar",
       "dependsOn" : [
-        "pkg:maven/com.hierynomus/sshj@0.38.0?type=jar",
+        "pkg:maven/com.hierynomus/sshj@0.40.0?type=jar",
         "pkg:maven/commons-codec/commons-codec@1.16.1?type=jar",
         "pkg:maven/commons-io/commons-io@2.17.0?type=jar",
         "pkg:maven/org.bouncycastle/bcpg-jdk18on@1.81?type=jar",
-        "pkg:maven/org.bouncycastle/bcpkix-jdk18on@1.81?type=jar",
-        "pkg:maven/org.bouncycastle/bcprov-jdk18on@1.81?type=jar"
+        "pkg:maven/org.bouncycastle/bcpkix-jdk18on@1.85?type=jar",
+        "pkg:maven/org.bouncycastle/bcprov-jdk18on@1.85?type=jar"
       ]
     },
     {
@@ -666,34 +608,30 @@
       "dependsOn" : [ ]
     },
     {
-      "ref" : "pkg:maven/net.i2p.crypto/eddsa@0.3.0?type=jar",
-      "dependsOn" : [ ]
-    },
-    {
       "ref" : "pkg:maven/org.bouncycastle/bcpg-jdk18on@1.81?type=jar",
       "dependsOn" : [
-        "pkg:maven/org.bouncycastle/bcutil-jdk18on@1.81?type=jar",
-        "pkg:maven/org.bouncycastle/bcprov-jdk18on@1.81?type=jar"
+        "pkg:maven/org.bouncycastle/bcutil-jdk18on@1.85?type=jar",
+        "pkg:maven/org.bouncycastle/bcprov-jdk18on@1.85?type=jar"
       ]
     },
     {
-      "ref" : "pkg:maven/org.bouncycastle/bcpkix-jdk18on@1.81?type=jar",
+      "ref" : "pkg:maven/org.bouncycastle/bcpkix-jdk18on@1.85?type=jar",
       "dependsOn" : [
-        "pkg:maven/org.bouncycastle/bcutil-jdk18on@1.81?type=jar"
+        "pkg:maven/org.bouncycastle/bcutil-jdk18on@1.85?type=jar"
       ]
     },
     {
-      "ref" : "pkg:maven/org.bouncycastle/bcprov-jdk18on@1.81?type=jar",
+      "ref" : "pkg:maven/org.bouncycastle/bcprov-jdk18on@1.85?type=jar",
       "dependsOn" : [ ]
     },
     {
-      "ref" : "pkg:maven/org.bouncycastle/bcutil-jdk18on@1.81?type=jar",
+      "ref" : "pkg:maven/org.bouncycastle/bcutil-jdk18on@1.85?type=jar",
       "dependsOn" : [
-        "pkg:maven/org.bouncycastle/bcprov-jdk18on@1.81?type=jar"
+        "pkg:maven/org.bouncycastle/bcprov-jdk18on@1.85?type=jar"
       ]
     },
     {
-      "ref" : "pkg:maven/org.slf4j/slf4j-api@2.0.7?type=jar",
+      "ref" : "pkg:maven/org.slf4j/slf4j-api@2.0.17?type=jar",
       "dependsOn" : [ ]
     }
   ]
